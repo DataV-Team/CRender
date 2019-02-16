@@ -282,6 +282,24 @@ function restoreTransform (style) {
   ctx.restore()
 }
 
+function deleteAllElements () {
+  this.elements = []
+
+  this.drawAllGraph()
+}
+
+function deleteElement (element) {
+  const { elements } = this
+
+  const index = elements.findIndex(ele => ele === element)
+
+  if (index === -1) return
+
+  elements.splice(index, 1)
+  
+  this.drawAllGraph()
+}
+
 const prototypes = {
   add,
   initAttribute,
@@ -296,7 +314,9 @@ const prototypes = {
   setCurrentHoverElement,
   initGraphStyle,
   initTransform,
-  restoreTransform
+  restoreTransform,
+  deleteAllElements,
+  deleteElement
 }
 
 export default function extendPrototype (cl) {

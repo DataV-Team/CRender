@@ -1,6 +1,6 @@
 # CRender
 
-# Version 1.0.0
+# Version 0.1.3
 
 ## 基于Canvas的矢量图形渲染插件
 
@@ -13,3 +13,4 @@
 [项目地址](https://github.com/jiaming743/CRender)
 
 [Project address](https://github.com/jiaming743/CRender)
+
