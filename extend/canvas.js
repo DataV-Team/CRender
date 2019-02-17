@@ -1,5 +1,5 @@
 export function drawPolylinePath (ctx, points, beginPath = false, closePath = false) {
-  if (!ctx || points.length < 3) return false
+  if (!ctx || points.length < 2) return false
 
   if (beginPath) ctx.beginPath()
 

@@ -1,6 +1,6 @@
 # CRender
 
-# Version 0.1.3
+# Version 0.1.4
 
 ## 基于Canvas的矢量图形渲染插件
 

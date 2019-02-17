@@ -154,6 +154,10 @@ export function checkPointIsInSector (point, rx, ry, r, startAngle, endAngle, cl
 
   if (!clockWise) [startAngle, endAngle] = deepClone([endAngle, startAngle])
 
+  const reverseBE = startAngle > endAngle
+
+  if (reverseBE) [startAngle, endAngle] = [endAngle, startAngle]
+
   const minus = endAngle - startAngle
 
   if (minus >= Math.PI * 2) return true
@@ -174,6 +178,8 @@ export function checkPointIsInSector (point, rx, ry, r, startAngle, endAngle, cl
   let inSector = areClockWise(vBArm, vPoint) && !areClockWise(vEArm, vPoint)
 
   if (reverse) inSector = !inSector
+
+  if (reverseBE) inSector = !inSector
 
   return inSector
 }
