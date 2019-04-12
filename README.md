@@ -237,7 +237,7 @@ CRender.prototype.launchAnimation = function () {
 - [index](#index)
 - [animationDelay](#animationDelay)
 - [animationFrame](#animationFrame)
-- [animationCurve](#animationCurve-(Supported-by-transition))
+- [animationCurve](#animationCurve)
 - [animationPause](#animationPause)
 - [hoverRect](#hoverRect)
 
@@ -258,6 +258,7 @@ CRender.prototype.launchAnimation = function () {
  * @description Graph shape data
  * @type {Object}
  */
+
 ```
 
 #### [style](#Class-Style)
@@ -267,6 +268,7 @@ CRender.prototype.launchAnimation = function () {
  * @description Graph style data (Instance of Style)
  * @type {Style}
  */
+
 ```
 
 #### drag
@@ -277,6 +279,7 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default drag = false
  */
+
 ```
 
 #### hover
@@ -287,6 +290,7 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default hover = false
  */
+
 ```
 
 #### index
@@ -320,7 +324,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-#### animationCurve (Supported by [transition](#https://github.com/jiaming743/Transition))
+#### [animationCurve](#https://github.com/jiaming743/transition)
 
 ```javascript
 /**
@@ -446,7 +450,6 @@ Graph.prototype.playAnimation = function () {
 When you add graph to the render, you can configure the following functions in the configuration, they will be called at a specific time.
 
 - added
-
 - beforeDraw
 - drawed
 - beforeMove
@@ -454,7 +457,9 @@ When you add graph to the render, you can configure the following functions in t
 - beforeDelete
 - deleted
 
-**Tip: **The current graph instance will be passed in as a parameter,and the mousemove event will also be passed to beeforeMove and moved.
+#### Tip
+
+The current graph instance will be passed in as a parameter,and the mousemove event will also be passed to beeforeMove and moved.
 
 <h3 align="center">Class Style</h3>
 
@@ -762,11 +767,11 @@ CRender provides some basic vector graph, examples are as follows.
 - [sector](#sector)
 - [regPolygon](#regPolygon)
 - [polyline](#polyline)
-- [polyline (closed)](#polyline-(closed))
+- [polyline (closed)](#polyline-closed)
 - [smoothline](#smoothline)
-- [smoothline (closed)](#smoothline-(closed))
+- [smoothline (closed)](#smoothline-closed)
 - [bezierCurve](#bezierCurve)
-- [bezierCurve (closed)](#bezierCurve-(closed))
+- [bezierCurve (closed)](#bezierCurve-closed)
 - [text](#text)
 
 #### circle
@@ -1395,9 +1400,9 @@ function extendNewGraph (name, config) {
 
 #### Graph Configuration Attribute
 
-- [shape](#shape-(required))
-- [validator](#validator-(required))
-- [draw](#draw-(required))
+- [shape](#shape-required)
+- [validator](#validator-required)
+- [draw](#draw-required)
 - [hoverCheck](#hoverCheck)
 - [setGraphCenter](#setGraphCenter)
 - [move](#move)
