@@ -23,6 +23,8 @@ Detailed documents and examples can be viewed on the [HomePage](http://crender.j
 - [Class Graph](#class-graph)
 - [Class Style](#class-style)
 - [Examples](#examples)
+- [Extend New Graph](#Extend-New-Graph)
+- [Related support](#Related-support)
 
 ------
 
@@ -57,7 +59,14 @@ class CRender {
 
 ### attribute
 
-- ctx
+- [ctx](#ctx)
+- [area](#area)
+- [animationStatus](#animationStatus)
+- [graphs](#graphs)
+- [color](#color)
+- [bezierCurve](#bezierCurve)
+
+#### ctx
 
 ```javascript
 /**
@@ -67,7 +76,7 @@ class CRender {
  */
 ```
 
-- area
+#### area
 
 ```javascript
 /**
@@ -77,7 +86,7 @@ class CRender {
  */
 ```
 
-- animationStatus
+#### animationStatus
 
 ```javascript
 /**
@@ -87,7 +96,7 @@ class CRender {
  */
 ```
 
-- graphs
+#### graphs
 
 ```javascript
 /**
@@ -97,7 +106,7 @@ class CRender {
  */
 ```
 
-- [color](#https://github.com/jiaming743/color)
+#### [color](#https://github.com/jiaming743/color)
 
 ```javascript
 /**
@@ -106,7 +115,7 @@ class CRender {
  */
 ```
 
-- [bezierCurve](https://github.com/jiaming743/BezierCurve)
+#### [bezierCurve](https://github.com/jiaming743/BezierCurve)
 
 ```javascript
 /**
@@ -220,7 +229,19 @@ CRender.prototype.launchAnimation = function () {
 
 ### attribute
 
-- visible
+- [visible](#visible)
+- [shape](#shape)
+- [style](#style)
+- [drag](#drag)
+- [hover](#hover)
+- [index](#index)
+- [animationDelay](#animationDelay)
+- [animationFrame](#animationFrame)
+- [animationCurve](#animationCurve-(Supported-by-transition))
+- [animationPause](#animationPause)
+- [hoverRect](#hoverRect)
+
+#### visible
 
 ```javascript
 /**
@@ -230,7 +251,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- shape
+#### shape
 
 ```javascript
 /**
@@ -239,7 +260,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- [style](#Class-Style)
+#### [style](#Class-Style)
 
 ```javascript
 /**
@@ -248,7 +269,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- drag
+#### drag
 
 ```javascript
 /**
@@ -258,7 +279,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- hover
+#### hover
 
 ```javascript
 /**
@@ -268,7 +289,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- index
+#### index
 
 ```javascript
 /**
@@ -279,7 +300,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- animationDelay
+#### animationDelay
 
 ```javascript
 /**
@@ -289,7 +310,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- animationFrame
+#### animationFrame
 
 ```javascript
 /**
@@ -299,7 +320,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- animationCurve (Supported by [transition](#https://github.com/jiaming743/Transition))
+#### animationCurve (Supported by [transition](#https://github.com/jiaming743/Transition))
 
 ```javascript
 /**
@@ -309,7 +330,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- animationPause
+#### animationPause
 
 ```javascript
 /**
@@ -319,7 +340,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-- hoverRect
+#### hoverRect
 
 ```javascript
 /**
@@ -339,19 +360,19 @@ CRender.prototype.launchAnimation = function () {
 
 - [animation](#animation)
 
-  Update graphics state (with animation)
+  Update graphics state (with animation).
 
 - [animationEnd](#animationEnd)
 
-  Skip to the last frame of animation
+  Skip to the last frame of animation.
 
 - [pauseAnimation](#pauseAnimation)
 
-  Pause animation behavior
+  Pause animation behavior.
 
 - [playAnimation](#playAnimation)
 
-  Try animation behavior
+  Try animation behavior.
 
 #### attr
 
@@ -420,11 +441,52 @@ Graph.prototype.playAnimation = function () {
 }
 ```
 
+### Life Cycle
+
+When you add graph to the render, you can configure the following functions in the configuration, they will be called at a specific time.
+
+- added
+
+- beforeDraw
+- drawed
+- beforeMove
+- moved
+- beforeDelete
+- deleted
+
+**Tip: **The current graph instance will be passed in as a parameter,and the mousemove event will also be passed to beeforeMove and moved.
+
 <h3 align="center">Class Style</h3>
 
 ### attribute
 
-- fill
+- [fill](#fill)
+- [stroke](#stroke)
+- [opacity](#opacity)
+- [lineCap](#lineCap)
+- [lineJoin](#)
+- [lineDash](#lineDash)
+- [lineDashOffset](#lineDashOffset)
+- [shadowBlur](#shadowBlur)
+- [shadowColor](#shadowColor)
+- [shadowOffsetX](#shadowOffsetX)
+- [shadowOffsetY](#shadowOffsetY)
+- [lineWidth](#lineWidth)
+- [strokeNoScale](#strokeNoScale)
+- [graphCenter](#graphCenter)
+- [scale](#scale)
+- [rotate](#rotate)
+- [translate](#translate)
+- [hoverCursor](#hoverCursor)
+- [fontStyle](#fontStyle)
+- [fontVarient](#fontVarient)
+- [fontWeight](#fontWeight)
+- [fontSize](#fontSize)
+- [fontFamily](#fontFamily)
+- [textAlign](#textAlign)
+- [textBaseline](#textBaseline)
+
+#### fill
 
 ```javascript
 /**
@@ -434,7 +496,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- stroke
+#### stroke
 
 ```javascript
 /**
@@ -444,7 +506,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- opacity
+#### opacity
 
 ```javascript
 /**
@@ -454,7 +516,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- lineCap
+#### lineCap
 
 ```javascript
 /**
@@ -465,7 +527,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- lineJoin
+#### lineJoin
 
 ```javascript
 /**
@@ -476,7 +538,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- lineDash
+#### lineDash
 
 ```javascript
 /**
@@ -487,7 +549,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- lineDashOffset
+#### lineDashOffset
 
 ```javascript
 /**
@@ -498,7 +560,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- shadowBlur
+#### shadowBlur
 
 ```javascript
 /**
@@ -508,7 +570,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- shadowColor
+#### shadowColor
 
 ```javascript
 /**
@@ -518,7 +580,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- shadowOffsetX
+#### shadowOffsetX
 
 ```javascript
 /**
@@ -528,7 +590,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- shadowOffsetY
+#### shadowOffsetY
 
 ```javascript
 /**
@@ -538,7 +600,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- lineWidth
+#### lineWidth
 
 ```javascript
 /**
@@ -548,7 +610,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- strokeNoScale
+#### strokeNoScale
 
 ```javascript
 /**
@@ -558,7 +620,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- graphCenter
+#### graphCenter
 
 ```javascript
 /**
@@ -569,7 +631,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- scale
+#### scale
 
 ```javascript
 /**
@@ -580,7 +642,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- rotate
+#### rotate
 
 ```javascript
 /**
@@ -591,7 +653,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- translate
+#### translate
 
 ```javascript
 /**
@@ -602,7 +664,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- hoverCursor
+#### hoverCursor
 
 ```javascript
 /**
@@ -613,7 +675,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- fontStyle
+#### fontStyle
 
 ```javascript
 /**
@@ -624,7 +686,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- fontVarient
+#### fontVarient
 
 ```javascript
 /**
@@ -635,7 +697,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- fontWeight
+#### fontWeight
 
 ```javascript
 /**
@@ -646,7 +708,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- fontSize
+#### fontSize
 
 ```javascript
 /**
@@ -656,7 +718,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- fontFamily
+#### fontFamily
 
 ```javascript
 /**
@@ -666,7 +728,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- textAlign
+#### textAlign
 
 ```javascript
 /**
@@ -677,7 +739,7 @@ Graph.prototype.playAnimation = function () {
 */
 ```
 
-- textBaseline
+#### textBaseline
 
 ```javascript
 /**
@@ -689,6 +751,23 @@ Graph.prototype.playAnimation = function () {
 ```
 
 <h3 align="center">Examples</h3>
+
+CRender provides some basic vector graph, examples are as follows.
+
+- [circle](#circle)
+- [ellipse](#ellipse)
+- [rect](#rect)
+- [ring](#ring)
+- [arc](#arc)
+- [sector](#sector)
+- [regPolygon](#regPolygon)
+- [polyline](#polyline)
+- [polyline (closed)](#polyline-(closed))
+- [smoothline](#smoothline)
+- [smoothline (closed)](#smoothline-(closed))
+- [bezierCurve](#bezierCurve)
+- [bezierCurve (closed)](#bezierCurve-(closed))
+- [text](#text)
 
 #### circle
 
@@ -1283,3 +1362,200 @@ const textConfig = {
 
 const text = render.add(textConfig)
 ```
+
+<h3 align="center">Extend New Graph</h3>
+
+CRender provides a Function to extend new graph,you can **customize** the graphics you want.
+
+```javascript
+import { extendNewGraph } from '@jiaminghi/c-render'
+
+const graphName = 'newGraph'
+const graphConfig = {
+    shape: { ... },
+    // ...
+}
+
+extendNewGraph(graphName, graphConfig)
+```
+
+#### extendNewGraph
+
+```javascript
+/**
+ * @description Extend new graph
+ * @param {String} name   Name of Graph
+ * @param {Object} config Configuration of Graph
+ * @return {Undefined} Void
+ */
+function extendNewGraph (name, config) {
+    // ...
+}
+```
+
+#### Graph Configuration Attribute
+
+- [shape](#shape-(required))
+- [validator](#validator-(required))
+- [draw](#draw-(required))
+- [hoverCheck](#hoverCheck)
+- [setGraphCenter](#setGraphCenter)
+- [move](#move)
+- [example of extend new graph](#example-of-extend-new-graph)
+
+#### shape (required)
+
+```javascript
+/**
+ * @type {Object}
+ * @description Graph shape data
+ */
+```
+
+#### validator (required)
+
+```javascript
+/**
+ * @type {Function}
+ * @description Graph configuration check
+ *              Automatically invoked when the graph is added,
+ *              and when the return value is false,
+ *              the add behavior is terminated
+ * @param {Graph} Current graph instance
+ * @return {Boolean} Whether the configuration is legal
+ */
+```
+
+#### draw (required)
+
+```javascript
+/**
+ * @type {Function}
+ * @description Graph plotter
+ * @param {CRender} Current CRender instance
+ * @param {Graph}   Current graph instance
+ * @return {Undefined} Void
+ */
+```
+
+#### hoverCheck
+
+```javascript
+/**
+ * @type {Function}
+ * @description According to the mouse event to detect
+ *              whether the current graphics are in the hover state,
+ *              support for mouseEnter, mouseOuter, drag, click
+ * @param {[Number]} Position of mouse
+ * @param {Graph}    Current graph instance
+ * @return {Boolean} Whether it is in hover
+ */
+```
+
+#### setGraphCenter
+
+```javascript
+/**
+ * @type {Function}
+ * @description Set the center point of the graph to
+ *              support rotate, scale and translate.
+ *              Add graph and drag behavior will be called.
+ * @param {Event} Mouse move Event (Called when adding a graphic, the value is null)
+ * @param {Graph} Current graph instance
+ * @return {Undefined} Void
+ */
+```
+
+#### move
+
+```javascript
+/**
+ * @type {Function}
+ * @description Moving graph,support for drag
+ * @param {Event} Mouse move Event (Called when adding a graphic, the value is null)
+ * @param {Graph} Current graph instance
+ * @return {Undefined} Void
+ */
+```
+
+#### example of extend new graph
+
+```javascript
+import { extendNewGraph } from '@jiaminghi/c-render'
+
+const circle = {
+  shape: {
+    rx: 0,
+    ry: 0,
+    r: 0
+  },
+
+  validator ({ shape }) {
+    const { rx, ry, r } = shape
+
+    if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
+      console.error('Shape configuration is abnormal!')
+
+      return false
+    }
+
+    return true
+  },
+
+  draw ({ ctx }, { shape }) {
+    ctx.beginPath()
+
+    const { rx, ry, r } = shape
+
+    ctx.arc(rx, ry, r, 0, Math.PI * 2)
+
+    ctx.fill()
+    ctx.stroke()
+
+    ctx.closePath()
+  },
+
+  hoverCheck (position, { shape }) {
+    const { rx, ry, r } = shape
+
+    return checkPointIsInCircle(rx, ry, r, position)
+  },
+
+  setGraphCenter (e, { shape, style }) {
+    const { rx, ry } = shape
+
+    style.graphCenter = [rx, ry]
+  },
+
+  move ({ movementX, movementY }, { shape }) {
+    this.attr('shape', {
+      rx: shape.rx + movementX,
+      ry: shape.ry + movementY
+    })
+  }
+}
+
+extendNewGraph('circle', circle)
+```
+
+<h3 align="center">Related support</h3>
+
+- [Transition](#https://github.com/jiaming743/transition)
+
+  Provide animation transition data(animationCurve).
+
+  If you want to extend the new animation curve, you can use the method provided by transition.
+
+  ```javascript
+  import { injectNewCurve } from '@jiaminghi/c-render'
+  
+  injectNewCurve('newCurve', curveData)
+  ```
+
+- [BezierCurve](#https://github.com/jiaming743/bezierCurve)
+
+  Provides support for bezierCurve, such as curve length calculation, conversion between curve and polyline.
+
+- [Color](#https://github.com/jiaming743/Color)
+
+  Provides calculation of color values.
