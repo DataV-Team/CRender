@@ -9,7 +9,7 @@
 ### Features
 
 - **graphs:** Add new graphs.([bezierCurve](https://github.com/jiaming743/CRender#bezierCurve),[text](https://github.com/jiaming743/CRender#text))
-- **enhance:** `smoothline`, `bezierCurve`, `polyline` added the closed attribute.
+- **enhance:** `smoothline`, `bezierCurve`, `polyline` added the `closed` attribute.
 
 # 0.1.4-alpha (2019-02-17)
 
