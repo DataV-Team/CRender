@@ -402,7 +402,7 @@ Graph.prototype.attr = function (attrName, change = undefined) {
  * @param {Any} change      Updated value
  * @param {Boolean} wait    Whether to store the animation waiting
  * 							for the next animation request
- * @return {Undefined} Void
+ * @return {Promise} Animation Promise
  */
 Graph.prototype.animation = async function (attrName, change, wait = false) {
 	// ...
