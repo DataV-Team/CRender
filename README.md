@@ -459,7 +459,7 @@ When you add graph to the render, you can configure the following functions in t
 
 #### Tip
 
-The current graph instance will be passed in as a parameter,and the mousemove event will also be passed to beeforeMove and moved.
+The current graph instance will be passed in as a parameter,and the mousemove event will also be passed to beforeMove and moved.
 
 <h3 align="center">Class Style</h3>
 
