@@ -1477,7 +1477,7 @@ function extendNewGraph (name, config) {
 /**
  * @type {Function}
  * @description Moving graph,support for drag
- * @param {Event} Mouse move Event (Called when adding a graphic, the value is null)
+ * @param {Event} Mouse move Event
  * @param {Graph} Current graph instance
  * @return {Undefined} Void
  */
