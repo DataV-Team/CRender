@@ -24,6 +24,9 @@ export default class CRender {
 
     const area = [clientWidth, clientHeight]
 
+    canvas.setAttribute('width', clientWidth)
+    canvas.setAttribute('height', clientHeight)
+
     /**
      * @description Context of the canvas
      * @type {Object}
