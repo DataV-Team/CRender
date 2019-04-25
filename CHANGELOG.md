@@ -9,7 +9,7 @@
 
 ### Bug Fixes
 
-- **CRender:** Initializing the canvas without setting its width and height attributes causes the drawing to be abnormal.
+- **CRender:** Initializing the canvas without setting its width and height attributes causes the rendering to be abnormal.
 
 # 0.2.0-alpha (2019-04-15)
 
