@@ -1,3 +1,10 @@
+# 0.2.2-alpha (2019-04-25)
+
+### Perfect
+
+- **order:** Change the default render order of the graphs.(First Add First Render)
+- **style:** Optimize lineDash rendering effects.
+
 # 0.2.1-alpha (2019-04-24)
 
 ### Bug Fixes
