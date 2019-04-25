@@ -261,9 +261,13 @@ function initGraphStyle (ctx, style) {
   ctx.strokeStyle = getColorFromRgbValue(stroke)
   ctx.shadowColor = getColorFromRgbValue(shadowColor)
 
-  const { lineDash, shadowBlur } = style
+  let { lineDash, shadowBlur } = style
 
-  if (lineDash) ctx.setLineDash(lineDash)
+  if (lineDash) {
+    lineDash = lineDash.map(v => v >= 0 ? v : 0)
+
+    ctx.setLineDash(lineDash)
+  }
 
   if (typeof shadowBlur === 'number') ctx.shadowBlur = shadowBlur > 0 ? shadowBlur : 0.001
 
