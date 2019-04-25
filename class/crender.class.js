@@ -110,7 +110,7 @@ CRender.prototype.add = function (config = {}) {
 
   graph.render = this
 
-  this.graphs.unshift(graph)
+  this.graphs.push(graph)
 
   this.sortGraphsByIndex()
 
