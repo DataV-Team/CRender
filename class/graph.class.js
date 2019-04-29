@@ -78,7 +78,25 @@ export default class Graph {
        * @default hoverRect = null
        * @example hoverRect = [0, 0, 100, 100] // [Rect start x, y, Rect width, height]
        */
-      hoverRect: null
+      hoverRect: null,
+      /**
+       * @description Mouse enter event handler
+       * @type {Function|Null}
+       * @default mouseEnter = null
+       */
+      mouseEnter: null,
+      /**
+       * @description Mouse outer event handler
+       * @type {Function|Null}
+       * @default mouseOuter = null
+       */
+      mouseOuter: null,
+      /**
+       * @description Mouse click event handler
+       * @type {Function|Null}
+       * @default click = null
+       */
+      click: null
     }
 
     const configAbleNot = {
