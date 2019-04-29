@@ -1686,7 +1686,7 @@ extendNewGraph('circle', circle)
 
 <h3 align="center">Related support</h3>
 
-- [Transition](#https://github.com/jiaming743/transition)
+- [Transition](https://github.com/jiaming743/transition)
 
   Provide animation transition data(animationCurve).
 
@@ -1698,10 +1698,10 @@ extendNewGraph('circle', circle)
   injectNewCurve('newCurve', curveData)
   ```
 
-- [BezierCurve](#https://github.com/jiaming743/bezierCurve)
+- [BezierCurve](https://github.com/jiaming743/bezierCurve)
 
   Provides support for bezierCurve, such as curve length calculation, conversion between curve and polyline.
 
-- [Color](#https://github.com/jiaming743/Color)
+- [Color](https://github.com/jiaming743/Color)
 
   Provides calculation of color values.
