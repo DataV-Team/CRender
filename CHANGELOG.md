@@ -1,3 +1,10 @@
+# 0.2.3-alpha (2019-04-29)
+
+### Perfect
+
+- **graph:** Improve graph basic properties.
+- **Documentation:** Perfect documentation.
+
 # 0.2.2-alpha (2019-04-25)
 
 ### Perfect
