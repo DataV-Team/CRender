@@ -229,6 +229,8 @@ CRender.prototype.launchAnimation = function () {
 
 ### attribute
 
+**When adding a graph, you can configure them.**
+
 - [visible](#visible)
 - [shape](#shape)
 - [style](#style)
@@ -240,6 +242,9 @@ CRender.prototype.launchAnimation = function () {
 - [animationCurve](#animationCurve)
 - [animationPause](#animationPause)
 - [hoverRect](#hoverRect)
+- [mouseEnter](#mouseEnter)
+- [mouseOuter](#mouseOuter)
+- [click](#click)
 
 #### visible
 
@@ -355,6 +360,40 @@ CRender.prototype.launchAnimation = function () {
  * @example hoverRect = [0, 0, 100, 100] // [Rect start x, y, Rect width, height]
  */
 ```
+
+#### mouseEnter
+
+```javascript
+/**
+* @description Mouse enter event handler
+* @type {Function|Null}
+* @default mouseEnter = null
+*/
+```
+
+#### mouseOuter
+
+```javascript
+/**
+* @description Mouse outer event handler
+* @type {Function|Null}
+* @default mouseOuter = null
+*/
+```
+
+#### click
+
+```javascript
+/**
+* @description Mouse click event handler
+* @type {Function|Null}
+* @default click = null
+*/
+```
+
+#### Tip
+
+Enable **mouseEnter**, **mouseOuter**, **click** event support requires configuring the `hover` property of the graph to `true`. Extended new graph require the **hoverCheck** method to be configured to provide event support.
 
 ### prototype
 
@@ -776,6 +815,14 @@ CRender provides some basic vector graph, examples are as follows.
 
 #### circle
 
+##### shape attribute
+
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center r-axis coordinate. |
+|       r        | `Number` |   `0`   |      Circle radius.       |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -810,6 +857,15 @@ const circle = render.add(circleConfig)
 
 #### ellipse
 
+##### shape attribute
+
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       hr       | `Number` |   `0`   |  Horizontal axis radius.  |
+|       vr       | `Number` |   `0`   |   Vertical axis radius.   |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -843,6 +899,15 @@ const ellipse = render.add(ellipseConfig)
 ```
 
 #### rect
+
+##### shape attribute
+
+| Attribute name |   Type   | Default |                        Annotation                         |
+| :------------: | :------: | :-----: | :-------------------------------------------------------: |
+|       x        | `Number` |   `0`   | The x coordinate of the top left corner of the rectangle. |
+|       y        | `Number` |   `0`   | The y coordinate of the top left corner of the rectangle. |
+|       w        | `Number` |   `0`   |                     Rectangle width.                      |
+|       h        | `Number` |   `0`   |                     Rectangle height.                     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -880,6 +945,14 @@ const rect = render.add(rectConfig)
 
 #### ring
 
+##### shape attribute
+
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       r        | `Number` |   `0`   |       Ring radius.        |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -912,6 +985,17 @@ const ring = render.add(ringConfig)
 ```
 
 #### arc
+
+##### shape attribute
+
+| Attribute name |   Type    | Default |        Annotation         |
+| :------------: | :-------: | :-----: | :-----------------------: |
+|       rx       | `Number`  |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number`  |   `0`   | Center y-axis coordinate. |
+|       r        | `Number`  |   `0`   |        Arc radius.        |
+|   startAngle   | `Number`  |   `0`   |     Arc start angle.      |
+|    endAngle    | `Number`  |   `0`   |      Arc end angle.       |
+|   clockWise    | `Boolean` | `true`  |         Clockwise         |
 
 ```javascript
 const { area: [w, h] } = render
@@ -951,6 +1035,17 @@ const arc = render.add(arcConfig)
 
 #### sector
 
+##### shape attribute
+
+| Attribute name |   Type    | Default |        Annotation         |
+| :------------: | :-------: | :-----: | :-----------------------: |
+|       rx       | `Number`  |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number`  |   `0`   | Center y-axis coordinate. |
+|       r        | `Number`  |   `0`   |      Sector radius.       |
+|   startAngle   | `Number`  |   `0`   |    Sector start angle.    |
+|    endAngle    | `Number`  |   `0`   |     Sector end angle.     |
+|   clockWise    | `Boolean` | `true`  |         Clockwise         |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -988,6 +1083,15 @@ const sector = render.add(sectorConfig)
 
 #### regPolygon
 
+##### shape attribute
+
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       r        | `Number` |   `0`   |       Circumradius.       |
+|      side      | `Number` |   `0`   |       Edge number.        |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -1023,6 +1127,13 @@ const regPolygon = render.add(regPolygonConfig)
 ```
 
 #### polyline
+
+##### shape attribute
+
+| Attribute name |   Type    | Default |               Annotation               |
+| :------------: | :-------: | :-----: | :------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the polyline. |
+|     close      | `Boolean` | `false` |     Whether to close the polyline.     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1112,6 +1223,13 @@ const polylineClosed = render.add(polylineClosedConfig)
 ```
 
 #### smoothline
+
+##### shape attribute
+
+| Attribute name |   Type    | Default |                Annotation                |
+| :------------: | :-------: | :-----: | :--------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the smoothline. |
+|     close      | `Boolean` | `false` |     Whether to close the smoothline.     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1211,6 +1329,13 @@ const smoothlineClosed = render.add(smoothlineClosedConfig)
 
 #### bezierCurve
 
+##### shape attribute
+
+| Attribute name |   Type    | Default |                Annotation                 |
+| :------------: | :-------: | :-----: | :---------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the bezierCurve. |
+|     close      | `Boolean` | `false` |     Whether to close the smoothline.      |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -1218,12 +1343,16 @@ const offsetX = w / 2
 const offsetY = h / 2
 
 const points = [
+  // Start point
   [-100 + offsetX, -50 + offsetY],
+  // Multiple sets of bezier curve
   [
+    // controlPoint1,controlPoint2,endPoint
     [0  + offsetX, -50 + offsetY],
     [0  + offsetX, 50 + offsetY],
     [100  + offsetX, 50 + offsetY]
-  ]
+  ],
+  // [...],[...]
 ]
 
 const bezierCurveConfig = {
@@ -1323,6 +1452,14 @@ const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 
 #### text
 
+##### shape attribute
+
+| Attribute name |   Type   |   Default   |         Annotation         |
+| :------------: | :------: | :---------: | :------------------------: |
+|    content     | `String` |    `''`     |       Text content.        |
+|    position    | `Array`  |  `[0, 0]`   |    Text start position.    |
+|    maxWidth    | `Number` | `Undefined` | Maximum width of the text. |
+
 ```javascript
 const { area: [w, h] } = render
 
@@ -1367,6 +1504,10 @@ const textConfig = {
 
 const text = render.add(textConfig)
 ```
+
+##### Tip
+
+Graph of **text** should be configured with `hoverRect` to support mouse events.
 
 <h3 align="center">Extend New Graph</h3>
 
