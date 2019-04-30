@@ -13,7 +13,7 @@ import Graph from './graph.class'
 export default class CRender {
   constructor (canvas) {
     if (!canvas) {
-      console.error('Missing parameters!')
+      console.error('CRender Missing parameters!')
 
       return
     }
