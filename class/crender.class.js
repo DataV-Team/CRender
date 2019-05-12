@@ -151,7 +151,7 @@ CRender.prototype.delGraph = function (graph) {
  * @return {Undefined} Void
  */
 CRender.prototype.delAllGraph = function () {
-  this.graphs.forEach(graph => graph.delProcessor())
+  this.graphs.forEach(graph => graph.delProcessor(this))
 
   this.drawAllGraph()
 }
