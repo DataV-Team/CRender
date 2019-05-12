@@ -355,7 +355,7 @@ Graph.prototype.delProcessor = function (render) {
 
   if (typeof this.beforeDelete === 'function') this.beforeDelete(this)
 
-  graphs.splice(index, 1)
+  graphs.splice(index, 1, null)
 
   if (typeof this.deleted === 'function') this.deleted(this)
 }
