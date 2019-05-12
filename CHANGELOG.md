@@ -1,3 +1,9 @@
+# 0.2.5-alpha (2019-05-12)
+
+### Bug Fixes
+
+- **prototype:** `delAllGraph` Incomplete deletion.
+
 # 0.2.4-alpha (2019-05-12)
 
 ### Bug Fixes
