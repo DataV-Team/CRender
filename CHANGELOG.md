@@ -1,3 +1,9 @@
+# 0.2.4-alpha (2019-05-12)
+
+### Bug Fixes
+
+- **prototype:** `delAllGraph` exception.
+
 # 0.2.3-alpha (2019-04-29)
 
 ### Perfect
