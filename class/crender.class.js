@@ -141,7 +141,7 @@ CRender.prototype.sortGraphsByIndex = function () {
 CRender.prototype.delGraph = function (graph) {
   if (typeof graph.delProcessor !== 'function') return
 
-  graph.delProcessor()
+  graph.delProcessor(this)
 
   this.drawAllGraph()
 }
