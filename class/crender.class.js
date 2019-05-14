@@ -140,10 +140,10 @@ CRender.prototype.sortGraphsByIndex = function () {
  */
 CRender.prototype.delGraph = function (graph) {
   if (typeof graph.delProcessor !== 'function') return
-  
-  this.graphs = this.graphs.filter(graph => graph)
 
   graph.delProcessor(this)
+  
+  this.graphs = this.graphs.filter(graph => graph)
 
   this.drawAllGraph()
 }
