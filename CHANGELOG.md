@@ -1,3 +1,9 @@
+# 0.2.7-alpha (2019-05-12)
+
+### Bug Fixes
+
+- **prototype:** `delGraph` Delete exception.
+
 # 0.2.6-alpha (2019-05-14)
 
 ### Perfect
