@@ -1,3 +1,9 @@
+# 0.2.6-alpha (2019-05-14)
+
+### Perfect
+
+- **graph:** `polyline` Eliminate polyline blur due to 1px line width.
+
 # 0.2.5-alpha (2019-05-12)
 
 ### Bug Fixes
