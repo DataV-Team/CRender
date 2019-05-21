@@ -1,4 +1,10 @@
-# 0.2.7-alpha (2019-05-12)
+# 0.2.8-alpha (2019-05-21)
+
+### Perfect
+
+- **graph:** `draw` Remove unnecessary closepath (`polyline`,`smoothline`,`bezierCurve`).
+
+# 0.2.7-alpha (2019-05-20)
 
 ### Bug Fixes
 
