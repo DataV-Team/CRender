@@ -478,8 +478,6 @@ export const polyline = {
       ctx.stroke()
     } else {
       ctx.stroke()
-
-      ctx.closePath()
     }
   },
 
@@ -557,8 +555,6 @@ export const smoothline = {
       ctx.stroke()
     } else {
       ctx.stroke()
-
-      ctx.closePath()
     }
   },
 
@@ -646,8 +642,6 @@ export const bezierCurve = {
       ctx.stroke()
     } else {
       ctx.stroke()
-
-      ctx.closePath()
     }
   },
 
