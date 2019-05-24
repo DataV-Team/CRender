@@ -787,5 +787,5 @@ export function extendNewGraph (name, config) {
     return
   }
 
-  config.set(name, config)
+  graphs.set(name, config)
 }
