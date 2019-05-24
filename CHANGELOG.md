@@ -1,3 +1,9 @@
+# 0.2.9-alpha (2019-05-24)
+
+### Bug Fixes
+
+- **graphs:** `extendNewGraph` Exception.
+
 # 0.2.8-alpha (2019-05-21)
 
 ### Perfect
