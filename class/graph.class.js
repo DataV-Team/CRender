@@ -271,10 +271,12 @@ Graph.prototype.animation = async function (attrName, change, wait = false) {
  *              and update the graph state
  * @return {Undefined} Void
  */
-Graph.prototype.turnNextAnimationFrame = function () {
-  const { animationRoot, animationKeys, animationFrameState, animationPause } = this
+Graph.prototype.turnNextAnimationFrame = function (timeStamp) {
+  const { animationDelay, animationRoot, animationKeys, animationFrameState, animationPause } = this
 
   if (animationPause) return
+
+  if (Date.now() - timeStamp < animationDelay) return
 
   animationRoot.forEach((root, i) => {
     animationKeys[i].forEach(key => {
