@@ -1,3 +1,9 @@
+# 0.2.10-alpha (2019-05-26)
+
+### Perfect
+
+- **core:** `animationDelay` Optimize animationDelay.
+
 # 0.2.9-alpha (2019-05-24)
 
 ### Bug Fixes
