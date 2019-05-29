@@ -1,3 +1,9 @@
+# 0.2.11-alpha (2019-05-29)
+
+### Perfect
+
+- **dependencies:** Change dependent plugin version.
+
 # 0.2.10-alpha (2019-05-26)
 
 ### Perfect
