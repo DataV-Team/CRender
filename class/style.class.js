@@ -232,7 +232,7 @@ export default class Style {
  * @param {Boolean} reverse Whether to perform reverse operation
  * @return {Undefined} Void
  */
-Style.prototype.colorProcessor = function (style) {
+Style.prototype.colorProcessor = function (style, reverse = false) {
   const processor = reverse ? getColorFromRgbValue : getRgbaValue
 
   const colorProcessorKeys = ['fill', 'stroke', 'shadowColor']
