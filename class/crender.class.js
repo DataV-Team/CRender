@@ -328,3 +328,20 @@ function mouseUp (e) {
   if (activeGraph) activeGraph.status = 'hover'
   if (dragGraph) dragGraph.status = 'hover'
 }
+
+/**
+ * @description Clone Graph
+ * @param {Graph} graph The target to be cloned
+ * @return {Graph} Cloned graph
+ */
+CRender.prototype.clone = function (graph) {
+  const style = graph.style.getStyle()
+
+  let clonedGraph = { ...graph, style }
+
+  delete clonedGraph.render
+
+  clonedGraph = deepClone(clonedGraph, true)
+
+  return this.add(clonedGraph)
+}
