@@ -30,7 +30,7 @@ export const circle = {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
-      console.error('Shape configuration is abnormal!')
+      console.error('Circle shape configuration is abnormal!')
 
       return false
     }
@@ -83,7 +83,7 @@ export const ellipse = {
     const { rx, ry, hr, vr } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof hr !== 'number' || typeof vr !== 'number') {
-      console.error('Shape configuration is abnormal!')
+      console.error('Ellipse shape configuration is abnormal!')
 
       return false
     }
@@ -146,7 +146,7 @@ export const rect = {
     const { x, y, w, h } = shape
 
     if (typeof x !== 'number' || typeof y !== 'number' || typeof w !== 'number' || typeof h !== 'number') {
-      console.error('Shape configuration is abnormal!')
+      console.error('Rect shape configuration is abnormal!')
 
       return false
     }
@@ -198,7 +198,7 @@ export const ring = {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
-      console.error('Shape configuration is abnormal!')
+      console.error('Ring shape configuration is abnormal!')
 
       return false
     }
@@ -261,7 +261,7 @@ export const arc = {
     const keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
 
     if (keys.find(key => typeof shape[key] !== 'number')) {
-      console.error('Shape configuration is abnormal!')
+      console.error('Arc shape configuration is abnormal!')
 
       return false
     }
@@ -323,7 +323,7 @@ export const sector = {
     const keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
 
     if (keys.find(key => typeof shape[key] !== 'number')) {
-      console.error('Shape configuration is abnormal!')
+      console.error('Sector shape configuration is abnormal!')
 
       return false
     }
@@ -382,13 +382,13 @@ export const regPolygon = {
     const keys = ['rx', 'ry', 'r', 'side']
 
     if (keys.find(key => typeof shape[key] !== 'number')) {
-      console.error('Shape configuration is abnormal!')
+      console.error('RegPolygon shape configuration is abnormal!')
 
       return false
     }
 
     if (side < 3) {
-      console.error('At least trigon!')
+      console.error('RegPolygon at least trigon!')
 
       return false
     }
@@ -454,7 +454,7 @@ export const polyline = {
     const { points } = shape
 
     if (!(points instanceof Array)) {
-      console.error('Points should be an array!')
+      console.error('Polyline points should be an array!')
 
       return false
     }
@@ -520,7 +520,7 @@ export const smoothline = {
     const { points } = shape
 
     if (!(points instanceof Array)) {
-      console.error('Points should be an array!')
+      console.error('Smoothline points should be an array!')
 
       return false
     }
@@ -611,7 +611,7 @@ export const bezierCurve = {
     const { points } = shape
 
     if (!(points instanceof Array)) {
-      console.error('Points should be an array!')
+      console.error('BezierCurve points should be an array!')
 
       return false
     }
@@ -696,7 +696,7 @@ export const text = {
     const { content, position } = shape
 
     if (typeof content !== 'string') {
-      console.error('Content should be a string!')
+      console.error('Text content should be a string!')
 
       return false
     }
