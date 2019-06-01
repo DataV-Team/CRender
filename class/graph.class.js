@@ -198,9 +198,9 @@ Graph.prototype.moveProcessor = function (e) {
 Graph.prototype.attr = function (attrName, change = undefined) {
   if (!attrName || change === undefined) return false
 
-  change = deepClone(change, true)
-
   const isObject = typeof this[attrName] === 'object'
+
+  if (isObject) change = deepClone(change, true)
 
   const { render } = this
 
