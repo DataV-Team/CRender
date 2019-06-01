@@ -171,9 +171,9 @@ CRender.prototype.add = function (config = {}) {
 
 ```javascript
 /**
- * @description Clone Graph
+ * @description         Clone Graph
  * @param {Graph} graph The target to be cloned
- * @return {Graph} Cloned graph
+ * @return {Graph}      Cloned graph
  */
 CRender.prototype.clone = function (graph) {
 }

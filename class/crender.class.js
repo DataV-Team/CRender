@@ -330,9 +330,9 @@ function mouseUp (e) {
 }
 
 /**
- * @description Clone Graph
+ * @description         Clone Graph
  * @param {Graph} graph The target to be cloned
- * @return {Graph} Cloned graph
+ * @return {Graph}      Cloned graph
  */
 CRender.prototype.clone = function (graph) {
   const style = graph.style.getStyle()
