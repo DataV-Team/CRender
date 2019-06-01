@@ -1,5 +1,7 @@
 import { getRgbaValue, getColorFromRgbValue } from '@jiaminghi/color'
 
+import { deepClone } from '../lib/util'
+
 /**
  * @description Class Style
  * @param {Object} style  Style configuration
@@ -173,26 +175,83 @@ export default class Style {
        * @default textBaseline = 'middle'
        * @example textBaseline = 'top'|'bottom'|'middle'|'alphabetic'|'hanging'
        */
-      textBaseline: 'middle'
+      textBaseline: 'middle',
+      /**
+       * @description The color used to create the gradient
+       * @type {Array}
+       * @default gradientColor = null
+       * @example gradientColor = ['#000', '#111', '#222']
+       */
+      gradientColor: null,
+      /**
+       * @description Gradient type
+       * @type {String}
+       * @default gradientType = 'linear'
+       * @example gradientType = 'linear' | 'radial'
+       */
+      gradientType: 'linear',
+      /**
+       * @description Gradient params
+       * @type {Array}
+       * @default gradientParams = null
+       * @example gradientParams = [x0, y0, x1, y1] (Linear Gradient)
+       * @example gradientParams = [x0, y0, r0, x1, y1, r1] (Radial Gradient)
+       */
+      gradientParams: null,
+      /**
+       * @description When to use gradients
+       * @type {String}
+       * @default gradientWith = 'stroke'
+       * @example gradientWith = 'stroke' | 'fill'
+       */
+      gradientWith: 'stroke',
+      /**
+       * @description Gradient color stops
+       * @type {String}
+       * @default gradientStops = 'auto'
+       * @example gradientStops = 'auto' | [0, .2, .3, 1]
+       */
+      gradientStops: 'auto',
+      /**
+       * @description Extended color that supports animation transition
+       * @type {Array|Object}
+       * @default colors = null
+       * @example colors = ['#000', '#111', '#222']
+       * @example colors = { a: '#000', b: '#111' }
+       */
+      colors: null
     }
 
     Object.assign(this, defaultStyle, style)
   }
 }
 
-const colorProcessorKeys = ['fill', 'stroke', 'shadowColor']
-
 /**
  * @description Set colors to rgba value
  * @param {Object} style style config
+ * @param {Boolean} reverse Whether to perform reverse operation
  * @return {Undefined} Void
  */
 Style.prototype.colorProcessor = function (style) {
+  const processor = reverse ? getColorFromRgbValue : getRgbaValue
+
+  const colorProcessorKeys = ['fill', 'stroke', 'shadowColor']
+
   const allKeys = Object.keys(style)
 
   const colorKeys = allKeys.filter(key => colorProcessorKeys.find(k => k === key))
 
-  colorKeys.forEach(key => (style[key] = getRgbaValue(style[key])))
+  colorKeys.forEach(key => (style[key] = processor(style[key])))
+
+  const { gradientColor, colors } = style
+
+  if (gradientColor) style.gradientColor = gradientColor.map(c => processor(c))
+
+  if (colors) {
+    const colorsKeys = Object.keys(colors)
+
+    colorsKeys.forEach(key => (colors[key] = processor(colors[key])))
+  }
 }
 
 /**
@@ -204,6 +263,8 @@ Style.prototype.initStyle = function(ctx) {
   initTransform(ctx, this)
 
   initGraphStyle(ctx, this)
+
+  initGradient(ctx, this)
 }
 
 /**
@@ -277,6 +338,87 @@ function initGraphStyle (ctx, style) {
 }
 
 /**
+ * @description Set the gradient color of canvas ctx
+ * @param {Object} ctx  Context of canvas
+ * @param {Style} style Instance of Style
+ * @return {Undefined} Void
+ */
+function initGradient (ctx, style) {
+  if (!gradientValidator(style)) return
+
+  let { gradientColor, gradientParams, gradientType, gradientWith, gradientStops } = style
+
+  gradientColor = gradientColor.map(c => getColorFromRgbValue(c))
+
+  if (gradientStops === 'auto') gradientStops = getAutoColorStops(gradientColor)
+
+  const gradient = ctx[`create${gradientType.slice(0, 1).toUpperCase() + gradientType.slice(1)}Gradient`](...gradientParams)
+
+  gradientStops.forEach((stop, i) => gradient.addColorStop(stop, gradientColor[i]))
+
+  ctx[`${gradientWith}Style`] = gradient
+}
+
+/**
+ * @description Check if the gradient configuration is legal
+ * @param {Style} style Instance of Style
+ * @return {Boolean} Check Result
+ */
+function gradientValidator (style) {
+  const { gradientColor, gradientParams, gradientType, gradientWith, gradientStops } = style
+
+  if (!gradientColor || !gradientParams) return false
+
+  if (gradientColor.length === 1) {
+    console.warn('The gradient needs to provide at least two colors')
+
+    return false
+  }
+
+  if (gradientType !== 'linear' && gradientType !== 'radial') {
+    console.warn('GradientType only supports linear or radial, current value is ' + gradientType)
+
+    return false
+  }
+
+  const gradientParamsLength = gradientParams.length
+
+  if (
+    (gradientType === 'linear' && gradientParamsLength !== 4) ||
+    (gradientType === 'radial' && gradientParamsLength !== 6)
+  ) {
+    console.warn('The expected length of gradientParams is ' + (gradientType === 'linear' ? '4' : '6'))
+
+    return false
+  }
+
+  if (gradientWith !== 'fill' && gradientWith !== 'stroke') {
+    console.warn('GradientWith only supports fill or stroke, current value is ' + gradientWith)
+
+    return false
+  }
+
+  if (gradientStops !== 'auto' && !(gradientStops instanceof Array)) {
+    console.warn(`gradientStops only supports 'auto' or Number Array ([0, .5, 1]), current value is ` + gradientStops)
+
+    return false
+  }
+
+  return true
+}
+
+/**
+ * @description Get a uniform gradient color stop
+ * @param {Array} color Gradient color
+ * @return {Array} Gradient color stop
+ */
+function getAutoColorStops (color) {
+  const stopGap = 1 / (color.length - 1)
+
+  return color.map((foo, i) => stopGap * i)
+}
+
+/**
  * @description Restore canvas ctx transform
  * @param {Object} ctx  Context of canvas
  * @return {Undefined} Void
@@ -294,4 +436,16 @@ Style.prototype.update = function (change) {
   this.colorProcessor(change)
 
   Object.assign(this, change)
+}
+
+/**
+ * @description Get the current style configuration
+ * @return {Object} Style configuration
+ */
+Style.prototype.getStyle = function () {
+  const clonedStyle = deepClone(this, true)
+
+  this.colorProcessor(clonedStyle, true)
+
+  return clonedStyle
 }
