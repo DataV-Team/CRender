@@ -1,3 +1,19 @@
+# 0.3.0-alpha (2019-06-01)
+
+### Bug Fixes
+
+- **Graph:** Fixed an exception for Graph.prototype.`attr`.
+
+### CRender
+
+- **prototype:** Add the CRender.prototype.`clone` to clone the Graph instance.
+
+### Style
+
+- **gradient:** Support `linear` and `radial` gradient.
+- **prototype:** Add the Style.prototype.`getStyle` to get style configuration.
+
+
 # 0.2.11-alpha (2019-05-29)
 
 ### Perfect
