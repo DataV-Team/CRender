@@ -130,6 +130,10 @@ class CRender {
 
   Add graph to render.
 
+- [clone](#clone)
+
+  Clone Graph.
+
 - [delGraph](#delGraph)
 
   Delete graph in render.
@@ -160,6 +164,18 @@ class CRender {
  */
 CRender.prototype.add = function (config = {}) {
 	// ...
+}
+```
+
+#### Clone
+
+```javascript
+/**
+ * @description Clone Graph
+ * @param {Graph} graph The target to be cloned
+ * @return {Graph} Cloned graph
+ */
+CRender.prototype.clone = function (graph) {
 }
 ```
 
@@ -529,269 +545,364 @@ The current graph instance will be passed in as a parameter,and the mousemove ev
 - [fontFamily](#fontFamily)
 - [textAlign](#textAlign)
 - [textBaseline](#textBaseline)
+- [gradientColor](#gradientColor)
+- [gradientType](#gradientType)
+- [gradientParams](#gradientParams)
+- [gradientWith](#gradientWith)
+- [gradientStops](#gradientStops)
+- [colors](#colors)
 
 #### fill
 
 ```javascript
 /**
-* @description Rgba value of graph fill color 
-* @type {Array}
-* @default fill = [0, 0, 0, 1]
-*/
+ * @description Rgba value of graph fill color 
+ * @type {Array}
+ * @default fill = [0, 0, 0, 1]
+ */
 ```
 
 #### stroke
 
 ```javascript
 /**
-* @description Rgba value of graph stroke color 
-* @type {Array}
-* @default stroke = [0, 0, 0, 1]
-*/
+ * @description Rgba value of graph stroke color 
+ * @type {Array}
+ * @default stroke = [0, 0, 0, 1]
+ */
 ```
 
 #### opacity
 
 ```javascript
 /**
-* @description Opacity of graph
-* @type {Number}
-* @default opacity = 1
-*/
+ * @description Opacity of graph
+ * @type {Number}
+ * @default opacity = 1
+ */
 ```
 
 #### lineCap
 
 ```javascript
 /**
-* @description LineCap of Ctx
-* @type {String}
-* @default lineCap = null
-* @example lineCap = 'butt'|'round'|'square'
-*/
+ * @description LineCap of Ctx
+ * @type {String}
+ * @default lineCap = null
+ * @example lineCap = 'butt'|'round'|'square'
+ */
 ```
 
 #### lineJoin
 
 ```javascript
 /**
-* @description Linejoin of Ctx
-* @type {String}
-* @default lineJoin = null
-* @example lineJoin = 'round'|'bevel'|'miter'
-*/
+ * @description Linejoin of Ctx
+ * @type {String}
+ * @default lineJoin = null
+ * @example lineJoin = 'round'|'bevel'|'miter'
+ */
 ```
 
 #### lineDash
 
 ```javascript
 /**
-* @description LineDash of Ctx
-* @type {Array}
-* @default lineDash = null
-* @example lineDash = [10, 10]
-*/
+ * @description LineDash of Ctx
+ * @type {Array}
+ * @default lineDash = null
+ * @example lineDash = [10, 10]
+ */
 ```
 
 #### lineDashOffset
 
 ```javascript
 /**
-* @description LineDashOffset of Ctx
-* @type {Number}
-* @default lineDashOffset = null
-* @example lineDashOffset = 10
-*/
+ * @description LineDashOffset of Ctx
+ * @type {Number}
+ * @default lineDashOffset = null
+ * @example lineDashOffset = 10
+ */
 ```
 
 #### shadowBlur
 
 ```javascript
 /**
-* @description ShadowBlur of Ctx
-* @type {Number}
-* @default shadowBlur = 0
-*/
+ * @description ShadowBlur of Ctx
+ * @type {Number}
+ * @default shadowBlur = 0
+ */
 ```
 
 #### shadowColor
 
 ```javascript
 /**
-* @description Rgba value of graph shadow color 
-* @type {Array}
-* @default shadowColor = [0, 0, 0, 0]
-*/
+ * @description Rgba value of graph shadow color 
+ * @type {Array}
+ * @default shadowColor = [0, 0, 0, 0]
+ */
 ```
 
 #### shadowOffsetX
 
 ```javascript
 /**
-* @description ShadowOffsetX of Ctx
-* @type {Number}
-* @default shadowOffsetX = 0
-*/
+ * @description ShadowOffsetX of Ctx
+ * @type {Number}
+ * @default shadowOffsetX = 0
+ */
 ```
 
 #### shadowOffsetY
 
 ```javascript
 /**
-* @description ShadowOffsetY of Ctx
-* @type {Number}
-* @default shadowOffsetY = 0
-*/
+ * @description ShadowOffsetY of Ctx
+ * @type {Number}
+ * @default shadowOffsetY = 0
+ */
 ```
 
 #### lineWidth
 
 ```javascript
 /**
-* @description LineWidth of Ctx
-* @type {Number}
-* @default lineWidth = 0
-*/
+ * @description LineWidth of Ctx
+ * @type {Number}
+ * @default lineWidth = 0
+ */
 ```
 
 #### strokeNoScale
 
 ```javascript
 /**
-* @description Stroke width is not scaled
-* @type {Boolean}
-* @default strokeNoScale = false
-*/
+ * @description Stroke width is not scaled
+ * @type {Boolean}
+ * @default strokeNoScale = false
+ */
 ```
 
 #### graphCenter
 
 ```javascript
 /**
-* @description Center point of the graph
-* @type {Array}
-* @default graphCenter = null
-* @example graphCenter = [10, 10]
-*/
+ * @description Center point of the graph
+ * @type {Array}
+ * @default graphCenter = null
+ * @example graphCenter = [10, 10]
+ */
 ```
 
 #### scale
 
 ```javascript
 /**
-* @description Graph scale
-* @type {Array}
-* @default scale = null
-* @example scale = [1.5, 1.5]
-*/
+ * @description Graph scale
+ * @type {Array}
+ * @default scale = null
+ * @example scale = [1.5, 1.5]
+ */
 ```
 
 #### rotate
 
 ```javascript
 /**
-* @description Graph rotation degree
-* @type {Number}
-* @default rotate = null
-* @example rotate = 10
-*/
+ * @description Graph rotation degree
+ * @type {Number}
+ * @default rotate = null
+ * @example rotate = 10
+ */
 ```
 
 #### translate
 
 ```javascript
 /**
-* @description Graph translate distance
-* @type {Array}
-* @default translate = null
-* @example translate = [10, 10]
-*/
+ * @description Graph translate distance
+ * @type {Array}
+ * @default translate = null
+ * @example translate = [10, 10]
+ */
 ```
 
 #### hoverCursor
 
 ```javascript
 /**
-* @description Cursor status when hover
-* @type {String}
-* @default hoverCursor = 'pointer'
-* @example hoverCursor = 'default'|'pointer'|'auto'|'crosshair'|'move'|'wait'|...
-*/
+ * @description Cursor status when hover
+ * @type {String}
+ * @default hoverCursor = 'pointer'
+ * @example hoverCursor = 'default'|'pointer'|'auto'|'crosshair'|'move'|'wait'|...
+ */
 ```
 
 #### fontStyle
 
 ```javascript
 /**
-* @description Font style of Ctx
-* @type {String}
-* @default fontStyle = 'normal'
-* @example fontStyle = 'normal'|'italic'|'oblique'
-*/
+ * @description Font style of Ctx
+ * @type {String}
+ * @default fontStyle = 'normal'
+ * @example fontStyle = 'normal'|'italic'|'oblique'
+ */
 ```
 
 #### fontVarient
 
 ```javascript
 /**
-* @description Font varient of Ctx
-* @type {String}
-* @default fontVarient = 'normal'
-* @example fontVarient = 'normal'|'small-caps'
-*/
+ * @description Font varient of Ctx
+ * @type {String}
+ * @default fontVarient = 'normal'
+ * @example fontVarient = 'normal'|'small-caps'
+ */
 ```
 
 #### fontWeight
 
 ```javascript
 /**
-* @description Font weight of Ctx
-* @type {String|Number}
-* @default fontWeight = 'normal'
-* @example fontWeight = 'normal'|'bold'|'bolder'|'lighter'|Number
-*/
+ * @description Font weight of Ctx
+ * @type {String|Number}
+ * @default fontWeight = 'normal'
+ * @example fontWeight = 'normal'|'bold'|'bolder'|'lighter'|Number
+ */
 ```
 
 #### fontSize
 
 ```javascript
 /**
-* @description Font size of Ctx
-* @type {Number}
-* @default fontSize = 10
-*/
+ * @description Font size of Ctx
+ * @type {Number}
+ * @default fontSize = 10
+ */
 ```
 
 #### fontFamily
 
 ```javascript
 /**
-* @description Font family of Ctx
-* @type {String}
-* @default fontFamily = 'Arial'
-*/
+ * @description Font family of Ctx
+ * @type {String}
+ * @default fontFamily = 'Arial'
+ */
 ```
 
 #### textAlign
 
 ```javascript
 /**
-* @description TextAlign of Ctx
-* @type {String}
-* @default textAlign = 'center'
-* @example textAlign = 'start'|'end'|'left'|'right'|'center'
-*/
+ * @description TextAlign of Ctx
+ * @type {String}
+ * @default textAlign = 'center'
+ * @example textAlign = 'start'|'end'|'left'|'right'|'center'
+ */
 ```
 
 #### textBaseline
 
 ```javascript
 /**
-* @description TextBaseline of Ctx
-* @type {String}
-* @default textBaseline = 'middle'
-* @example textBaseline = 'top'|'bottom'|'middle'|'alphabetic'|'hanging'
-*/
+ * @description TextBaseline of Ctx
+ * @type {String}
+ * @default textBaseline = 'middle'
+ * @example textBaseline = 'top'|'bottom'|'middle'|'alphabetic'|'hanging'
+ */
+```
+
+#### gradientColor
+
+```javascript
+/**
+ * @description The color used to create the gradient
+ * @type {Array}
+ * @default gradientColor = null
+ * @example gradientColor = ['#000', '#111', '#222']
+ */
+```
+
+#### gradientType
+
+```javascript
+/**
+ * @description Gradient type
+ * @type {String}
+ * @default gradientType = 'linear'
+ * @example gradientType = 'linear' | 'radial'
+ */
+```
+
+#### gradientParams
+
+```javascript
+/**
+ * @description Gradient params
+ * @type {Array}
+ * @default gradientParams = null
+ * @example gradientParams = [x0, y0, x1, y1] (Linear Gradient)
+ * @example gradientParams = [x0, y0, r0, x1, y1, r1] (Radial Gradient)
+ */
+```
+
+#### gradientWith
+
+```javascript
+/**
+ * @description When to use gradients
+ * @type {String}
+ * @default gradientWith = 'stroke'
+ * @example gradientWith = 'stroke' | 'fill'
+ */
+```
+
+#### gradientStops
+
+```javascript
+/**
+ * @description Gradient color stops
+ * @type {String}
+ * @default gradientStops = 'auto'
+ * @example gradientStops = 'auto' | [0, .2, .3, 1]
+ */
+```
+
+#### colors
+
+```javascript
+/**
+ * @description Extended color that supports animation transition
+ * @type {Array|Object}
+ * @default colors = null
+ * @example colors = ['#000', '#111', '#222']
+ * @example colors = { a: '#000', b: '#111' }
+ */
+```
+
+#### Tip
+
+**Gradient** is automatically enabled when `gradientColor` and `gradientParams` are configured.
+
+### prototype
+
+- [getStyle](#getStyle)
+
+  Get the current style configuration.
+
+#### getStyle
+
+```javascript
+/**
+ * @description Get the current style configuration
+ * @return {Object} Style configuration
+ */
+Style.prototype.getStyle = function () {
+}
 ```
 
 <h3 align="center">Examples</h3>
