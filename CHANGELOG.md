@@ -1,3 +1,9 @@
+# 0.3.1-alpha (2019-06-02)
+
+### Bug Fixes
+
+- **Graph:** An exception caused by a negative radius (`circle`,`ellipse`,`arc`,`ring`,`sector`).
+
 # 0.3.0-alpha (2019-06-01)
 
 ### Bug Fixes
