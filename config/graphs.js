@@ -43,7 +43,7 @@ export const circle = {
 
     const { rx, ry, r } = shape
 
-    ctx.arc(rx, ry, r, 0, Math.PI * 2)
+    ctx.arc(rx, ry, r > 0 ? r : 0.01, 0, Math.PI * 2)
 
     ctx.fill()
     ctx.stroke()
@@ -96,7 +96,7 @@ export const ellipse = {
 
     let { rx, ry, hr, vr } = shape
 
-    ctx.ellipse(rx, ry, hr, vr, 0, 0, Math.PI * 2)
+    ctx.ellipse(rx, ry, hr > 0 ? hr : 0.01, vr > 0 ? vr : 0.01, 0, 0, Math.PI * 2)
 
     ctx.fill()
     ctx.stroke()
@@ -211,7 +211,7 @@ export const ring = {
 
     const { rx, ry, r } = shape
 
-    ctx.arc(rx, ry, r, 0, Math.PI * 2)
+    ctx.arc(rx, ry, r > 0 ? r : 0.01, 0, Math.PI * 2)
 
     ctx.stroke()
 
@@ -274,7 +274,7 @@ export const arc = {
 
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
-    ctx.arc(rx, ry, r, startAngle, endAngle, !clockWise)
+    ctx.arc(rx, ry, r > 0 ? r : 0.001, startAngle, endAngle, !clockWise)
 
     ctx.stroke()
 
@@ -336,7 +336,7 @@ export const sector = {
 
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
-    ctx.arc(rx, ry, r, startAngle, endAngle, !clockWise)
+    ctx.arc(rx, ry, r > 0 ? r : 0.01, startAngle, endAngle, !clockWise)
 
     ctx.lineTo(rx, ry)
 
