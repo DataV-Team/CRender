@@ -1,3 +1,9 @@
+# 0.3.2-alpha (2019-06-03)
+
+### Bug Fixes
+
+- **CRender:** An exception caused by missing import `deepClone`.
+
 # 0.3.1-alpha (2019-06-02)
 
 ### Bug Fixes
