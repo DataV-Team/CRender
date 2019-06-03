@@ -1,6 +1,8 @@
 import color from '@jiaminghi/color'
 import bezierCurve from '@jiaminghi/bezier-curve'
 
+import { deepClone } from '../lib/util'
+
 import allGraph from '../config/graphs'
 
 import Graph from './graph.class'
