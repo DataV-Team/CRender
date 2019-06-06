@@ -1,3 +1,9 @@
+# 0.3.3-alpha (2019-06-06)
+
+### Bug Fixes
+
+- **Style:** `opacity` is invalid for `gradientColor`.
+
 # 0.3.2-alpha (2019-06-03)
 
 ### Bug Fixes
