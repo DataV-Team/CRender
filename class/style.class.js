@@ -346,7 +346,17 @@ function initGraphStyle (ctx, style) {
 function initGradient (ctx, style) {
   if (!gradientValidator(style)) return
 
-  let { gradientColor, gradientParams, gradientType, gradientWith, gradientStops } = style
+  let { gradientColor, gradientParams, gradientType, gradientWith, gradientStops, opacity } = style
+
+  gradientColor = gradientColor.map(color => {
+    let colorOpacity = color[3] * opacity
+
+    let clonedColor = [...color]
+
+    clonedColor[3] = colorOpacity
+
+    return clonedColor
+  })
 
   gradientColor = gradientColor.map(c => getColorFromRgbValue(c))
 
