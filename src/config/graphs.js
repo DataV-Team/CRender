@@ -12,12 +12,12 @@ import {
   checkPointIsInPolygon,
   checkPointIsNearPolyline,
   checkPointIsInRect
-} from '../lib/util'
+} from '../plugin/util'
 
 import {
   drawPolylinePath,
   drawBezierCurvePath
-} from '../lib/canvas'
+} from '../plugin/canvas'
 
 export const circle = {
   shape: {

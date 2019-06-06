@@ -8,7 +8,7 @@ import {
   getScalePointPos,
   getTranslatePointPos,
   checkPointIsInRect
-} from '../lib/util'
+} from '../plugin/util'
 
 /**
  * @description Class Graph

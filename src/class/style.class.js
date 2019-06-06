@@ -1,6 +1,6 @@
 import { getRgbaValue, getColorFromRgbValue } from '@jiaminghi/color'
 
-import { deepClone } from '../lib/util'
+import { deepClone } from '../plugin/util'
 
 /**
  * @description Class Style
