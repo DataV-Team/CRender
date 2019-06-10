@@ -1,3 +1,9 @@
+# 0.3.5-alpha (2019-06-10)
+
+### Bug Fixes
+
+- **ES5:** Exception due to missing regenerator runtime module.
+
 # 0.3.4-alpha (2019-06-06)
 
 ### Perfect
