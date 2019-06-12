@@ -1,3 +1,9 @@
+# 0.3.6-alpha (2019-06-12)
+
+### Bug Fixes
+
+- **Event:** `Click` callback is not responding.
+
 # 0.3.5-alpha (2019-06-10)
 
 ### Bug Fixes
