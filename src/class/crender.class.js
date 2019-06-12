@@ -233,7 +233,7 @@ function mouseDown (e) {
 
   const hoverGraph = graphs.find(graph => graph.status === 'hover')
 
-  if (!hoverGraph || !hoverGraph.drag) return
+  if (!hoverGraph) return
 
   hoverGraph.status = 'active'
 }
@@ -251,6 +251,8 @@ function mouseMove (e) {
   const activeGraph = graphs.find(graph => (graph.status === 'active' || graph.status === 'drag'))
 
   if (activeGraph) {
+    if (!activeGraph.drag) return
+
     if (typeof activeGraph.move !== 'function') {
       console.error('No move method is provided, cannot be dragged!')
 
@@ -325,7 +327,7 @@ function mouseUp (e) {
 
   if (activeGraph && typeof activeGraph.click === 'function') activeGraph.click(e, activeGraph)
 
-  graphs.forEach(graph => (graph.status = 'static'))
+  graphs.forEach(graph => graph && (graph.status = 'static'))
 
   if (activeGraph) activeGraph.status = 'hover'
   if (dragGraph) dragGraph.status = 'hover'
