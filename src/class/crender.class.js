@@ -129,9 +129,9 @@ CRender.prototype.sortGraphsByIndex = function () {
   const { graphs } = this
 
   graphs.sort((a, b) => {
-    if (a.index > b.index) return -1
+    if (a.index > b.index) return 1
     if (a.index === b.index) return 0
-    if (a.index < b.index) return 1
+    if (a.index < b.index) return -1
   })
 }
 
