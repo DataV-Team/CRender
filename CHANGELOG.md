@@ -1,3 +1,9 @@
+# 0.3.7-alpha (2019-06-13)
+
+### Bug Fixes
+
+- **CRender:** Rendering level sorting exception (Attribute of index).
+
 # 0.3.6-alpha (2019-06-12)
 
 ### Bug Fixes
