@@ -1,3 +1,9 @@
+# 0.4.0-alpha (2019-06-27)
+
+### Perfect
+
+- **text:** Support for multiple lines of `text`.
+
 # 0.3.7-alpha (2019-06-13)
 
 ### Bug Fixes
