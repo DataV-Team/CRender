@@ -1570,6 +1570,7 @@ const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 |    content     | `String` |    `''`     |       Text content.        |
 |    position    | `Array`  |  `[0, 0]`   |    Text start position.    |
 |    maxWidth    | `Number` | `Undefined` | Maximum width of the text. |
+|     rowGap     | `Number` |     `0`     |  Gap between row and row.  |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1618,7 +1619,9 @@ const text = render.add(textConfig)
 
 ##### Tip
 
-Graph of **text** should be configured with `hoverRect` to support mouse events.
+* Graph of **text** should be configured with `hoverRect` to support mouse events.
+
+* You can use `\n` to implement multiple lines of text.
 
 <h3 align="center">Extend New Graph</h3>
 
