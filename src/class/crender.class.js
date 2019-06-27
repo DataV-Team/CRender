@@ -71,7 +71,6 @@ export default class CRender {
     canvas.addEventListener('mousemove', mouseMove.bind(this))
     canvas.addEventListener('mouseup', mouseUp.bind(this))
   }
-
 }
 
 /**
@@ -144,7 +143,7 @@ CRender.prototype.delGraph = function (graph) {
   if (typeof graph.delProcessor !== 'function') return
 
   graph.delProcessor(this)
-  
+
   this.graphs = this.graphs.filter(graph => graph)
 
   this.drawAllGraph()

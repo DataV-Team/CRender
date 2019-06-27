@@ -106,7 +106,7 @@ export default class Graph {
       animationFrameState: [],
       cache: {}
     }
-  
+
     if (!config.shape) config.shape = {}
     if (!config.style) config.style = {}
 
@@ -259,10 +259,10 @@ Graph.prototype.animation = async function (attrName, change, wait = false) {
 
   const { render } = this
 
-  return new Promise(async reslove => {
+  return new Promise(async resolve => {
     await render.launchAnimation()
 
-    reslove()
+    resolve()
   })
 }
 
@@ -336,10 +336,10 @@ Graph.prototype.playAnimation = function () {
 
   this.attr('animationPause', false)
 
-  return new Promise(async reslove => {
+  return new Promise(async resolve => {
     await render.launchAnimation()
 
-    reslove()
+    resolve()
   })
 }
 
@@ -368,7 +368,7 @@ Graph.prototype.delProcessor = function (render) {
  * @return {Promise} A timed release Promise
  */
 function delay (time) {
-  return new Promise(reslove => {
-    setTimeout(reslove, time)
+  return new Promise(resolve => {
+    setTimeout(resolve, time)
   })
 }

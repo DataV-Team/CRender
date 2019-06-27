@@ -14,20 +14,13 @@ export function deepClone (object, recursion = false) {
   const clonedObj = object instanceof Array ? [] : {}
 
   if (object && typeof object === 'object') {
-
     for (let key in object) {
-
       if (object.hasOwnProperty(key)) {
-
-          if (object[key] && typeof object[key] === 'object'){
-
-            clonedObj[key] = deepClone(object[key], true)
-
-          } else {
-
-            clonedObj[key] = object[key]
-
-          }
+        if (object[key] && typeof object[key] === 'object') {
+          clonedObj[key] = deepClone(object[key], true)
+        } else {
+          clonedObj[key] = object[key]
+        }
       }
     }
   }
@@ -84,15 +77,12 @@ export function checkPointIsInPolygon (point, polygon) {
 
   for (let i = 1, p1 = polygon[0]; i <= pointNum; i++) {
     const p2 = polygon[i % pointNum]
-
     if (x > min(p1[0], p2[0]) && x <= max(p1[0], p2[0])) {
-
       if (y <= max(p1[1], p2[1])) {
-
-        if (p1[0] != p2[0]) {
+        if (p1[0] !== p2[0]) {
           const xinters = (x - p1[0]) * (p2[1] - p1[1]) / (p2[0] - p1[0]) + p1[1]
 
-          if (p1[1] == p2[1] || y <= xinters) {
+          if (p1[1] === p2[1] || y <= xinters) {
             counter++
           }
         }
