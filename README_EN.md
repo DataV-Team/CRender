@@ -1,4 +1,4 @@
-[ENGLISH](./README_EN.md)
+[中文](./README.md)
 
 <h1 align="center">CRender</h1>
 
@@ -8,59 +8,59 @@
     <a href="https://www.npmjs.com/package/@jiaminghi/c-render"><img src="https://img.shields.io/npm/v/@jiaminghi/c-render.svg" alt="LICENSE" /> </a>
 </p>
 
-### CRender是干什么的?
+### What is CRender?
 
-- 它是一个基于**canvas**的**矢量**图形渲染插件。
-- 它对图形提供动画和鼠标事件支持。
+- It's a **vector** graphics rendering plugin based on **canvas**.
+- It provides **animation** and mouse **event** support for graphics.
 
-### npm安装
+### Install with npm
 
 ```shell
 $ npm install @jiaminghi/c-render
 ```
 
-详细文档及示例请移步[HomePage](http://crender.jiaminghi.com).
+Detailed documents and examples can be viewed on the [HomePage](http://crender.jiaminghi.com/EN/).
 
-- [使用](#使用)
+- [Use](#Use)
 - [Class CRender](#class-crender)
 - [Class Graph](#class-graph)
 - [Class Style](#class-style)
-- [示例](#示例)
-- [扩展新图形](#扩展新图形)
-- [相关支持](#相关支持)
+- [Examples](#examples)
+- [Extend New Graph](#Extend-New-Graph)
+- [Related support](#Related-support)
 
 ------
 
-<h3 align="center">使用</h3>
+<h3 align="center">Use</h3>
 
 ```javascript
 import CRender from '@jiaminghi/c-redner'
 
 const canvas = document.getElementById('canvas')
 
-// 实例化 CRender
+// Instantiate CRender
 const render = new CRender(canvas)
 
-// 向render中添加图形
+// Add graph to render
 const circle = render.add({ name: 'circle', ... })
 ```
 
 <h3 align="center">Class CRender</h3>
 
-### 实例化
+### Instantiation
 
 ```javascript
 /**
  * @description Class of CRender
- * @param {Object} canvas Canvas 节点
- * @return {CRender} CRender实例
+ * @param {Object} canvas Canvas DOM
+ * @return {CRender} Instance of CRender
  */
 class CRender {
     // ...
 }
 ```
 
-### 属性
+### attribute
 
 - [ctx](#ctx)
 - [area](#area)
@@ -73,7 +73,7 @@ class CRender {
 
 ```javascript
 /**
- * @description canvas context
+ * @description Context of the canvas
  * @type {Object}
  * @example ctx = canvas.getContext('2d')
  */
@@ -83,7 +83,7 @@ class CRender {
 
 ```javascript
 /**
- * @description canvas宽高
+ * @description Width and height of the canvas
  * @type {Array<Number>}
  * @example area = [300，100]
  */
@@ -93,7 +93,7 @@ class CRender {
 
 ```javascript
 /**
- * @description render是否处于动画渲染中
+ * @description Whether render is in animation rendering
  * @type {Boolean}
  * @example animationStatus = true|false
  */
@@ -103,67 +103,67 @@ class CRender {
 
 ```javascript
 /**
- * @description 已添加的图形
+ * @description Added graph
  * @type {Array<Graph>}
  * @example graphs = [Graph, Graph, ...]
  */
 ```
 
-#### [color](#https://github.com/jiaming743/color)
+#### [color](#https://github.com/jiaming743/color/blob/master/README_EN.md)
 
 ```javascript
 /**
- * @description 颜色插件
+ * @description Color plugin
  * @type {Object}
  */
 ```
 
-#### [bezierCurve](https://github.com/jiaming743/BezierCurve)
+#### [bezierCurve](https://github.com/jiaming743/BezierCurve/blob/master/README_EN.md)
 
 ```javascript
 /**
- * @description 贝塞尔曲线插件
+ * @description Bezier Curve plugin
  * @type {Object}
  */
 ```
 
-### 实例方法
+### prototype
 
 - [add](#add)
 
-  向render中添加图形
+  Add graph to render.
 
 - [clone](#clone)
 
-  克隆一个图形
+  Clone Graph.
 
 - [delGraph](#delGraph)
 
-  删除render中的一个图形
+  Delete graph in render.
 
 - [delAllGraph](#delAllGraph)
 
-  删除render中所有的图形
+  Delete all graph in render.
 
 - [drawAllGraph](#drawAllGraph)
 
-  渲染render中所有的图形
+  Draw all the graphs in the render.
 
 - [clearArea](#clearArea)
 
-  擦除canvas绘制区域
+  Clear canvas drawing area.
 
 - [launchAnimation](#launchAnimation)
 
-  使动画队列不为空且animationPause不为false的图形进行动画
+  Animate the graph whose animation queue is not empty and the animationPause is equal to false.
 
 #### add
 
 ```javascript
 /**
- * @description 向render中添加图形
- * @param {Object} config 图形配置
- * @return {Graph} 图形实例
+ * @description Add graph to render
+ * @param {Object} config Graph configuration
+ * @return {Graph} Graph instance
  */
 CRender.prototype.add = function (config = {}) {
 	// ...
@@ -174,9 +174,9 @@ CRender.prototype.add = function (config = {}) {
 
 ```javascript
 /**
- * @description 克隆一个图形
- * @param {Graph} graph 将要被克隆的图形
- * @return {Graph} 克隆的图形
+ * @description Clone Graph
+ * @param {Graph} graph The target to be cloned
+ * @return {Graph} Cloned graph
  */
 CRender.prototype.clone = function (graph) {
 }
@@ -186,9 +186,9 @@ CRender.prototype.clone = function (graph) {
 
 ```javascript
 /**
- * @description 删除render中的一个图形
- * @param {Graph} graph 将要删除的图形实例
- * @return {Undefined} 无返回值
+ * @description Delete graph in render
+ * @param {Graph} graph The graph to be deleted
+ * @return {Undefined} Void
  */
 CRender.prototype.delGraph = function (graph) {
 	// ...
@@ -199,8 +199,8 @@ CRender.prototype.delGraph = function (graph) {
 
 ```javascript
 /**
- * @description 删除render中所有的图形
- * @return {Undefined} 无返回值
+ * @description Delete all graph in render
+ * @return {Undefined} Void
  */
 CRender.prototype.delAllGraph = function () {
 	// ...
@@ -211,8 +211,8 @@ CRender.prototype.delAllGraph = function () {
 
 ```javascript
 /**
- * @description 渲染render中所有的图形
- * @return {Undefined} 无返回值
+ * @description Draw all the graphs in the render
+ * @return {Undefined} Void
  */
 CRender.prototype.drawAllGraph = function () {
     // ...
@@ -223,8 +223,8 @@ CRender.prototype.drawAllGraph = function () {
 
 ```javascript
 /**
- * @description 擦除canvas绘制区域
- * @return {Undefined} 无返回值
+ * @description Clear canvas drawing area
+ * @return {Undefined} Void
  */
 CRender.prototype.clearArea = function () {
 	// ...
@@ -235,7 +235,8 @@ CRender.prototype.clearArea = function () {
 
 ```javascript
 /**
- * @description 使动画队列不为空且animationPause不为false的图形进行动画
+ * @description Animate the graph whose animation queue is not empty
+ *  and the animationPause is equal to false
  * @return {Promise} Animation Promise
  */
 CRender.prototype.launchAnimation = function () {
@@ -245,9 +246,9 @@ CRender.prototype.launchAnimation = function () {
 
 <h3 align="center">Class Graph</h3>
 
-### 属性
+### attribute
 
-**当添加一个图形时，你可以配置这些属性。**
+**When adding a graph, you can configure them.**
 
 - [visible](#visible)
 - [shape](#shape)
@@ -268,7 +269,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 该图形是否可被渲染
+ * @description Weather to render graph
  * @type {Boolean}
  * @default visible = true
  */
@@ -278,7 +279,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 图形形状数据
+ * @description Graph shape data
  * @type {Object}
  */
 
@@ -288,7 +289,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 图形样式数据 (Style实例)
+ * @description Graph style data (Instance of Style)
  * @type {Style}
  */
 
@@ -298,7 +299,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 是否启用拖拽功能
+ * @description Whether to enable drag
  * @type {Boolean}
  * @default drag = false
  */
@@ -309,7 +310,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 是否启用悬浮检测
+ * @description Whether to enable hover
  * @type {Boolean}
  * @default hover = false
  */
@@ -320,7 +321,8 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 图形渲染层级，层级高者优先渲染
+ * @description Graph rendering index
+ *  Give priority to index high graph in rendering
  * @type {Number}
  * @default index = 1
  */
@@ -330,7 +332,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 动画延迟时间(ms)
+ * @description Animation delay time(ms)
  * @type {Number}
  * @default animationDelay = 0
  */
@@ -340,17 +342,17 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 动画帧数
+ * @description Number of animation frames
  * @type {Number}
  * @default animationFrame = 30
  */
 ```
 
-#### [animationCurve](#https://github.com/jiaming743/transition)
+#### [animationCurve](#https://github.com/jiaming743/transition/blob/master/README_EN.md)
 
 ```javascript
 /**
- * @description 动画缓动曲线
+ * @description Animation easing curve
  * @type {String}
  * @default animationCurve = 'linear'
  */
@@ -360,7 +362,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 是否暂停图形动画
+ * @description Weather to pause graph animation
  * @type {Boolean}
  * @default animationPause = false
  */
@@ -370,10 +372,11 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
- * @description 矩形悬浮检测盒，配置该项则优先使用其进行鼠标悬浮检测
+ * @description Rectangular hover detection zone
+ *  Use this method for hover detection first
  * @type {Null|Array<Number>}
  * @default hoverRect = null
- * @example hoverRect = [0, 0, 100, 100] // [矩形起始点 x, y 坐标, 矩形宽, 高]
+ * @example hoverRect = [0, 0, 100, 100] // [Rect start x, y, Rect width, height]
  */
 ```
 
@@ -381,7 +384,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
-* @description 鼠标进入图形事件处理器
+* @description Mouse enter event handler
 * @type {Null|Function}
 * @default mouseEnter = null
 */
@@ -391,7 +394,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
-* @description 鼠标移出图形事件处理器
+* @description Mouse outer event handler
 * @type {Null|Function}
 * @default mouseOuter = null
 */
@@ -401,7 +404,7 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
-* @description 鼠标点击图形事件处理器
+* @description Mouse click event handler
 * @type {Null|Function}
 * @default click = null
 */
@@ -409,38 +412,38 @@ CRender.prototype.launchAnimation = function () {
 
 #### Tip
 
-启用**mouseEnter**、**mouseOuter**、**click**事件支持需要配置图形的`hover` 属性为 `true`。扩展的新图形需要配置**hoverCheck**方法以实现鼠标事件支持。
+Enable **mouseEnter**, **mouseOuter**, **click** event support requires configuring the `hover` property of the graph to `true`. Extended new graph require the **hoverCheck** method to be configured to provide event support.
 
-### 实例方法
+### prototype
 
 - [attr](#attr)
 
-  更新图形状态
+  Update graph state.
 
 - [animation](#animation)
 
-  更新图形状态（伴随动画）
+  Update graphics state (with animation).
 
 - [animationEnd](#animationEnd)
 
-  跳至最后一帧动画
+  Skip to the last frame of animation.
 
 - [pauseAnimation](#pauseAnimation)
 
-  暂停动画行为
+  Pause animation behavior.
 
 - [playAnimation](#playAnimation)
 
-  尝试动画行为
+  Try animation behavior.
 
 #### attr
 
 ```javascript
 /**
- * @description 更新图形状态
- * @param {String} attrName 要更新的属性名
- * @param {Any} change      更新的值
- * @return {Undefined} 无返回值
+ * @description Update graph state
+ * @param {String} attrName Updated attribute name
+ * @param {Any} change      Updated value
+ * @return {Undefined} Void
  */
 Graph.prototype.attr = function (attrName, change = undefined) {
 	// ...
@@ -451,10 +454,12 @@ Graph.prototype.attr = function (attrName, change = undefined) {
 
 ```javascript
 /**
- * @description 更新图形状态（伴随动画），仅支持shape和style属性
- * @param {String} attrName 要更新的属性名
- * @param {Any} change      更新的值
- * @param {Boolean} wait    是否存储动画队列，等待下次动画请求
+ * @description Update graphics state (with animation)
+ *  Only shape and style attributes are supported
+ * @param {String} attrName Updated attribute name
+ * @param {Any} change      Updated value
+ * @param {Boolean} wait    Whether to store the animation waiting
+ * 							for the next animation request
  * @return {Promise} Animation Promise
  */
 Graph.prototype.animation = async function (attrName, change, wait = false) {
@@ -466,8 +471,8 @@ Graph.prototype.animation = async function (attrName, change, wait = false) {
 
 ```javascript
 /**
- * @description 跳至最后一帧动画
- * @return {Undefined} 无返回值
+ * @description Skip to the last frame of animation
+ * @return {Undefined} Void
  */
 Graph.prototype.animationEnd = function () {
   // ...
@@ -478,8 +483,8 @@ Graph.prototype.animationEnd = function () {
 
 ```javascript
 /**
- * @description 暂停动画行为
- * @return {Undefined} 无返回值
+ * @description Pause animation behavior
+ * @return {Undefined} Void
  */
 Graph.prototype.pauseAnimation = function () {
   // ...
@@ -490,58 +495,58 @@ Graph.prototype.pauseAnimation = function () {
 
 ```javascript
 /**
- * @description 尝试动画行为
- * @return {Undefined} 无返回值
+ * @description Try animation behavior
+ * @return {Undefined} Void
  */
 Graph.prototype.playAnimation = function () {
   // ...
 }
 ```
 
-### 生命周期
+### Life Cycle
 
-当想render中添加图形时，你可以配置如下几个方法，它们将在特定时刻被调用。
+When you add graph to the render, you can configure the following functions in the configuration, they will be called at a specific time.
 
 - [added](#added)
 
-  图形添加时被调用
+  Called after the graphics are added.
 
 - [beforeDraw](#beforeDraw)
 
-  图形绘制前被调用
+  Called before the drawing is drawn.
 
 - [drawed](#drawed)
 
-  图形绘制后被调用
+  Called after the drawing is completed
 
 - [beforeMove](#beforeMove)
 
-  图形移动前被调用
+  Called before moving the graphic.
 
 - [moved](#moved)
 
-  图形移动后被调用
+  Called after moving the graphic.
 
 - [beforeDelete](#beforeDelete)
 
-  图形删除前被调用
+  Called before deleting the graphic.
 
 - [deleted](#deleted)
 
-  图形删除后被调用
+  Called after the graphic is deleted.
 
 #### added
 
 ```javascript
 /**
- * @description 图形添加时被调用
- * @param {Graph} 图形实例
+ * @description Called after the graphics are added
+ * @param {Graph} Graph instance
  */
 config = {
-  //...,
-  added ({ shape, style }) {
-    // 一些操作...
-  }
+    //...,
+    added ({ shape, style }) {
+        // do something...
+    }
 }
 ```
 
@@ -549,17 +554,18 @@ config = {
 
 ```javascript
 /**
- * @description 图形绘制前被调用，图形样式已经初始化完毕
- *  你可以在此时修改ctx属性
- * @param {Graph} 图形实例
- * @param {CRender} CRender实例
+ * @description Called before the drawing is drawn,
+ *  the graphic style has been initialized.
+ *  You can modify the ctx property before drawing.
+ * @param {Graph} Graph instance
+ * @param {CRender} CRender instance
  */
 config = {
-  //...,
-  beforeDraw ({ shape, style }, { ctx }) {
-    // 一些操作...
-    ctx.stroke = 'transparent'
-  }
+    //...,
+    beforeDraw ({ shape, style }, { ctx }) {
+        // do something...
+        ctx.stroke = 'transparent'
+    }
 }
 ```
 
@@ -567,15 +573,15 @@ config = {
 
 ```javascript
 /**
- * @description 图形绘制后被调用
- * @param {Graph} 图形实例
- * @param {CRender} CRender实例
+ * @description Called after the drawing is completed
+ * @param {Graph} Graph instance
+ * @param {CRender} CRender instance
  */
 config = {
-  //...,
-  drawed ({ shape, style }, { ctx }) {
-    // 一些操作...
-  }
+    //...,
+    drawed ({ shape, style }, { ctx }) {
+        // do something...
+    }
 }
 ```
 
@@ -583,15 +589,16 @@ config = {
 
 ```javascript
 /**
- * @description 图形移动前被调用，移动行为发生前
- * @param {Event} 鼠标事件
- * @param {Graph} 图形实例
+ * @description Called before moving the graphic,
+ *  before the drag behavior occurs
+ * @param {Event} Mouse event
+ * @param {Graph} Graph instance
  */
 config = {
-  //...,
-  beforeMove ({ offsetX, offsetY }, { shape, style }) {
-    // 一些操作...
-  }
+    //...,
+    beforeMove ({ offsetX, offsetY }, { shape, style }) {
+        // do something...
+    }
 }
 ```
 
@@ -599,15 +606,16 @@ config = {
 
 ```javascript
 /**
- * @description 图形移动后被调用，移动行为发生后
- * @param {Event} 鼠标事件
- * @param {Graph} 图形实例
+ * @description Called after moving the graphic,
+ *  after the drag behavior occurs
+ * @param {Event} Mouse event
+ * @param {Graph} Graph instance
  */
 config = {
-  //...,
-  moved ({ offsetX, offsetY }, { shape, style }) {
-    // 一些操作...
-  }
+    //...,
+    moved ({ offsetX, offsetY }, { shape, style }) {
+        // do something...
+    }
 }
 ```
 
@@ -615,14 +623,14 @@ config = {
 
 ```javascript
 /**
- * @description 图形删除前被调用
- * @param {Graph} 图形实例
+ * @description Called before deleting the graphic
+ * @param {Graph} Graph instance
  */
 config = {
-  //...,
-  beforeDelete ({ shape, style }) {
-    // 一些操作...
-  }
+    //...,
+    beforeDelete ({ shape, style }) {
+        // do something...
+    }
 }
 ```
 
@@ -630,20 +638,20 @@ config = {
 
 ```javascript
 /**
- * @description 图形删除后被调用
- * @param {Graph} 图形实例
+ * @description Called after the graphic is deleted
+ * @param {Graph} Graph instance
  */
 config = {
-  //...,
-  deleted ({ shape, style }) {
-    // 一些操作...
-  }
+    //...,
+    deleted ({ shape, style }) {
+        // do something...
+    }
 }
 ```
 
 <h3 align="center">Class Style</h3>
 
-### 属性
+### attribute
 
 - [fill](#fill)
 - [stroke](#stroke)
@@ -680,7 +688,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形填充颜色的Rgba值
+ * @description Rgba value of graph fill color 
  * @type {Array<Number>}
  * @default fill = [0, 0, 0, 1]
  */
@@ -690,7 +698,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形描边颜色的Rgba值
+ * @description Rgba value of graph stroke color 
  * @type {Array<Number>}
  * @default stroke = [0, 0, 0, 1]
  */
@@ -700,7 +708,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形透明度
+ * @description Opacity of graph
  * @type {Number}
  * @default opacity = 1
  */
@@ -710,7 +718,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的lineCap属性值
+ * @description LineCap of Ctx
  * @type {Null|String}
  * @default lineCap = null
  * @example lineCap = 'butt'|'round'|'square'
@@ -721,7 +729,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的lineJoin属性值
+ * @description Linejoin of Ctx
  * @type {Null|String}
  * @default lineJoin = null
  * @example lineJoin = 'round'|'bevel'|'miter'
@@ -732,7 +740,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的lineDash属性值
+ * @description LineDash of Ctx
  * @type {Null|Array<Number>}
  * @default lineDash = null
  * @example lineDash = [10, 10]
@@ -743,7 +751,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的lineDashOffset属性值
+ * @description LineDashOffset of Ctx
  * @type {Null|Number}
  * @default lineDashOffset = null
  * @example lineDashOffset = 10
@@ -754,7 +762,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的shadowBlur属性值
+ * @description ShadowBlur of Ctx
  * @type {Number}
  * @default shadowBlur = 0
  */
@@ -764,7 +772,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形阴影颜色的Rgba值
+ * @description Rgba value of graph shadow color 
  * @type {Array<Number>}
  * @default shadowColor = [0, 0, 0, 0]
  */
@@ -774,7 +782,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的shadowOffsetX属性值
+ * @description ShadowOffsetX of Ctx
  * @type {Number}
  * @default shadowOffsetX = 0
  */
@@ -784,7 +792,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的shadowOffsetY属性值
+ * @description ShadowOffsetY of Ctx
  * @type {Number}
  * @default shadowOffsetY = 0
  */
@@ -794,7 +802,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的lineWidth属性值
+ * @description LineWidth of Ctx
  * @type {Number}
  * @default lineWidth = 0
  */
@@ -804,7 +812,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形中心点
+ * @description Center point of the graph
  * @type {Null|Array<Number>}
  * @default graphCenter = null
  * @example graphCenter = [10, 10]
@@ -815,7 +823,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形缩放倍数
+ * @description Graph scale
  * @type {Null|Array<Number>}
  * @default scale = null
  * @example scale = [1.5, 1.5]
@@ -826,7 +834,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形旋转角度
+ * @description Graph rotation degree
  * @type {Null|Number}
  * @default rotate = null
  * @example rotate = 10
@@ -837,7 +845,7 @@ config = {
 
 ```javascript
 /**
- * @description 图形位移距离
+ * @description Graph translate distance
  * @type {Null|Array<Number>}
  * @default translate = null
  * @example translate = [10, 10]
@@ -848,7 +856,7 @@ config = {
 
 ```javascript
 /**
- * @description 鼠标悬浮在图形上时cursor的值
+ * @description Cursor status when hover
  * @type {String}
  * @default hoverCursor = 'pointer'
  * @example hoverCursor = 'default'|'pointer'|'auto'|'crosshair'|'move'|'wait'|...
@@ -859,7 +867,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的fontStyle属性值
+ * @description Font style of Ctx
  * @type {String}
  * @default fontStyle = 'normal'
  * @example fontStyle = 'normal'|'italic'|'oblique'
@@ -870,7 +878,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的fontVarient属性值
+ * @description Font varient of Ctx
  * @type {String}
  * @default fontVarient = 'normal'
  * @example fontVarient = 'normal'|'small-caps'
@@ -881,7 +889,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的fontWeight属性值
+ * @description Font weight of Ctx
  * @type {String|Number}
  * @default fontWeight = 'normal'
  * @example fontWeight = 'normal'|'bold'|'bolder'|'lighter'|Number
@@ -892,7 +900,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的fontSize属性值
+ * @description Font size of Ctx
  * @type {Number}
  * @default fontSize = 10
  */
@@ -902,7 +910,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的fontFamily属性值
+ * @description Font family of Ctx
  * @type {String}
  * @default fontFamily = 'Arial'
  */
@@ -912,7 +920,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的textAlign属性值
+ * @description TextAlign of Ctx
  * @type {String}
  * @default textAlign = 'center'
  * @example textAlign = 'start'|'end'|'left'|'right'|'center'
@@ -923,7 +931,7 @@ config = {
 
 ```javascript
 /**
- * @description Ctx的textBaseline属性值
+ * @description TextBaseline of Ctx
  * @type {String}
  * @default textBaseline = 'middle'
  * @example textBaseline = 'top'|'bottom'|'middle'|'alphabetic'|'hanging'
@@ -934,7 +942,7 @@ config = {
 
 ```javascript
 /**
- * @description 用于创建渐变色的颜色
+ * @description The color used to create the gradient
  * @type {Null|Array<String>}
  * @default gradientColor = null
  * @example gradientColor = ['#000', '#111', '#222']
@@ -945,7 +953,7 @@ config = {
 
 ```javascript
 /**
- * @description 渐变类型
+ * @description Gradient type
  * @type {String}
  * @default gradientType = 'linear'
  * @example gradientType = 'linear' | 'radial'
@@ -956,11 +964,11 @@ config = {
 
 ```javascript
 /**
- * @description 渐变参数
+ * @description Gradient params
  * @type {Array<Number>}
  * @default gradientParams = null
- * @example gradientParams = [x0, y0, x1, y1] (线性渐变)
- * @example gradientParams = [x0, y0, r0, x1, y1, r1] (径向渐变)
+ * @example gradientParams = [x0, y0, x1, y1] (Linear Gradient)
+ * @example gradientParams = [x0, y0, r0, x1, y1, r1] (Radial Gradient)
  */
 ```
 
@@ -968,7 +976,7 @@ config = {
 
 ```javascript
 /**
- * @description 使用渐变色的属性
+ * @description When to use gradients
  * @type {String}
  * @default gradientWith = 'stroke'
  * @example gradientWith = 'stroke' | 'fill'
@@ -979,7 +987,7 @@ config = {
 
 ```javascript
 /**
- * @description 渐变色位置
+ * @description Gradient color stops
  * @type {String|Array<Number>}
  * @default gradientStops = 'auto'
  * @example gradientStops = 'auto' | [0, .2, .3, 1]
@@ -990,7 +998,7 @@ config = {
 
 ```javascript
 /**
- * @description 支持动画过渡的颜色容器
+ * @description Extended color that supports animation transition
  * @type {Array<String>|Object}
  * @default colors = null
  * @example colors = ['#000', '#111', '#222']
@@ -1000,53 +1008,53 @@ config = {
 
 #### Tip
 
-`gradientColor`和`gradientParams`被配置后将自动启用**渐变**。
+**Gradient** is automatically enabled when `gradientColor` and `gradientParams` are configured.
 
-### 实例方法
+### prototype
 
 - [getStyle](#getStyle)
 
-  获取图形当前样式配置
+  Get the current style configuration.
 
 #### getStyle
 
 ```javascript
 /**
- * @description 获取图形当前样式配置
- * @return {Object} 样式配置
+ * @description Get the current style configuration
+ * @return {Object} Style configuration
  */
 Style.prototype.getStyle = function () {
 }
 ```
 
-<h3 align="center">示例</h3>
+<h3 align="center">Examples</h3>
 
-CRender提供如下基础矢量图形。
+CRender provides some basic vector graph, examples are as follows.
 
-- [圆形](#圆形)
-- [椭圆形](#椭圆形)
-- [矩形](#矩形)
-- [环形](#环形)
-- [弧形](#弧形)
-- [扇形](#扇形)
-- [正多边形](#正多边形)
-- [折线](#折线)
-- [折线（闭合）](#折线（闭合）)
-- [光滑曲线](#光滑曲线)
-- [光滑曲线（闭合）](#光滑曲线（闭合）)
-- [贝塞尔曲线](#贝塞尔曲线)
-- [贝塞尔曲线（闭合）](#贝塞尔曲线（闭合）)
-- [文本](#文本)
+- [circle](#circle)
+- [ellipse](#ellipse)
+- [rect](#rect)
+- [ring](#ring)
+- [arc](#arc)
+- [sector](#sector)
+- [regPolygon](#regPolygon)
+- [polyline](#polyline)
+- [polyline (closed)](#polyline-closed)
+- [smoothline](#smoothline)
+- [smoothline (closed)](#smoothline-closed)
+- [bezierCurve](#bezierCurve)
+- [bezierCurve (closed)](#bezierCurve-closed)
+- [text](#text)
 
-#### 圆形
+#### circle
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center r-axis coordinate. |
+|       r        | `Number` |   `0`   |      Circle radius.       |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1080,16 +1088,16 @@ const circleConfig = {
 const circle = render.add(circleConfig)
 ```
 
-#### 椭圆形
+#### ellipse
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| hr | `Number` | `0` | 横轴半径 |
-| vr | `Number` | `0` | 竖轴半径 |
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       hr       | `Number` |   `0`   |  Horizontal axis radius.  |
+|       vr       | `Number` |   `0`   |   Vertical axis radius.   |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1123,16 +1131,16 @@ const ellipseConfig = {
 const ellipse = render.add(ellipseConfig)
 ```
 
-#### 矩形
+#### rect
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| x | `Number` | `0` | 矩形左上角x轴坐标 |
-| y | `Number` | `0` | 矩形左上角y轴坐标 |
-| w | `Number` | `0` | Rectangle width. |
-| h | `Number` | `0` | Rectangle height. |
+| Attribute name |   Type   | Default |                        Annotation                         |
+| :------------: | :------: | :-----: | :-------------------------------------------------------: |
+|       x        | `Number` |   `0`   | The x coordinate of the top left corner of the rectangle. |
+|       y        | `Number` |   `0`   | The y coordinate of the top left corner of the rectangle. |
+|       w        | `Number` |   `0`   |                     Rectangle width.                      |
+|       h        | `Number` |   `0`   |                     Rectangle height.                     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1168,15 +1176,15 @@ const rectConfig = {
 const rect = render.add(rectConfig)
 ```
 
-#### 环形
+#### ring
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       r        | `Number` |   `0`   |       Ring radius.        |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1209,18 +1217,18 @@ const ringConfig = {
 const ring = render.add(ringConfig)
 ```
 
-#### 弧形
+#### arc
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
-| startAngle | `Number` | `0` | 弧起始弧度 |
-| endAngle | `Number` | `0` | 弧结束弧度 |
-| clockWise | `Boolean` | `true` | 顺时针 |
+| Attribute name |   Type    | Default |        Annotation         |
+| :------------: | :-------: | :-----: | :-----------------------: |
+|       rx       | `Number`  |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number`  |   `0`   | Center y-axis coordinate. |
+|       r        | `Number`  |   `0`   |        Arc radius.        |
+|   startAngle   | `Number`  |   `0`   |     Arc start angle.      |
+|    endAngle    | `Number`  |   `0`   |      Arc end angle.       |
+|   clockWise    | `Boolean` | `true`  |         Clockwise         |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1258,18 +1266,18 @@ const arcConfig = {
 const arc = render.add(arcConfig)
 ```
 
-#### 扇形
+#### sector
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
-| startAngle | `Number` | `0` | 弧起始弧度 |
-| endAngle | `Number` | `0` | 弧结束弧度 |
-| clockWise | `Boolean` | `true` | 顺时针 |
+| Attribute name |   Type    | Default |        Annotation         |
+| :------------: | :-------: | :-----: | :-----------------------: |
+|       rx       | `Number`  |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number`  |   `0`   | Center y-axis coordinate. |
+|       r        | `Number`  |   `0`   |      Sector radius.       |
+|   startAngle   | `Number`  |   `0`   |    Sector start angle.    |
+|    endAngle    | `Number`  |   `0`   |     Sector end angle.     |
+|   clockWise    | `Boolean` | `true`  |         Clockwise         |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1306,16 +1314,16 @@ const sectorConfig = {
 const sector = render.add(sectorConfig)
 ```
 
-#### 正多边形
+#### regPolygon
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
-| side | `Number` | `0` | 边数 |
+| Attribute name |   Type   | Default |        Annotation         |
+| :------------: | :------: | :-----: | :-----------------------: |
+|       rx       | `Number` |   `0`   | Center x-axis coordinate. |
+|       ry       | `Number` |   `0`   | Center y-axis coordinate. |
+|       r        | `Number` |   `0`   |       Circumradius.       |
+|      side      | `Number` |   `0`   |       Edge number.        |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1351,14 +1359,14 @@ const regPolygonConfig = {
 const regPolygon = render.add(regPolygonConfig)
 ```
 
-#### 折线
+#### polyline
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成折线的点 |
-| close | `Boolean` | `false` | 是否闭合折线 |
+| Attribute name |   Type    | Default |               Annotation               |
+| :------------: | :-------: | :-----: | :------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the polyline. |
+|     close      | `Boolean` | `false` |     Whether to close the polyline.     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1398,7 +1406,7 @@ const polylineConfig = {
 const polyline = render.add(polylineConfig)
 ```
 
-#### 折线（闭合）
+#### polyline (closed)
 
 ```javascript
 const { area: [w, h] } = render
@@ -1447,14 +1455,14 @@ const polylineClosedConfig = {
 const polylineClosed = render.add(polylineClosedConfig)
 ```
 
-#### 光滑曲线
+#### smoothline
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成光滑曲线的点 |
-| close | `Boolean` | `false` | 是否闭合光滑曲线 |
+| Attribute name |   Type    | Default |                Annotation                |
+| :------------: | :-------: | :-----: | :--------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the smoothline. |
+|     close      | `Boolean` | `false` |     Whether to close the smoothline.     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1494,7 +1502,7 @@ const smoothlineConfig = {
 const smoothline = render.add(smoothlineConfig)
 ```
 
-#### 光滑曲线（闭合）
+#### smoothline (closed)
 
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
@@ -1552,14 +1560,14 @@ const smoothlineClosedConfig = {
 const smoothlineClosed = render.add(smoothlineClosedConfig)
 ```
 
-#### 贝塞尔曲线
+#### bezierCurve
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成贝塞尔曲线的点 |
-| close | `Boolean` | `false` | 是否闭合贝塞尔曲线 |
+| Attribute name |   Type    | Default |                Annotation                 |
+| :------------: | :-------: | :-----: | :---------------------------------------: |
+|     points     |  `Array`  |  `[]`   | The points that makes up the bezierCurve. |
+|     close      | `Boolean` | `false` |     Whether to close the bezierCurve.      |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1568,11 +1576,11 @@ const offsetX = w / 2
 const offsetY = h / 2
 
 const points = [
-  // 起始点
+  // Start point
   [-100 + offsetX, -50 + offsetY],
-  // 多段贝塞尔曲线
+  // Multiple sets of bezier curve
   [
-    // 控制点1，控制点2，结束点
+    // controlPoint1,controlPoint2,endPoint
     [0  + offsetX, -50 + offsetY],
     [0  + offsetX, 50 + offsetY],
     [100  + offsetX, 50 + offsetY]
@@ -1606,7 +1614,7 @@ const bezierCurveConfig = {
 const bezierCurve = render.add(bezierCurveConfig)
 ```
 
-#### 贝塞尔曲线（闭合）
+#### bezierCurve (closed)
 
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
@@ -1675,16 +1683,16 @@ const bezierCurveClosedConfig = {
 const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 ```
 
-#### 文本
+#### text
 
-##### shape属性
+##### shape attribute
 
-| 属性名 | 类型 | 默认值 | 注释 |
-| :---: | :---: | :---: | :---: |
-| content | `String` | `''` | 文本内容 |
-| position | `Array`  | `[0, 0]` | 文本位置 |
-| maxWidth | `Number` | `Undefined` | 文本最大宽度 |
-| rowGap | `Number` | `0` |  行间距  |
+| Attribute name |   Type   |   Default   |         Annotation         |
+| :------------: | :------: | :---------: | :------------------------: |
+|    content     | `String` |    `''`     |       Text content.        |
+|    position    | `Array`  |  `[0, 0]`   |    Text start position.    |
+|    maxWidth    | `Number` | `Undefined` | Maximum width of the text. |
+|     rowGap     | `Number` |     `0`     |  Gap between row and row.  |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1733,13 +1741,13 @@ const text = render.add(textConfig)
 
 ##### Tip
 
-* **文本**图形应配置`hoverRect`以支持鼠标事件。
+* Graph of **text** should be configured with `hoverRect` to support mouse events.
 
-* 你可以使用`\n`去实现多行文本。
+* You can use `\n` to implement multiple lines of text.
 
-<h3 align="center">扩展新图形</h3>
+<h3 align="center">Extend New Graph</h3>
 
-CRender提供了一个方法去扩展新的图形，你可以**自定义**想要的图形。
+CRender provides a Function to extend new graph,you can **customize** the graphics you want.
 
 ```javascript
 import { extendNewGraph } from '@jiaminghi/c-render'
@@ -1757,17 +1765,17 @@ extendNewGraph(graphName, graphConfig)
 
 ```javascript
 /**
- * @description 扩展新图形
- * @param {String} name   图形名称
- * @param {Object} config 图形配置
- * @return {Undefined} 无返回值
+ * @description Extend new graph
+ * @param {String} name   Name of Graph
+ * @param {Object} config Configuration of Graph
+ * @return {Undefined} Void
  */
 function extendNewGraph (name, config) {
-    // ...
+  // ...
 }
 ```
 
-#### 图形配置属性
+#### Graph Configuration Attribute
 
 - [shape](#shape-required)
 - [validator](#validator-required)
@@ -1775,91 +1783,94 @@ function extendNewGraph (name, config) {
 - [hoverCheck](#hoverCheck)
 - [setGraphCenter](#setGraphCenter)
 - [move](#move)
-- [扩展新图形示例](#扩展新图形示例)
+- [example of extend new graph](#example-of-extend-new-graph)
 
-#### shape (必须)
+#### shape (Required)
 
 ```javascript
 /**
  * @type {Object}
- * @description 图形形状数据
+ * @description Graph shape data
  */
 config = {
   // ...,
   shape: {
-    // 一些属性...
+    // some property...
   }
 }
 ```
 
-#### validator (必须)
+#### validator (Required)
 
 ```javascript
 /**
  * @type {Function}
- * @description 图形添加时将被调用，用于检测图形配置是否合法，
- *  若返回值为false则终止添加行为
- * @param {Graph} 当前图形实例
- * @return {Boolean} 配置是否合法
+ * @description Graph configuration check
+ * Automatically invoked when the graph is added,
+ * and when the return value is false,
+ * the add behavior is terminated.
+ * @param {Graph} Current graph instance
+ * @return {Boolean} Whether the configuration is legal
  */
 config = {
   // ...,
   validator ({ shape }) {
-    // 检查图形配置...
+    // check configuration...
     // return true | false
   }
 }
 ```
 
-#### draw (必须)
+#### draw (Required)
 
 ```javascript
 /**
  * @type {Function}
- * @description 图形绘制器
- * @param {CRender} 当前CRender实例
- * @param {Graph}   当前图形实例
- * @return {Undefined} 无返回值
+ * @description Graph plotter
+ * @param {CRender} Current CRender instance
+ * @param {Graph}   Current graph instance
+ * @return {Undefined} Void
  */
 config = {
   // ...,
   draw ({ ctx }, { shape }) {
-    // 绘制...
+    // drawing...
   }
 }
 ```
 
-#### hoverCheck (可选)
+#### hoverCheck (Optional)
 
 ```javascript
 /**
  * @type {Function}
- * @description 通过鼠标位置去判断当前图形是否处于鼠标悬浮状态，
- *  用于给mouseEnter, mouseOuter, drag, click事件提供支持。
- * @param {Array<Number>} 鼠标位置
- * @param {Graph}         当前图形实例
- * @return {Boolean} 是否处于鼠标悬浮状态
+ * @description According to the mouse event to detect
+ *  whether the current graphics are in the hover state,
+ *  support for mouseEnter, mouseOuter, drag, click.
+ * @param {Array<Number>} Position of mouse
+ * @param {Graph}         Current graph instance
+ * @return {Boolean} Whether it is in hover
  */
 config = {
   // ...,
   validator ([offsetX, offsetY], { shape }) {
-    // 检测是否处于鼠标悬浮状态...
+    // Check if it is in hover state...
     // return true | false
   }
 }
 ```
 
-#### setGraphCenter (可选)
+#### setGraphCenter (Optional)
 
 ```javascript
 /**
  * @type {Function}
- * @description 设置图形中心点
- *  提供rotate, scale and translate支持
- *  添加图形及图形被拖动后将被调用
- * @param {Event} 鼠标事件 (图形被添加时调用，该参数为null)
- * @param {Graph} 当前图形实例
- * @return {Undefined} 无返回值
+ * @description Set the center point of the graph to
+ *  support rotate, scale and translate.
+ *  Add graph and drag behavior will be called.
+ * @param {Event} Mouse move Event (Called when adding a graphic, the value is null)
+ * @param {Graph} Current graph instance
+ * @return {Undefined} Void
  */
 config = {
   // ...,
@@ -1880,14 +1891,14 @@ config = {
  * @return {Undefined} Void
  */
 config = {
-  // ...,
-  move ([offsetX, offsetY], { shape }) {
-    // 一些操作...
-  }
+    // ...,
+    move ([offsetX, offsetY], { shape }) {
+        // do something...
+    }
 }
 ```
 
-#### 扩展新图形示例
+#### example of extend new graph
 
 ```javascript
 import { extendNewGraph } from '@jiaminghi/c-render'
@@ -1947,18 +1958,18 @@ const circle = {
 extendNewGraph('circle', circle)
 ```
 
-<h3 align="center">相关支持</h3>
+<h3 align="center">Related support</h3>
 
-- [Transition](https://github.com/jiaming743/transition)
+- [Transition](https://github.com/jiaming743/transition/blob/master/README_EN.md)
 
-  提供动画过渡数据 (animationCurve)。
+  Provide animation transition data (animationCurve).
 
-  如果你想扩展新的缓动曲线，请移步 [扩展新曲线](https://github.com/jiaming743/transition#扩展新曲线).
+  If you want to expand the new easing curve, please move [Extend New Easing Curve](https://github.com/jiaming743/Transition/blob/master/README_EN.md#Extend-New-Easing-Curve).
 
 - [BezierCurve](https://github.com/jiaming743/bezierCurve/blob/master/README_EN.md)
 
-  提供贝塞尔曲线支持，例如计算曲线长度，曲线折线互转。
+  Provides support for bezierCurve, such as curve length calculation, conversion between curve and polyline.
 
 - [Color](https://github.com/jiaming743/Color/blob/master/README_EN.md)
 
-  提供颜色数值计算。
+  Provides calculation of color values.
