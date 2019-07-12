@@ -60,7 +60,7 @@ class CRender {
 }
 ```
 
-### 属性
+### 实例属性
 
 - [ctx](#ctx)
 - [area](#area)
@@ -109,7 +109,7 @@ class CRender {
  */
 ```
 
-#### [color](#https://github.com/jiaming743/color)
+#### [color](https://github.com/jiaming743/color)
 
 ```javascript
 /**
@@ -127,7 +127,7 @@ class CRender {
  */
 ```
 
-### 实例方法
+### 原型方法
 
 - [add](#add)
 
@@ -245,7 +245,7 @@ CRender.prototype.launchAnimation = function () {
 
 <h3 align="center">Class Graph</h3>
 
-### 属性
+### 实例属性
 
 **当添加一个图形时，你可以配置这些属性。**
 
@@ -281,7 +281,6 @@ CRender.prototype.launchAnimation = function () {
  * @description 图形形状数据
  * @type {Object}
  */
-
 ```
 
 #### [style](#Class-Style)
@@ -291,7 +290,6 @@ CRender.prototype.launchAnimation = function () {
  * @description 图形样式数据 (Style实例)
  * @type {Style}
  */
-
 ```
 
 #### drag
@@ -302,7 +300,6 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default drag = false
  */
-
 ```
 
 #### hover
@@ -313,7 +310,6 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default hover = false
  */
-
 ```
 
 #### index
@@ -346,7 +342,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-#### [animationCurve](#https://github.com/jiaming743/transition)
+#### [animationCurve](https://github.com/jiaming743/transition)
 
 ```javascript
 /**
@@ -381,37 +377,37 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
-* @description 鼠标进入图形事件处理器
-* @type {Null|Function}
-* @default mouseEnter = null
-*/
+ * @description 鼠标进入图形事件处理器
+ * @type {Null|Function}
+ * @default mouseEnter = null
+ */
 ```
 
 #### mouseOuter
 
 ```javascript
 /**
-* @description 鼠标移出图形事件处理器
-* @type {Null|Function}
-* @default mouseOuter = null
-*/
+ * @description 鼠标移出图形事件处理器
+ * @type {Null|Function}
+ * @default mouseOuter = null
+ */
 ```
 
 #### click
 
 ```javascript
 /**
-* @description 鼠标点击图形事件处理器
-* @type {Null|Function}
-* @default click = null
-*/
+ * @description 鼠标点击图形事件处理器
+ * @type {Null|Function}
+ * @default click = null
+ */
 ```
 
 #### Tip
 
-启用**mouseEnter**、**mouseOuter**、**click**事件支持需要配置图形的`hover` 属性为 `true`。扩展的新图形需要配置**hoverCheck**方法以实现鼠标事件支持。
+启用图形的**mouseEnter**，**mouseOuter**，**click**等事件支持需要将`hover`属性配置为`true`。扩展的新图形需要配置**hoverCheck**方法以提供事件支持。
 
-### 实例方法
+### 原型方法
 
 - [attr](#attr)
 
@@ -500,7 +496,7 @@ Graph.prototype.playAnimation = function () {
 
 ### 生命周期
 
-当想render中添加图形时，你可以配置如下几个方法，它们将在特定时刻被调用。
+当向**render**中添加图形时，你可以配置如下几个方法，它们将在特定时刻被调用。
 
 - [added](#added)
 
@@ -643,7 +639,7 @@ config = {
 
 <h3 align="center">Class Style</h3>
 
-### 属性
+### 实例属性
 
 - [fill](#fill)
 - [stroke](#stroke)
@@ -1002,7 +998,7 @@ config = {
 
 `gradientColor`和`gradientParams`被配置后将自动启用**渐变**。
 
-### 实例方法
+### 原型方法
 
 - [getStyle](#getStyle)
 
@@ -1042,7 +1038,7 @@ CRender提供如下基础矢量图形。
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | rx | `Number` | `0` | 圆心x轴坐标 |
 | ry | `Number` | `0` | 圆心y轴坐标 |
@@ -1084,7 +1080,7 @@ const circle = render.add(circleConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | rx | `Number` | `0` | 圆心x轴坐标 |
 | ry | `Number` | `0` | 圆心y轴坐标 |
@@ -1127,12 +1123,12 @@ const ellipse = render.add(ellipseConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | x | `Number` | `0` | 矩形左上角x轴坐标 |
 | y | `Number` | `0` | 矩形左上角y轴坐标 |
-| w | `Number` | `0` | Rectangle width. |
-| h | `Number` | `0` | Rectangle height. |
+| w | `Number` | `0` | 矩形宽度 |
+| h | `Number` | `0` | 矩形高度 |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1172,11 +1168,11 @@ const rect = render.add(rectConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
+| rx | `Number` | `0` | 中心点x轴坐标 |
+| ry | `Number` | `0` | 中心点y轴坐标 |
+| r | `Number` | `0` | 环半径 |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1213,14 +1209,14 @@ const ring = render.add(ringConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
-| startAngle | `Number` | `0` | 弧起始弧度 |
-| endAngle | `Number` | `0` | 弧结束弧度 |
-| clockWise | `Boolean` | `true` | 顺时针 |
+| rx | `Number` | `0` | 中心点x轴坐标 |
+| ry | `Number` | `0` | 中心点y轴坐标 |
+| r | `Number` | `0` | 弧半径 |
+| startAngle | `Number` | `0` | 弧起始弧度值 |
+| endAngle | `Number` | `0` | 弧结束弧度值 |
+| clockWise | `Boolean` | `true` | 是否顺时针 |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1262,14 +1258,14 @@ const arc = render.add(arcConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
-| startAngle | `Number` | `0` | 弧起始弧度 |
-| endAngle | `Number` | `0` | 弧结束弧度 |
-| clockWise | `Boolean` | `true` | 顺时针 |
+| rx | `Number` | `0` | 中心点x轴坐标 |
+| ry | `Number` | `0` | 中心点y轴坐标 |
+| r | `Number` | `0` | 扇形半径 |
+| startAngle | `Number` | `0` | 扇形起始弧度值 |
+| endAngle | `Number` | `0` | 扇形结束弧度值 |
+| clockWise | `Boolean` | `true` | 是否顺时针 |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1310,11 +1306,11 @@ const sector = render.add(sectorConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
+| rx | `Number` | `0` | 中心点x轴坐标 |
+| ry | `Number` | `0` | 中心点y轴坐标 |
+| r | `Number` | `0` | 外接圆半径 |
 | side | `Number` | `0` | 边数 |
 
 ```javascript
@@ -1355,7 +1351,7 @@ const regPolygon = render.add(regPolygonConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | points | `Array` | `[]` | 构成折线的点 |
 | close | `Boolean` | `false` | 是否闭合折线 |
@@ -1451,7 +1447,7 @@ const polylineClosed = render.add(polylineClosedConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | points | `Array` | `[]` | 构成光滑曲线的点 |
 | close | `Boolean` | `false` | 是否闭合光滑曲线 |
@@ -1556,7 +1552,7 @@ const smoothlineClosed = render.add(smoothlineClosedConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | points | `Array` | `[]` | 构成贝塞尔曲线的点 |
 | close | `Boolean` | `false` | 是否闭合贝塞尔曲线 |
@@ -1679,12 +1675,12 @@ const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 
 ##### shape属性
 
-| 属性名 | 类型 | 默认值 | 注释 |
+| 属性名 | 类型 | 默认值 | 注解 |
 | :---: | :---: | :---: | :---: |
 | content | `String` | `''` | 文本内容 |
-| position | `Array`  | `[0, 0]` | 文本位置 |
+| position | `Array`  | `[0, 0]` | 文本起始位置 |
 | maxWidth | `Number` | `Undefined` | 文本最大宽度 |
-| rowGap | `Number` | `0` |  行间距  |
+| rowGap | `Number` | `0` | 行间距 |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1733,9 +1729,9 @@ const text = render.add(textConfig)
 
 ##### Tip
 
-* **文本**图形应配置`hoverRect`以支持鼠标事件。
+* 图形**text**的鼠标事件依赖`hoverRect`属性，如需鼠标事件生效请对其配置
 
-* 你可以使用`\n`去实现多行文本。
+* 文本中插入`\n`可以进行换行。
 
 <h3 align="center">扩展新图形</h3>
 
@@ -1775,7 +1771,7 @@ function extendNewGraph (name, config) {
 - [hoverCheck](#hoverCheck)
 - [setGraphCenter](#setGraphCenter)
 - [move](#move)
-- [扩展新图形示例](#扩展新图形示例)
+- [扩展示例](#扩展示例)
 
 #### shape (必须)
 
@@ -1887,7 +1883,7 @@ config = {
 }
 ```
 
-#### 扩展新图形示例
+#### 扩展示例
 
 ```javascript
 import { extendNewGraph } from '@jiaminghi/c-render'
@@ -1953,7 +1949,7 @@ extendNewGraph('circle', circle)
 
   提供动画过渡数据 (animationCurve)。
 
-  如果你想扩展新的缓动曲线，请移步 [扩展新曲线](https://github.com/jiaming743/transition#扩展新曲线).
+  如果你想扩展新的缓动曲线，请移步 [扩展新曲线](http://transition.jiaminghi.com/guide/#扩展缓动曲线).
 
 - [BezierCurve](https://github.com/jiaming743/bezierCurve)
 
@@ -1961,4 +1957,4 @@ extendNewGraph('circle', circle)
 
 - [Color](https://github.com/jiaming743/Color)
 
-  提供颜色数值计算。
+  提供了颜色计算，例如获取颜色的rgba值，以便于颜色动画状态的计算。

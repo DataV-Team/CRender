@@ -60,7 +60,7 @@ class CRender {
 }
 ```
 
-### attribute
+### properties
 
 - [ctx](#ctx)
 - [area](#area)
@@ -109,7 +109,7 @@ class CRender {
  */
 ```
 
-#### [color](#https://github.com/jiaming743/color/blob/master/README_EN.md)
+#### [color](https://github.com/jiaming743/color/blob/master/README_EN.md)
 
 ```javascript
 /**
@@ -246,7 +246,7 @@ CRender.prototype.launchAnimation = function () {
 
 <h3 align="center">Class Graph</h3>
 
-### attribute
+### properties
 
 **When adding a graph, you can configure them.**
 
@@ -282,7 +282,6 @@ CRender.prototype.launchAnimation = function () {
  * @description Graph shape data
  * @type {Object}
  */
-
 ```
 
 #### [style](#Class-Style)
@@ -292,7 +291,6 @@ CRender.prototype.launchAnimation = function () {
  * @description Graph style data (Instance of Style)
  * @type {Style}
  */
-
 ```
 
 #### drag
@@ -303,7 +301,6 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default drag = false
  */
-
 ```
 
 #### hover
@@ -314,7 +311,6 @@ CRender.prototype.launchAnimation = function () {
  * @type {Boolean}
  * @default hover = false
  */
-
 ```
 
 #### index
@@ -348,7 +344,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-#### [animationCurve](#https://github.com/jiaming743/transition/blob/master/README_EN.md)
+#### [animationCurve](https://github.com/jiaming743/transition/blob/master/README_EN.md)
 
 ```javascript
 /**
@@ -384,30 +380,30 @@ CRender.prototype.launchAnimation = function () {
 
 ```javascript
 /**
-* @description Mouse enter event handler
-* @type {Null|Function}
-* @default mouseEnter = null
-*/
+ * @description Mouse enter event handler
+ * @type {Null|Function}
+ * @default mouseEnter = null
+  */
 ```
 
 #### mouseOuter
 
 ```javascript
 /**
-* @description Mouse outer event handler
-* @type {Null|Function}
-* @default mouseOuter = null
-*/
+ * @description Mouse outer event handler
+ * @type {Null|Function}
+ * @default mouseOuter = null
+ */
 ```
 
 #### click
 
 ```javascript
 /**
-* @description Mouse click event handler
-* @type {Null|Function}
-* @default click = null
-*/
+ * @description Mouse click event handler
+ * @type {Null|Function}
+ * @default click = null
+ */
 ```
 
 #### Tip
@@ -543,10 +539,10 @@ When you add graph to the render, you can configure the following functions in t
  * @param {Graph} Graph instance
  */
 config = {
-    //...,
-    added ({ shape, style }) {
-        // do something...
-    }
+  //...,
+  added ({ shape, style }) {
+    // do something...
+  }
 }
 ```
 
@@ -561,11 +557,11 @@ config = {
  * @param {CRender} CRender instance
  */
 config = {
-    //...,
-    beforeDraw ({ shape, style }, { ctx }) {
-        // do something...
-        ctx.stroke = 'transparent'
-    }
+  //...,
+  beforeDraw ({ shape, style }, { ctx }) {
+    // do something...
+    ctx.stroke = 'transparent'
+  }
 }
 ```
 
@@ -578,10 +574,10 @@ config = {
  * @param {CRender} CRender instance
  */
 config = {
-    //...,
-    drawed ({ shape, style }, { ctx }) {
-        // do something...
-    }
+  //...,
+  drawed ({ shape, style }, { ctx }) {
+    // do something...
+  }
 }
 ```
 
@@ -595,10 +591,10 @@ config = {
  * @param {Graph} Graph instance
  */
 config = {
-    //...,
-    beforeMove ({ offsetX, offsetY }, { shape, style }) {
-        // do something...
-    }
+  //...,
+  beforeMove ({ offsetX, offsetY }, { shape, style }) {
+    // do something...
+  }
 }
 ```
 
@@ -612,10 +608,10 @@ config = {
  * @param {Graph} Graph instance
  */
 config = {
-    //...,
-    moved ({ offsetX, offsetY }, { shape, style }) {
-        // do something...
-    }
+  //...,
+  moved ({ offsetX, offsetY }, { shape, style }) {
+    // do something...
+  }
 }
 ```
 
@@ -627,10 +623,10 @@ config = {
  * @param {Graph} Graph instance
  */
 config = {
-    //...,
-    beforeDelete ({ shape, style }) {
-        // do something...
-    }
+  //...,
+  beforeDelete ({ shape, style }) {
+    // do something...
+  }
 }
 ```
 
@@ -642,16 +638,16 @@ config = {
  * @param {Graph} Graph instance
  */
 config = {
-    //...,
-    deleted ({ shape, style }) {
-        // do something...
-    }
+  //...,
+  deleted ({ shape, style }) {
+    // do something...
+  }
 }
 ```
 
 <h3 align="center">Class Style</h3>
 
-### attribute
+### properties
 
 - [fill](#fill)
 - [stroke](#stroke)
@@ -1567,7 +1563,7 @@ const smoothlineClosed = render.add(smoothlineClosedConfig)
 | Attribute name |   Type    | Default |                Annotation                 |
 | :------------: | :-------: | :-----: | :---------------------------------------: |
 |     points     |  `Array`  |  `[]`   | The points that makes up the bezierCurve. |
-|     close      | `Boolean` | `false` |     Whether to close the bezierCurve.      |
+|     close      | `Boolean` | `false` |     Whether to close the bezierCurve.     |
 
 ```javascript
 const { area: [w, h] } = render
@@ -1775,7 +1771,7 @@ function extendNewGraph (name, config) {
 }
 ```
 
-#### Graph Configuration Attribute
+#### Graph Configuration Properties
 
 - [shape](#shape-required)
 - [validator](#validator-required)
@@ -1891,10 +1887,10 @@ config = {
  * @return {Undefined} Void
  */
 config = {
-    // ...,
-    move ([offsetX, offsetY], { shape }) {
-        // do something...
-    }
+  // ...,
+  move ([offsetX, offsetY], { shape }) {
+    // do something...
+  }
 }
 ```
 
@@ -1972,4 +1968,4 @@ extendNewGraph('circle', circle)
 
 - [Color](https://github.com/jiaming743/Color/blob/master/README_EN.md)
 
-  Provides calculation of color values.
+  Color calculations are provided, such as obtaining the rgba value of the color to facilitate the calculation of the color animation state.
