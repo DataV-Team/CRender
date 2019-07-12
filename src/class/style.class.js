@@ -89,12 +89,6 @@ export default class Style {
        */
       lineWidth: 0,
       /**
-       * @description Stroke width is not scaled
-       * @type {Boolean}
-       * @default strokeNoScale = false
-       */
-      strokeNoScale: false,
-      /**
        * @description Center point of the graph
        * @type {Array}
        * @default graphCenter = null
