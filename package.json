@@ -12,7 +12,7 @@
     "compile": "babel -d lib/ src/",
     "prepublish": "npm run compile",
     "test:fn": "node test/function.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:ut": "mocha"
   },
   "license": "MIT",
   "bugs": {
@@ -29,13 +29,16 @@
     "@babel/polyfill": "^7.4.4",
     "@jiaminghi/bezier-curve": "0.0.6",
     "@jiaminghi/color": "^0.1.0",
-    "@jiaminghi/transition": "^1.1.10",
-    "core-js": "^3.1.4"
+    "@jiaminghi/transition": "^1.1.10"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
-    "@jiaminghi/fs": "0.0.2"
+    "@babel/register": "^7.4.4",
+    "@jiaminghi/fs": "0.0.2",
+    "chai": "^4.2.0",
+    "core-js": "^3.1.4",
+    "mocha": "^6.1.4"
   }
 }

@@ -7,6 +7,8 @@ const { abs, sqrt, sin, cos, max, min, PI } = Math
  * @return {Object|Array} Clone object
  */
 export function deepClone (object, recursion = false) {
+  if (!object) return object
+
   const { parse, stringify } = JSON
 
   if (!recursion) return parse(stringify(object))
@@ -311,15 +313,6 @@ export function getRegularPolygonPoints (rx, ry, r, side, minus = PI * -0.5) {
   const radians = new Array(side).fill('').map((t, i) => i * radianGap + minus)
 
   return radians.map(radian => getCircleRadianPoint(rx, ry, r, radian))
-}
-
-/**
- * @description Filter array nulls (''|false|null|undefined)
- * @param {Array} arr The array to be filtered
- * @return {Array} Filtered array
- */
-export function filterNull (arr) {
-  return arr.filter(v => (v || v === 0))
 }
 
 export default {
