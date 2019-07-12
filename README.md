@@ -47,7 +47,7 @@ const circle = render.add({ name: 'circle', ... })
 
 <h3 align="center">Class CRender</h3>
 
-### 实例化
+### 类
 
 ```javascript
 /**
@@ -1955,10 +1955,10 @@ extendNewGraph('circle', circle)
 
   如果你想扩展新的缓动曲线，请移步 [扩展新曲线](https://github.com/jiaming743/transition#扩展新曲线).
 
-- [BezierCurve](https://github.com/jiaming743/bezierCurve/blob/master/README_EN.md)
+- [BezierCurve](https://github.com/jiaming743/bezierCurve)
 
   提供贝塞尔曲线支持，例如计算曲线长度，曲线折线互转。
 
-- [Color](https://github.com/jiaming743/Color/blob/master/README_EN.md)
+- [Color](https://github.com/jiaming743/Color)
 
   提供颜色数值计算。

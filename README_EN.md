@@ -47,7 +47,7 @@ const circle = render.add({ name: 'circle', ... })
 
 <h3 align="center">Class CRender</h3>
 
-### Instantiation
+### Class
 
 ```javascript
 /**
