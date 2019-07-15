@@ -4,8 +4,8 @@
 
 <p align="center">
     <a href="https://travis-ci.com/jiaming743/CRender"><img src="https://img.shields.io/travis/com/jiaming743/CRender.svg" alt="Travis CI"></a>
-    <a href="https://github.com/jiaming743/CRender/blob/master/LICENSE"><img src="https://img.shields.io/github/license/jiaming743/CRender.svg" alt="LICENSE" /> </a>
-    <a href="https://www.npmjs.com/package/@jiaminghi/c-render"><img src="https://img.shields.io/npm/v/@jiaminghi/c-render.svg" alt="LICENSE" /> </a>
+    <a href="https://github.com/jiaming743/CRender/blob/master/LICENSE"><img src="https://img.shields.io/github/license/jiaming743/CRender.svg" alt="LICENSE" /></a>
+    <a href="https://www.npmjs.com/package/@jiaminghi/c-render"><img src="https://img.shields.io/npm/v/@jiaminghi/c-render.svg" alt="version" /></a>
 </p>
 
 ### CRender是干什么的?
