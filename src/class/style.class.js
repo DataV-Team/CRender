@@ -210,7 +210,7 @@ export default class Style {
        * @description Extended color that supports animation transition
        * @type {Array|Object}
        * @default colors = null
-       * @example colors = ['#000', '#111', '#222']
+       * @example colors = ['#000', '#111', '#222', 'red' ]
        * @example colors = { a: '#000', b: '#111' }
        */
       colors: null
