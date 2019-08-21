@@ -1,6 +1,0 @@
-src/
-test/
-dist/
-.travis.yml
-gitignore
-package-lock.json

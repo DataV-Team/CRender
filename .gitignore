@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
-lib/
-dist/
+deploy/config.js
 
 package-lock.json
 
