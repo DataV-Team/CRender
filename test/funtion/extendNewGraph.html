@@ -11,7 +11,7 @@
         padding: 0px;
       }
     </style>
-    <script src="../../dist/crender.js"></script>
+    <script src="../../dist/crender.map.js"></script>
   </head>
 
   <body>
@@ -21,6 +21,8 @@
   </body>
 
   <script>
+    const { CRender, extendNewGraph } = window.CRender
+
     const render = new CRender(document.querySelector('#canvas'))
 
     extendNewGraph('line', {
