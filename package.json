@@ -26,7 +26,7 @@
   ],
   "homepage": "https://github.com/jiaming743/CRender#readme",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "core-js": "^3.1.4",
     "@jiaminghi/bezier-curve": "0.0.6",
     "@jiaminghi/color": "^0.1.0",
     "@jiaminghi/transition": "^1.1.10"
@@ -38,7 +38,6 @@
     "@babel/register": "^7.4.4",
     "@jiaminghi/fs": "0.0.2",
     "chai": "^4.2.0",
-    "core-js": "^3.1.4",
     "ftp": "^0.3.10",
     "mocha": "^6.1.4"
   }
