@@ -1,5 +1,3 @@
-import "regenerator-runtime/runtime"
-
 import CRender from './class/crender.class'
 
 import { extendNewGraph } from './config/graphs'
