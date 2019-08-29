@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/c-render",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Canvas-based vector graphics rendering plugin",
   "main": "lib/index.js",
