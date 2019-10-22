@@ -3,8 +3,8 @@
 <h1 align="center">CRender</h1>
 
 <p align="center">
-    <a href="https://travis-ci.com/jiaming743/CRender"><img src="https://img.shields.io/travis/com/jiaming743/CRender.svg" alt="Travis CI"></a>
-    <a href="https://github.com/jiaming743/CRender/blob/master/LICENSE"><img src="https://img.shields.io/github/license/jiaming743/CRender.svg" alt="LICENSE" /></a>
+    <a href="https://travis-ci.com/DataV-Team/CRender"><img src="https://img.shields.io/travis/com/DataV-Team/CRender.svg" alt="Travis CI"></a>
+    <a href="https://github.com/DataV-Team/CRender/blob/master/LICENSE"><img src="https://img.shields.io/github/license/DataV-Team/CRender.svg" alt="LICENSE" /></a>
     <a href="https://www.npmjs.com/package/@jiaminghi/c-render"><img src="https://img.shields.io/npm/v/@jiaminghi/c-render.svg" alt="version" /></a>
 </p>
 
@@ -123,7 +123,7 @@ class CRender {
  */
 ```
 
-#### [color](https://github.com/jiaming743/color)
+#### [color](https://github.com/DataV-Team/color)
 
 ```javascript
 /**
@@ -132,7 +132,7 @@ class CRender {
  */
 ```
 
-#### [bezierCurve](https://github.com/jiaming743/BezierCurve)
+#### [bezierCurve](https://github.com/DataV-Team/BezierCurve)
 
 ```javascript
 /**
@@ -356,7 +356,7 @@ CRender.prototype.launchAnimation = function () {
  */
 ```
 
-#### [animationCurve](https://github.com/jiaming743/transition)
+#### [animationCurve](https://github.com/DataV-Team/transition)
 
 ```javascript
 /**
@@ -1959,16 +1959,16 @@ extendNewGraph('circle', circle)
 
 <h3 align="center">相关支持</h3>
 
-- [Transition](https://github.com/jiaming743/transition)
+- [Transition](https://github.com/DataV-Team/transition)
 
   提供动画过渡数据 (animationCurve)。
 
   如果你想扩展新的缓动曲线，请移步 [扩展新曲线](http://transition.jiaminghi.com/guide/#扩展缓动曲线).
 
-- [BezierCurve](https://github.com/jiaming743/bezierCurve)
+- [BezierCurve](https://github.com/DataV-Team/bezierCurve)
 
   提供贝塞尔曲线支持，例如计算曲线长度，曲线折线互转。
 
-- [Color](https://github.com/jiaming743/Color)
+- [Color](https://github.com/DataV-Team/Color)
 
   提供了颜色计算，例如获取颜色的rgba值，以便于颜色动画状态的计算。
