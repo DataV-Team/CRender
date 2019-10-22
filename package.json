@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jiaming743/CRender.git"
+    "url": "https://github.com/DataV-Team/CRender.git"
   },
   "scripts": {
     "build": "node build/index.js",
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jiaming743/CRender/issues"
+    "url": "https://github.com/DataV-Team/CRender/issues"
   },
   "keywords": [
     "canvas",
@@ -24,7 +24,7 @@
     "graph",
     "vector"
   ],
-  "homepage": "https://github.com/jiaming743/CRender#readme",
+  "homepage": "https://github.com/DataV-Team/CRender#readme",
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "@jiaminghi/bezier-curve": "*",
