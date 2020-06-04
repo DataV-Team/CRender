@@ -4,7 +4,9 @@
     <meta charset="utf8" />
     <title>drawAllGraph</title>
     <style>
-      html, body, #canvas {
+      html,
+      body,
+      #canvas {
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -15,9 +17,7 @@
   </head>
 
   <body>
-
     <canvas id="canvas"></canvas>
-
   </body>
 
   <script>
@@ -27,7 +27,7 @@
 
     const [w, h] = render.area
 
-    function randomNum (minNum, maxNum) {
+    function randomNum(minNum, maxNum) {
       switch (arguments.length) {
         case 1:
           return parseInt(Math.random() * minNum + 1, 10)
@@ -40,25 +40,27 @@
       }
     }
 
-    const circles = new Array(100).fill(0).map(foo => render.add({
-      name: 'circle',
-      shape: {
-        rx: randomNum(0, w),
-        ry: randomNum(0, h),
-        r: 10
-      },
-      style: {
-        fill: '#ffee97',
-        stroke: 'goldenrod',
-        lineWidth: 2
-      }
-    }))
+    const circles = new Array(100).fill(0).map(foo =>
+      render.add({
+        name: 'circle',
+        shape: {
+          rx: randomNum(0, w),
+          ry: randomNum(0, h),
+          r: 10,
+        },
+        style: {
+          fill: '#ffee97',
+          stroke: 'goldenrod',
+          lineWidth: 2,
+        },
+      })
+    )
 
-    function wait (time) {
+    function wait(time) {
       return new Promise(resolve => setTimeout(resolve, time))
     }
 
-    async function start () {
+    async function start() {
       await wait(1000)
 
       render.clearArea()
@@ -69,6 +71,5 @@
     }
 
     start()
-
   </script>
 </html>

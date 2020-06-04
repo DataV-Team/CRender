@@ -43,7 +43,7 @@ Detailed documents and examples can be viewed on the [HomePage](http://crender.j
 - [Extend New Graph](#Extend-New-Graph)
 - [Related support](#Related-support)
 
-------
+---
 
 <h3 align="center">Use</h3>
 
@@ -70,7 +70,7 @@ const circle = render.add({ name: 'circle', ... })
  * @return {CRender} Instance of CRender
  */
 class CRender {
-    // ...
+  // ...
 }
 ```
 
@@ -180,7 +180,7 @@ class CRender {
  * @return {Graph} Graph instance
  */
 CRender.prototype.add = function (config = {}) {
-	// ...
+  // ...
 }
 ```
 
@@ -192,8 +192,7 @@ CRender.prototype.add = function (config = {}) {
  * @param {Graph} graph The target to be cloned
  * @return {Graph} Cloned graph
  */
-CRender.prototype.clone = function (graph) {
-}
+CRender.prototype.clone = function (graph) {}
 ```
 
 #### delGraph
@@ -205,7 +204,7 @@ CRender.prototype.clone = function (graph) {
  * @return {Undefined} Void
  */
 CRender.prototype.delGraph = function (graph) {
-	// ...
+  // ...
 }
 ```
 
@@ -217,7 +216,7 @@ CRender.prototype.delGraph = function (graph) {
  * @return {Undefined} Void
  */
 CRender.prototype.delAllGraph = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -229,7 +228,7 @@ CRender.prototype.delAllGraph = function () {
  * @return {Undefined} Void
  */
 CRender.prototype.drawAllGraph = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -241,7 +240,7 @@ CRender.prototype.drawAllGraph = function () {
  * @return {Undefined} Void
  */
 CRender.prototype.clearArea = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -254,7 +253,7 @@ CRender.prototype.clearArea = function () {
  * @return {Promise} Animation Promise
  */
 CRender.prototype.launchAnimation = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -397,7 +396,7 @@ CRender.prototype.launchAnimation = function () {
  * @description Mouse enter event handler
  * @type {Null|Function}
  * @default mouseEnter = null
-  */
+ */
 ```
 
 #### mouseOuter
@@ -456,7 +455,7 @@ Enable **mouseEnter**, **mouseOuter**, **click** event support requires configur
  * @return {Undefined} Void
  */
 Graph.prototype.attr = function (attrName, change = undefined) {
-	// ...
+  // ...
 }
 ```
 
@@ -473,7 +472,7 @@ Graph.prototype.attr = function (attrName, change = undefined) {
  * @return {Promise} Animation Promise
  */
 Graph.prototype.animation = async function (attrName, change, wait = false) {
-	// ...
+  // ...
 }
 ```
 
@@ -554,9 +553,9 @@ When you add graph to the render, you can configure the following functions in t
  */
 config = {
   //...,
-  added ({ shape, style }) {
+  added({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -572,10 +571,10 @@ config = {
  */
 config = {
   //...,
-  beforeDraw ({ shape, style }, { ctx }) {
+  beforeDraw({ shape, style }, { ctx }) {
     // do something...
     ctx.stroke = 'transparent'
-  }
+  },
 }
 ```
 
@@ -589,9 +588,9 @@ config = {
  */
 config = {
   //...,
-  drawed ({ shape, style }, { ctx }) {
+  drawed({ shape, style }, { ctx }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -606,9 +605,9 @@ config = {
  */
 config = {
   //...,
-  beforeMove ({ offsetX, offsetY }, { shape, style }) {
+  beforeMove({ offsetX, offsetY }, { shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -623,9 +622,9 @@ config = {
  */
 config = {
   //...,
-  moved ({ offsetX, offsetY }, { shape, style }) {
+  moved({ offsetX, offsetY }, { shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -638,9 +637,9 @@ config = {
  */
 config = {
   //...,
-  beforeDelete ({ shape, style }) {
+  beforeDelete({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -653,9 +652,9 @@ config = {
  */
 config = {
   //...,
-  deleted ({ shape, style }) {
+  deleted({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -698,7 +697,7 @@ config = {
 
 ```javascript
 /**
- * @description Rgba value of graph fill color 
+ * @description Rgba value of graph fill color
  * @type {Array<Number>}
  * @default fill = [0, 0, 0, 1]
  */
@@ -708,7 +707,7 @@ config = {
 
 ```javascript
 /**
- * @description Rgba value of graph stroke color 
+ * @description Rgba value of graph stroke color
  * @type {Array<Number>}
  * @default stroke = [0, 0, 0, 1]
  */
@@ -782,7 +781,7 @@ config = {
 
 ```javascript
 /**
- * @description Rgba value of graph shadow color 
+ * @description Rgba value of graph shadow color
  * @type {Array<Number>}
  * @default shadowColor = [0, 0, 0, 0]
  */
@@ -1033,8 +1032,7 @@ config = {
  * @description Get the current style configuration
  * @return {Object} Style configuration
  */
-Style.prototype.getStyle = function () {
-}
+Style.prototype.getStyle = function () {}
 ```
 
 <h3 align="center">Examples</h3>
@@ -1067,7 +1065,9 @@ CRender provides some basic vector graph, examples are as follows.
 |       r        | `Number` |   `0`   |      Circle radius.       |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const circleConfig = {
   name: 'circle',
@@ -1077,22 +1077,22 @@ const circleConfig = {
   shape: {
     rx: w / 2,
     ry: h / 2,
-    r: 50
+    r: 50,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { r: 70 }, true)
     this.animation('style', { shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { r: 50 }, true)
     this.animation('style', { shadowBlur: 0 })
-  }
+  },
 }
 
 const circle = render.add(circleConfig)
@@ -1110,7 +1110,9 @@ const circle = render.add(circleConfig)
 |       vr       | `Number` |   `0`   |   Vertical axis radius.   |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const ellipseConfig = {
   name: 'ellipse',
@@ -1121,21 +1123,21 @@ const ellipseConfig = {
     rx: w / 2,
     ry: h / 2,
     hr: 80,
-    vr: 30
+    vr: 30,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
     scale: [1, 1],
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { scale: [1.5, 1.5], shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { scale: [1, 1], shadowBlur: 0 })
-  }
+  },
 }
 
 const ellipse = render.add(ellipseConfig)
@@ -1153,7 +1155,9 @@ const ellipse = render.add(ellipseConfig)
 |       h        | `Number` |   `0`   |                     Rectangle height.                     |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const rectConfig = {
   name: 'rect',
@@ -1161,26 +1165,26 @@ const rectConfig = {
   hover: true,
   drag: true,
   shape: {
-  x: w / 2 - rectWidth / 2,
-  y: h / 2 - rectHeight / 2,
-  w: rectWidth,
-  h: rectHeight
+    x: w / 2 - rectWidth / 2,
+    y: h / 2 - rectHeight / 2,
+    w: rectWidth,
+    h: rectHeight,
   },
   style: {
-  fill: '#9ce5f4',
-  shadowBlur: 0,
-  shadowColor: '#66eece',
-  hoverCursor: 'pointer',
-  translate: [0, 0]
+    fill: '#9ce5f4',
+    shadowBlur: 0,
+    shadowColor: '#66eece',
+    hoverCursor: 'pointer',
+    translate: [0, 0],
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { w: 400 }, true)
     this.animation('style', { shadowBlur: 20, translate: [-100, 0] })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { w: 200 }, true)
     this.animation('style', { shadowBlur: 0, translate: [0, 0] })
-  }
+  },
 }
 
 const rect = render.add(rectConfig)
@@ -1197,7 +1201,9 @@ const rect = render.add(rectConfig)
 |       r        | `Number` |   `0`   |       Ring radius.        |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const ringConfig = {
   name: 'ring',
@@ -1207,21 +1213,21 @@ const ringConfig = {
   shape: {
     rx: w / 2,
     ry: h / 2,
-    r: 50
+    r: 50,
   },
   style: {
     stroke: '#9ce5f4',
     lineWidth: 20,
     hoverCursor: 'pointer',
     shadowBlur: 0,
-    shadowColor: '#66eece'
+    shadowColor: '#66eece',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const ring = render.add(ringConfig)
@@ -1241,7 +1247,9 @@ const ring = render.add(ringConfig)
 |   clockWise    | `Boolean` | `true`  |         Clockwise         |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const arcConfig = {
   name: 'arc',
@@ -1253,7 +1261,7 @@ const arcConfig = {
     ry: h / 2,
     r: 60,
     startAngle: 0,
-    endAngle: Math.PI / 3
+    endAngle: Math.PI / 3,
   },
   style: {
     stroke: '#9ce5f4',
@@ -1261,16 +1269,16 @@ const arcConfig = {
     shadowBlur: 0,
     rotate: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI }, true)
     this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const arc = render.add(arcConfig)
@@ -1290,7 +1298,9 @@ const arc = render.add(arcConfig)
 |   clockWise    | `Boolean` | `true`  |         Clockwise         |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const sectorConfig = {
   name: 'sector',
@@ -1302,23 +1312,23 @@ const sectorConfig = {
     ry: h / 2,
     r: 60,
     startAngle: 0,
-    endAngle: Math.PI / 3
+    endAngle: Math.PI / 3,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     rotate: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI, r: 70 }, true)
     this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const sector = render.add(sectorConfig)
@@ -1336,7 +1346,9 @@ const sector = render.add(sectorConfig)
 |      side      | `Number` |   `0`   |       Edge number.        |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const regPolygonConfig = {
   name: 'regPolygon',
@@ -1347,23 +1359,23 @@ const regPolygonConfig = {
     rx: w / 2,
     ry: h / 2,
     r: 60,
-    side: 6
+    side: 6,
   },
   style: {
     fill: '#9ce5f4',
     hoverCursor: 'pointer',
     shadowBlur: 0,
     rotate: 0,
-    shadowColor: '#66eece'
+    shadowColor: '#66eece',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI, r: 100 }, true)
     this.animation('style', { shadowBlur: 20, rotate: 180 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0 })
-  }
+  },
 }
 
 const regPolygon = render.add(regPolygonConfig)
@@ -1379,16 +1391,17 @@ const regPolygon = render.add(regPolygonConfig)
 |     close      | `Boolean` | `false` |     Whether to close the polyline.     |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 const polylineConfig = {
   name: 'polyline',
@@ -1396,21 +1409,21 @@ const polylineConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     stroke: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const polyline = render.add(polylineConfig)
@@ -1419,16 +1432,17 @@ const polyline = render.add(polylineConfig)
 #### polyline (closed)
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 points[2][1] += top * 1.3
 
@@ -1439,27 +1453,27 @@ const polylineClosedConfig = {
   drag: true,
   shape: {
     points,
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20 }, true)
     const pointsCloned = deepClone(this.shape.points)
     pointsCloned[2][1] += top * 0.3
     this.animation('shape', { points: pointsCloned })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0 }, true)
     const pointsCloned = deepClone(this.shape.points)
     pointsCloned[2][1] -= top * 0.3
     this.animation('shape', { points: pointsCloned })
-  }
+  },
 }
 
 const polylineClosed = render.add(polylineClosedConfig)
@@ -1475,16 +1489,17 @@ const polylineClosed = render.add(polylineClosedConfig)
 |     close      | `Boolean` | `false` |     Whether to close the smoothline.     |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 const smoothlineConfig = {
   name: 'smoothline',
@@ -1492,21 +1507,21 @@ const smoothlineConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     stroke: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const smoothline = render.add(smoothlineConfig)
@@ -1517,18 +1532,19 @@ const smoothline = render.add(smoothlineConfig)
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
 
-function getPoints (radius, centerPoint, pointNum) {
-  const PIDived = Math.PI * 2 / pointNum
+function getPoints(radius, centerPoint, pointNum) {
+  const PIDived = (Math.PI * 2) / pointNum
 
-  const points = new Array(pointNum).fill('')
-    .map((foo, i) =>
-      getCircleRadianPoint(...centerPoint, radius, PIDived * i)
-    )
+  const points = new Array(pointNum)
+    .fill('')
+    .map((foo, i) => getCircleRadianPoint(...centerPoint, radius, PIDived * i))
 
   return points
 }
 
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const radius = h / 3
 const centerPoint = [w / 2, h / 2]
@@ -1540,22 +1556,22 @@ const smoothlineClosedConfig = {
   drag: true,
   shape: {
     points: getPoints(radius, centerPoint, 3),
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20, rotate: 120 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0, rotate: 0 })
   },
-  setGraphCenter (e, { style }) {
+  setGraphCenter(e, { style }) {
     if (e) {
       const { movementX, movementY } = e
       const [cx, cy] = style.graphCenter
@@ -1564,7 +1580,7 @@ const smoothlineClosedConfig = {
     } else {
       style.graphCenter = [...centerPoint]
     }
-  }
+  },
 }
 
 const smoothlineClosed = render.add(smoothlineClosedConfig)
@@ -1580,7 +1596,9 @@ const smoothlineClosed = render.add(smoothlineClosedConfig)
 |     close      | `Boolean` | `false` |     Whether to close the bezierCurve.     |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const offsetX = w / 2
 const offsetY = h / 2
@@ -1591,9 +1609,9 @@ const points = [
   // Multiple sets of bezier curve
   [
     // controlPoint1,controlPoint2,endPoint
-    [0  + offsetX, -50 + offsetY],
-    [0  + offsetX, 50 + offsetY],
-    [100  + offsetX, 50 + offsetY]
+    [0 + offsetX, -50 + offsetY],
+    [0 + offsetX, 50 + offsetY],
+    [100 + offsetX, 50 + offsetY],
   ],
   // [...],[...]
 ]
@@ -1604,21 +1622,21 @@ const bezierCurveConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     lineWidth: 10,
     stroke: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const bezierCurve = render.add(bezierCurveConfig)
@@ -1629,28 +1647,28 @@ const bezierCurve = render.add(bezierCurveConfig)
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
 
-function getPetalPoints (insideRadius, outsideRadius, petalNum, petalCenter) {
-  const PI2Dived = Math.PI * 2 / (petalNum * 3)
+function getPetalPoints(insideRadius, outsideRadius, petalNum, petalCenter) {
+  const PI2Dived = (Math.PI * 2) / (petalNum * 3)
 
-  let points = new Array(petalNum * 3).fill('')
-  .map((foo, i) => 
-    getCircleRadianPoint(...petalCenter,
-      i % 3 === 0 ? insideRadius : outsideRadius,
-      PI2Dived * i)
-  )
+  let points = new Array(petalNum * 3)
+    .fill('')
+    .map((foo, i) =>
+      getCircleRadianPoint(...petalCenter, i % 3 === 0 ? insideRadius : outsideRadius, PI2Dived * i)
+    )
 
   const startPoint = points.shift()
   points.push(startPoint)
 
-  points = new Array(petalNum).fill('')
-  .map(foo => points.splice(0, 3))
+  points = new Array(petalNum).fill('').map(foo => points.splice(0, 3))
 
   points.unshift(startPoint)
 
   return points
 }
 
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const petalCenter = [w / 2, h / 2]
 const [raidus1, raidus2, raidus3, raidus4] = [h / 6, h / 2.5, h / 3, h / 2]
@@ -1662,23 +1680,23 @@ const bezierCurveClosedConfig = {
   drag: true,
   shape: {
     points: getPetalPoints(raidus1, raidus2, 6, petalCenter),
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e, { style: { graphCenter } }) {
+  mouseEnter(e, { style: { graphCenter } }) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 }, true)
     this.animation('shape', { points: getPetalPoints(raidus3, raidus4, 6, graphCenter) })
   },
-  mouseOuter (e, { style: { graphCenter } }) {
+  mouseOuter(e, { style: { graphCenter } }) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 }, true)
     this.animation('shape', { points: getPetalPoints(raidus1, raidus2, 6, graphCenter) })
   },
-  setGraphCenter (e, { style }) {
+  setGraphCenter(e, { style }) {
     if (e) {
       const { movementX, movementY } = e
       const [cx, cy] = style.graphCenter
@@ -1687,7 +1705,7 @@ const bezierCurveClosedConfig = {
     } else {
       style.graphCenter = [...petalCenter]
     }
-  }
+  },
 }
 
 const bezierCurveClosed = render.add(bezierCurveClosedConfig)
@@ -1705,11 +1723,13 @@ const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 |     rowGap     | `Number` |     `0`     |  Gap between row and row.  |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const centerPoint = [w / 2, h / 2]
 
-const hoverRect = [w / 2 - 100, h / 2 - 30 ,200, 60]
+const hoverRect = [w / 2 - 100, h / 2 - 30, 200, 60]
 
 const textConfig = {
   name: 'text',
@@ -1720,7 +1740,7 @@ const textConfig = {
   shape: {
     content: 'CRender',
     position: centerPoint,
-    maxWidth: 200
+    maxWidth: 200,
   },
   style: {
     fill: '#9ce5f4',
@@ -1730,20 +1750,20 @@ const textConfig = {
     shadowColor: '#66eece',
     hoverCursor: 'pointer',
     scale: [1, 1],
-    rotate: 0
+    rotate: 0,
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20, scale: [1.5, 1.5], rotate: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0, scale: [1, 1], rotate: 0 })
   },
-  moved (e, { hoverRect }) {
+  moved(e, { hoverRect }) {
     const { movementX, movementY } = e
 
     hoverRect[0] += movementX
     hoverRect[1] += movementY
-  }
+  },
 }
 
 const text = render.add(textConfig)
@@ -1751,9 +1771,9 @@ const text = render.add(textConfig)
 
 ##### Tip
 
-* Graph of **text** should be configured with `hoverRect` to support mouse events.
+- Graph of **text** should be configured with `hoverRect` to support mouse events.
 
-* You can use `\n` to implement multiple lines of text.
+- You can use `\n` to implement multiple lines of text.
 
 <h3 align="center">Extend New Graph</h3>
 
@@ -1780,7 +1800,7 @@ extendNewGraph(graphName, graphConfig)
  * @param {Object} config Configuration of Graph
  * @return {Undefined} Void
  */
-function extendNewGraph (name, config) {
+function extendNewGraph(name, config) {
   // ...
 }
 ```
@@ -1806,7 +1826,7 @@ config = {
   // ...,
   shape: {
     // some property...
-  }
+  },
 }
 ```
 
@@ -1824,10 +1844,10 @@ config = {
  */
 config = {
   // ...,
-  validator ({ shape }) {
+  validator({ shape }) {
     // check configuration...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -1843,9 +1863,9 @@ config = {
  */
 config = {
   // ...,
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     // drawing...
-  }
+  },
 }
 ```
 
@@ -1863,10 +1883,10 @@ config = {
  */
 config = {
   // ...,
-  validator ([offsetX, offsetY], { shape }) {
+  validator([offsetX, offsetY], { shape }) {
     // Check if it is in hover state...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -1884,9 +1904,9 @@ config = {
  */
 config = {
   // ...,
-  setGraphCenter ([offsetX, offsetY], { style }) {
+  setGraphCenter([offsetX, offsetY], { style }) {
     // style.graphCenter = [offsetX, offsetY]
-  }
+  },
 }
 ```
 
@@ -1902,9 +1922,9 @@ config = {
  */
 config = {
   // ...,
-  move ([offsetX, offsetY], { shape }) {
+  move([offsetX, offsetY], { shape }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -1917,10 +1937,10 @@ const circle = {
   shape: {
     rx: 0,
     ry: 0,
-    r: 0
+    r: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
@@ -1932,7 +1952,7 @@ const circle = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r } = shape
@@ -1945,24 +1965,24 @@ const circle = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, r } = shape
 
     return checkPointIsInCircle(rx, ry, r, position)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 extendNewGraph('circle', circle)

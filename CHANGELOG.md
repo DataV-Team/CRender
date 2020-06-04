@@ -79,7 +79,6 @@
 - **gradient:** Support `linear` and `radial` gradient.
 - **prototype:** Add the Style.prototype.`getStyle` to get style configuration.
 
-
 # 0.2.11-alpha (2019-05-29)
 
 ### Perfect

@@ -4,7 +4,9 @@
     <meta charset="utf8" />
     <title>extendNewGraph</title>
     <style>
-      html, body, #canvas {
+      html,
+      body,
+      #canvas {
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -15,9 +17,7 @@
   </head>
 
   <body>
-
     <canvas id="canvas"></canvas>
-
   </body>
 
   <script>
@@ -29,16 +29,12 @@
       shape: {
         x: 0,
         y: 0,
-        length: 0
+        length: 0,
       },
-      validator ({ shape }) {
+      validator({ shape }) {
         const { x, y, length } = shape
 
-        if (
-          typeof x !== 'number' ||
-          typeof y !== 'number' ||
-          typeof length !== 'number'
-        ) {
+        if (typeof x !== 'number' || typeof y !== 'number' || typeof length !== 'number') {
           console.warn('line: shape attributes all must be a number!')
 
           return false
@@ -46,7 +42,7 @@
 
         return true
       },
-      draw ({ ctx }, { shape }) {
+      draw({ ctx }, { shape }) {
         const { x, y, length } = shape
 
         ctx.beginPath()
@@ -58,7 +54,7 @@
         ctx.closePath()
 
         ctx.stroke()
-      }
+      },
     })
 
     const [w, h] = render.area
@@ -68,13 +64,12 @@
       shape: {
         x: w / 2 - 100,
         y: h / 2,
-        length: 200
+        length: 200,
       },
       style: {
         stroke: '#ffee97',
-        lineWidth: 10
-      }
+        lineWidth: 10,
+      },
     })
-
   </script>
 </html>

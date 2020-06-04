@@ -8,12 +8,12 @@
     <a href="https://www.npmjs.com/package/@jiaminghi/c-render"><img src="https://img.shields.io/npm/v/@jiaminghi/c-render.svg" alt="version" /></a>
 </p>
 
-### CRender是干什么的?
+### CRender 是干什么的?
 
 - 它是一个基于**canvas**的**矢量**图形渲染插件。
 - 它对图形提供动画和鼠标事件支持。
 
-### npm安装
+### npm 安装
 
 ```shell
 $ npm install @jiaminghi/c-render
@@ -43,7 +43,7 @@ $ npm install @jiaminghi/c-render
 - [扩展新图形](#扩展新图形)
 - [相关支持](#相关支持)
 
-------
+---
 
 <h3 align="center">使用</h3>
 
@@ -70,7 +70,7 @@ const circle = render.add({ name: 'circle', ... })
  * @return {CRender} CRender实例
  */
 class CRender {
-    // ...
+  // ...
 }
 ```
 
@@ -145,7 +145,7 @@ class CRender {
 
 - [add](#add)
 
-  向render中添加图形
+  向 render 中添加图形
 
 - [clone](#clone)
 
@@ -153,23 +153,23 @@ class CRender {
 
 - [delGraph](#delGraph)
 
-  删除render中的一个图形
+  删除 render 中的一个图形
 
 - [delAllGraph](#delAllGraph)
 
-  删除render中所有的图形
+  删除 render 中所有的图形
 
 - [drawAllGraph](#drawAllGraph)
 
-  渲染render中所有的图形
+  渲染 render 中所有的图形
 
 - [clearArea](#clearArea)
 
-  擦除canvas绘制区域
+  擦除 canvas 绘制区域
 
 - [launchAnimation](#launchAnimation)
 
-  使动画队列不为空且animationPause不为false的图形进行动画
+  使动画队列不为空且 animationPause 不为 false 的图形进行动画
 
 #### add
 
@@ -180,7 +180,7 @@ class CRender {
  * @return {Graph} 图形实例
  */
 CRender.prototype.add = function (config = {}) {
-	// ...
+  // ...
 }
 ```
 
@@ -192,8 +192,7 @@ CRender.prototype.add = function (config = {}) {
  * @param {Graph} graph 将要被克隆的图形
  * @return {Graph} 克隆的图形
  */
-CRender.prototype.clone = function (graph) {
-}
+CRender.prototype.clone = function (graph) {}
 ```
 
 #### delGraph
@@ -205,7 +204,7 @@ CRender.prototype.clone = function (graph) {
  * @return {Undefined} 无返回值
  */
 CRender.prototype.delGraph = function (graph) {
-	// ...
+  // ...
 }
 ```
 
@@ -217,7 +216,7 @@ CRender.prototype.delGraph = function (graph) {
  * @return {Undefined} 无返回值
  */
 CRender.prototype.delAllGraph = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -229,7 +228,7 @@ CRender.prototype.delAllGraph = function () {
  * @return {Undefined} 无返回值
  */
 CRender.prototype.drawAllGraph = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -241,7 +240,7 @@ CRender.prototype.drawAllGraph = function () {
  * @return {Undefined} 无返回值
  */
 CRender.prototype.clearArea = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -253,7 +252,7 @@ CRender.prototype.clearArea = function () {
  * @return {Promise} Animation Promise
  */
 CRender.prototype.launchAnimation = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -453,7 +452,7 @@ CRender.prototype.launchAnimation = function () {
  * @return {Undefined} 无返回值
  */
 Graph.prototype.attr = function (attrName, change = undefined) {
-	// ...
+  // ...
 }
 ```
 
@@ -468,7 +467,7 @@ Graph.prototype.attr = function (attrName, change = undefined) {
  * @return {Promise} Animation Promise
  */
 Graph.prototype.animation = async function (attrName, change, wait = false) {
-	// ...
+  // ...
 }
 ```
 
@@ -549,9 +548,9 @@ Graph.prototype.playAnimation = function () {
  */
 config = {
   //...,
-  added ({ shape, style }) {
+  added({ shape, style }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -566,10 +565,10 @@ config = {
  */
 config = {
   //...,
-  beforeDraw ({ shape, style }, { ctx }) {
+  beforeDraw({ shape, style }, { ctx }) {
     // 一些操作...
     ctx.stroke = 'transparent'
-  }
+  },
 }
 ```
 
@@ -583,9 +582,9 @@ config = {
  */
 config = {
   //...,
-  drawed ({ shape, style }, { ctx }) {
+  drawed({ shape, style }, { ctx }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -599,9 +598,9 @@ config = {
  */
 config = {
   //...,
-  beforeMove ({ offsetX, offsetY }, { shape, style }) {
+  beforeMove({ offsetX, offsetY }, { shape, style }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -615,9 +614,9 @@ config = {
  */
 config = {
   //...,
-  moved ({ offsetX, offsetY }, { shape, style }) {
+  moved({ offsetX, offsetY }, { shape, style }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -630,9 +629,9 @@ config = {
  */
 config = {
   //...,
-  beforeDelete ({ shape, style }) {
+  beforeDelete({ shape, style }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -645,9 +644,9 @@ config = {
  */
 config = {
   //...,
-  deleted ({ shape, style }) {
+  deleted({ shape, style }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -1025,13 +1024,12 @@ config = {
  * @description 获取图形当前样式配置
  * @return {Object} 样式配置
  */
-Style.prototype.getStyle = function () {
-}
+Style.prototype.getStyle = function () {}
 ```
 
 <h3 align="center">示例</h3>
 
-CRender提供如下基础矢量图形。
+CRender 提供如下基础矢量图形。
 
 - [圆形](#圆形)
 - [椭圆形](#椭圆形)
@@ -1050,16 +1048,18 @@ CRender提供如下基础矢量图形。
 
 #### 圆形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| r | `Number` | `0` | 圆半径 |
+| 属性名 |   类型   | 默认值 |     注解      |
+| :----: | :------: | :----: | :-----------: |
+|   rx   | `Number` |  `0`   | 圆心 x 轴坐标 |
+|   ry   | `Number` |  `0`   | 圆心 y 轴坐标 |
+|   r    | `Number` |  `0`   |    圆半径     |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const circleConfig = {
   name: 'circle',
@@ -1069,22 +1069,22 @@ const circleConfig = {
   shape: {
     rx: w / 2,
     ry: h / 2,
-    r: 50
+    r: 50,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { r: 70 }, true)
     this.animation('style', { shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { r: 50 }, true)
     this.animation('style', { shadowBlur: 0 })
-  }
+  },
 }
 
 const circle = render.add(circleConfig)
@@ -1092,17 +1092,19 @@ const circle = render.add(circleConfig)
 
 #### 椭圆形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 圆心x轴坐标 |
-| ry | `Number` | `0` | 圆心y轴坐标 |
-| hr | `Number` | `0` | 横轴半径 |
-| vr | `Number` | `0` | 竖轴半径 |
+| 属性名 |   类型   | 默认值 |     注解      |
+| :----: | :------: | :----: | :-----------: |
+|   rx   | `Number` |  `0`   | 圆心 x 轴坐标 |
+|   ry   | `Number` |  `0`   | 圆心 y 轴坐标 |
+|   hr   | `Number` |  `0`   |   横轴半径    |
+|   vr   | `Number` |  `0`   |   竖轴半径    |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const ellipseConfig = {
   name: 'ellipse',
@@ -1113,21 +1115,21 @@ const ellipseConfig = {
     rx: w / 2,
     ry: h / 2,
     hr: 80,
-    vr: 30
+    vr: 30,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
     scale: [1, 1],
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { scale: [1.5, 1.5], shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { scale: [1, 1], shadowBlur: 0 })
-  }
+  },
 }
 
 const ellipse = render.add(ellipseConfig)
@@ -1135,17 +1137,19 @@ const ellipse = render.add(ellipseConfig)
 
 #### 矩形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| x | `Number` | `0` | 矩形左上角x轴坐标 |
-| y | `Number` | `0` | 矩形左上角y轴坐标 |
-| w | `Number` | `0` | 矩形宽度 |
-| h | `Number` | `0` | 矩形高度 |
+| 属性名 |   类型   | 默认值 |        注解         |
+| :----: | :------: | :----: | :-----------------: |
+|   x    | `Number` |  `0`   | 矩形左上角 x 轴坐标 |
+|   y    | `Number` |  `0`   | 矩形左上角 y 轴坐标 |
+|   w    | `Number` |  `0`   |      矩形宽度       |
+|   h    | `Number` |  `0`   |      矩形高度       |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const rectConfig = {
   name: 'rect',
@@ -1153,26 +1157,26 @@ const rectConfig = {
   hover: true,
   drag: true,
   shape: {
-  x: w / 2 - rectWidth / 2,
-  y: h / 2 - rectHeight / 2,
-  w: rectWidth,
-  h: rectHeight
+    x: w / 2 - rectWidth / 2,
+    y: h / 2 - rectHeight / 2,
+    w: rectWidth,
+    h: rectHeight,
   },
   style: {
-  fill: '#9ce5f4',
-  shadowBlur: 0,
-  shadowColor: '#66eece',
-  hoverCursor: 'pointer',
-  translate: [0, 0]
+    fill: '#9ce5f4',
+    shadowBlur: 0,
+    shadowColor: '#66eece',
+    hoverCursor: 'pointer',
+    translate: [0, 0],
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { w: 400 }, true)
     this.animation('style', { shadowBlur: 20, translate: [-100, 0] })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { w: 200 }, true)
     this.animation('style', { shadowBlur: 0, translate: [0, 0] })
-  }
+  },
 }
 
 const rect = render.add(rectConfig)
@@ -1180,16 +1184,18 @@ const rect = render.add(rectConfig)
 
 #### 环形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 中心点x轴坐标 |
-| ry | `Number` | `0` | 中心点y轴坐标 |
-| r | `Number` | `0` | 环半径 |
+| 属性名 |   类型   | 默认值 |      注解       |
+| :----: | :------: | :----: | :-------------: |
+|   rx   | `Number` |  `0`   | 中心点 x 轴坐标 |
+|   ry   | `Number` |  `0`   | 中心点 y 轴坐标 |
+|   r    | `Number` |  `0`   |     环半径      |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const ringConfig = {
   name: 'ring',
@@ -1199,21 +1205,21 @@ const ringConfig = {
   shape: {
     rx: w / 2,
     ry: h / 2,
-    r: 50
+    r: 50,
   },
   style: {
     stroke: '#9ce5f4',
     lineWidth: 20,
     hoverCursor: 'pointer',
     shadowBlur: 0,
-    shadowColor: '#66eece'
+    shadowColor: '#66eece',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const ring = render.add(ringConfig)
@@ -1221,19 +1227,21 @@ const ring = render.add(ringConfig)
 
 #### 弧形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 中心点x轴坐标 |
-| ry | `Number` | `0` | 中心点y轴坐标 |
-| r | `Number` | `0` | 弧半径 |
-| startAngle | `Number` | `0` | 弧起始弧度值 |
-| endAngle | `Number` | `0` | 弧结束弧度值 |
-| clockWise | `Boolean` | `true` | 是否顺时针 |
+|   属性名   |   类型    | 默认值 |      注解       |
+| :--------: | :-------: | :----: | :-------------: |
+|     rx     | `Number`  |  `0`   | 中心点 x 轴坐标 |
+|     ry     | `Number`  |  `0`   | 中心点 y 轴坐标 |
+|     r      | `Number`  |  `0`   |     弧半径      |
+| startAngle | `Number`  |  `0`   |  弧起始弧度值   |
+|  endAngle  | `Number`  |  `0`   |  弧结束弧度值   |
+| clockWise  | `Boolean` | `true` |   是否顺时针    |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const arcConfig = {
   name: 'arc',
@@ -1245,7 +1253,7 @@ const arcConfig = {
     ry: h / 2,
     r: 60,
     startAngle: 0,
-    endAngle: Math.PI / 3
+    endAngle: Math.PI / 3,
   },
   style: {
     stroke: '#9ce5f4',
@@ -1253,16 +1261,16 @@ const arcConfig = {
     shadowBlur: 0,
     rotate: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI }, true)
     this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const arc = render.add(arcConfig)
@@ -1270,19 +1278,21 @@ const arc = render.add(arcConfig)
 
 #### 扇形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 中心点x轴坐标 |
-| ry | `Number` | `0` | 中心点y轴坐标 |
-| r | `Number` | `0` | 扇形半径 |
-| startAngle | `Number` | `0` | 扇形起始弧度值 |
-| endAngle | `Number` | `0` | 扇形结束弧度值 |
-| clockWise | `Boolean` | `true` | 是否顺时针 |
+|   属性名   |   类型    | 默认值 |      注解       |
+| :--------: | :-------: | :----: | :-------------: |
+|     rx     | `Number`  |  `0`   | 中心点 x 轴坐标 |
+|     ry     | `Number`  |  `0`   | 中心点 y 轴坐标 |
+|     r      | `Number`  |  `0`   |    扇形半径     |
+| startAngle | `Number`  |  `0`   | 扇形起始弧度值  |
+|  endAngle  | `Number`  |  `0`   | 扇形结束弧度值  |
+| clockWise  | `Boolean` | `true` |   是否顺时针    |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const sectorConfig = {
   name: 'sector',
@@ -1294,23 +1304,23 @@ const sectorConfig = {
     ry: h / 2,
     r: 60,
     startAngle: 0,
-    endAngle: Math.PI / 3
+    endAngle: Math.PI / 3,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     rotate: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI, r: 70 }, true)
     this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
-  }
+  },
 }
 
 const sector = render.add(sectorConfig)
@@ -1318,17 +1328,19 @@ const sector = render.add(sectorConfig)
 
 #### 正多边形
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| rx | `Number` | `0` | 中心点x轴坐标 |
-| ry | `Number` | `0` | 中心点y轴坐标 |
-| r | `Number` | `0` | 外接圆半径 |
-| side | `Number` | `0` | 边数 |
+| 属性名 |   类型   | 默认值 |      注解       |
+| :----: | :------: | :----: | :-------------: |
+|   rx   | `Number` |  `0`   | 中心点 x 轴坐标 |
+|   ry   | `Number` |  `0`   | 中心点 y 轴坐标 |
+|   r    | `Number` |  `0`   |   外接圆半径    |
+|  side  | `Number` |  `0`   |      边数       |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const regPolygonConfig = {
   name: 'regPolygon',
@@ -1339,23 +1351,23 @@ const regPolygonConfig = {
     rx: w / 2,
     ry: h / 2,
     r: 60,
-    side: 6
+    side: 6,
   },
   style: {
     fill: '#9ce5f4',
     hoverCursor: 'pointer',
     shadowBlur: 0,
     rotate: 0,
-    shadowColor: '#66eece'
+    shadowColor: '#66eece',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('shape', { endAngle: Math.PI, r: 100 }, true)
     this.animation('style', { shadowBlur: 20, rotate: 180 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
     this.animation('style', { shadowBlur: 0, rotate: 0 })
-  }
+  },
 }
 
 const regPolygon = render.add(regPolygonConfig)
@@ -1363,24 +1375,25 @@ const regPolygon = render.add(regPolygonConfig)
 
 #### 折线
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成折线的点 |
-| close | `Boolean` | `false` | 是否闭合折线 |
+| 属性名 |   类型    | 默认值  |     注解     |
+| :----: | :-------: | :-----: | :----------: |
+| points |  `Array`  |  `[]`   | 构成折线的点 |
+| close  | `Boolean` | `false` | 是否闭合折线 |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 const polylineConfig = {
   name: 'polyline',
@@ -1388,21 +1401,21 @@ const polylineConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     stroke: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const polyline = render.add(polylineConfig)
@@ -1411,16 +1424,17 @@ const polyline = render.add(polylineConfig)
 #### 折线（闭合）
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 points[2][1] += top * 1.3
 
@@ -1431,27 +1445,27 @@ const polylineClosedConfig = {
   drag: true,
   shape: {
     points,
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20 }, true)
     const pointsCloned = deepClone(this.shape.points)
     pointsCloned[2][1] += top * 0.3
     this.animation('shape', { points: pointsCloned })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0 }, true)
     const pointsCloned = deepClone(this.shape.points)
     pointsCloned[2][1] -= top * 0.3
     this.animation('shape', { points: pointsCloned })
-  }
+  },
 }
 
 const polylineClosed = render.add(polylineClosedConfig)
@@ -1459,24 +1473,25 @@ const polylineClosed = render.add(polylineClosedConfig)
 
 #### 光滑曲线
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成光滑曲线的点 |
-| close | `Boolean` | `false` | 是否闭合光滑曲线 |
+| 属性名 |   类型    | 默认值  |       注解       |
+| :----: | :-------: | :-----: | :--------------: |
+| points |  `Array`  |  `[]`   | 构成光滑曲线的点 |
+| close  | `Boolean` | `false` | 是否闭合光滑曲线 |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const top = h / 3
-const bottom = h / 3 * 2
+const bottom = (h / 3) * 2
 const gap = w / 10
 
 const beginX = w / 2 - gap * 2
 
-const points = new Array(5).fill('').map((t, i) =>
-  [beginX + gap * i, i % 2 === 0 ? top : bottom])
+const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
 const smoothlineConfig = {
   name: 'smoothline',
@@ -1484,21 +1499,21 @@ const smoothlineConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     stroke: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const smoothline = render.add(smoothlineConfig)
@@ -1509,18 +1524,19 @@ const smoothline = render.add(smoothlineConfig)
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
 
-function getPoints (radius, centerPoint, pointNum) {
-  const PIDived = Math.PI * 2 / pointNum
+function getPoints(radius, centerPoint, pointNum) {
+  const PIDived = (Math.PI * 2) / pointNum
 
-  const points = new Array(pointNum).fill('')
-    .map((foo, i) =>
-      getCircleRadianPoint(...centerPoint, radius, PIDived * i)
-    )
+  const points = new Array(pointNum)
+    .fill('')
+    .map((foo, i) => getCircleRadianPoint(...centerPoint, radius, PIDived * i))
 
   return points
 }
 
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const radius = h / 3
 const centerPoint = [w / 2, h / 2]
@@ -1532,22 +1548,22 @@ const smoothlineClosedConfig = {
   drag: true,
   shape: {
     points: getPoints(radius, centerPoint, 3),
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     lineWidth: 10,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20, rotate: 120 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0, rotate: 0 })
   },
-  setGraphCenter (e, { style }) {
+  setGraphCenter(e, { style }) {
     if (e) {
       const { movementX, movementY } = e
       const [cx, cy] = style.graphCenter
@@ -1556,7 +1572,7 @@ const smoothlineClosedConfig = {
     } else {
       style.graphCenter = [...centerPoint]
     }
-  }
+  },
 }
 
 const smoothlineClosed = render.add(smoothlineClosedConfig)
@@ -1564,15 +1580,17 @@ const smoothlineClosed = render.add(smoothlineClosedConfig)
 
 #### 贝塞尔曲线
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| points | `Array` | `[]` | 构成贝塞尔曲线的点 |
-| close | `Boolean` | `false` | 是否闭合贝塞尔曲线 |
+| 属性名 |   类型    | 默认值  |        注解        |
+| :----: | :-------: | :-----: | :----------------: |
+| points |  `Array`  |  `[]`   | 构成贝塞尔曲线的点 |
+| close  | `Boolean` | `false` | 是否闭合贝塞尔曲线 |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const offsetX = w / 2
 const offsetY = h / 2
@@ -1583,9 +1601,9 @@ const points = [
   // 多段贝塞尔曲线
   [
     // 控制点1，控制点2，结束点
-    [0  + offsetX, -50 + offsetY],
-    [0  + offsetX, 50 + offsetY],
-    [100  + offsetX, 50 + offsetY]
+    [0 + offsetX, -50 + offsetY],
+    [0 + offsetX, 50 + offsetY],
+    [100 + offsetX, 50 + offsetY],
   ],
   // [...],[...]
 ]
@@ -1596,21 +1614,21 @@ const bezierCurveConfig = {
   hover: true,
   drag: true,
   shape: {
-    points
+    points,
   },
   style: {
     lineWidth: 10,
     stroke: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 })
-  }
+  },
 }
 
 const bezierCurve = render.add(bezierCurveConfig)
@@ -1621,28 +1639,28 @@ const bezierCurve = render.add(bezierCurveConfig)
 ```javascript
 import { getCircleRadianPoint } from '../../CRender/lib/util'
 
-function getPetalPoints (insideRadius, outsideRadius, petalNum, petalCenter) {
-  const PI2Dived = Math.PI * 2 / (petalNum * 3)
+function getPetalPoints(insideRadius, outsideRadius, petalNum, petalCenter) {
+  const PI2Dived = (Math.PI * 2) / (petalNum * 3)
 
-  let points = new Array(petalNum * 3).fill('')
-  .map((foo, i) => 
-    getCircleRadianPoint(...petalCenter,
-      i % 3 === 0 ? insideRadius : outsideRadius,
-      PI2Dived * i)
-  )
+  let points = new Array(petalNum * 3)
+    .fill('')
+    .map((foo, i) =>
+      getCircleRadianPoint(...petalCenter, i % 3 === 0 ? insideRadius : outsideRadius, PI2Dived * i)
+    )
 
   const startPoint = points.shift()
   points.push(startPoint)
 
-  points = new Array(petalNum).fill('')
-  .map(foo => points.splice(0, 3))
+  points = new Array(petalNum).fill('').map(foo => points.splice(0, 3))
 
   points.unshift(startPoint)
 
   return points
 }
 
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const petalCenter = [w / 2, h / 2]
 const [raidus1, raidus2, raidus3, raidus4] = [h / 6, h / 2.5, h / 3, h / 2]
@@ -1654,23 +1672,23 @@ const bezierCurveClosedConfig = {
   drag: true,
   shape: {
     points: getPetalPoints(raidus1, raidus2, 6, petalCenter),
-    close: true
+    close: true,
   },
   style: {
     fill: '#9ce5f4',
     shadowBlur: 0,
     shadowColor: '#66eece',
-    hoverCursor: 'pointer'
+    hoverCursor: 'pointer',
   },
-  mouseEnter (e, { style: { graphCenter } }) {
+  mouseEnter(e, { style: { graphCenter } }) {
     this.animation('style', { lineWidth: 20, shadowBlur: 20 }, true)
     this.animation('shape', { points: getPetalPoints(raidus3, raidus4, 6, graphCenter) })
   },
-  mouseOuter (e, { style: { graphCenter } }) {
+  mouseOuter(e, { style: { graphCenter } }) {
     this.animation('style', { lineWidth: 10, shadowBlur: 0 }, true)
     this.animation('shape', { points: getPetalPoints(raidus1, raidus2, 6, graphCenter) })
   },
-  setGraphCenter (e, { style }) {
+  setGraphCenter(e, { style }) {
     if (e) {
       const { movementX, movementY } = e
       const [cx, cy] = style.graphCenter
@@ -1679,7 +1697,7 @@ const bezierCurveClosedConfig = {
     } else {
       style.graphCenter = [...petalCenter]
     }
-  }
+  },
 }
 
 const bezierCurveClosed = render.add(bezierCurveClosedConfig)
@@ -1687,21 +1705,23 @@ const bezierCurveClosed = render.add(bezierCurveClosedConfig)
 
 #### 文本
 
-##### shape属性
+##### shape 属性
 
-| 属性名 | 类型 | 默认值 | 注解 |
-| :---: | :---: | :---: | :---: |
-| content | `String` | `''` | 文本内容 |
-| position | `Array`  | `[0, 0]` | 文本起始位置 |
+|  属性名  |   类型   |   默认值    |     注解     |
+| :------: | :------: | :---------: | :----------: |
+| content  | `String` |    `''`     |   文本内容   |
+| position | `Array`  |  `[0, 0]`   | 文本起始位置 |
 | maxWidth | `Number` | `Undefined` | 文本最大宽度 |
-| rowGap | `Number` | `0` | 行间距 |
+|  rowGap  | `Number` |     `0`     |    行间距    |
 
 ```javascript
-const { area: [w, h] } = render
+const {
+  area: [w, h],
+} = render
 
 const centerPoint = [w / 2, h / 2]
 
-const hoverRect = [w / 2 - 100, h / 2 - 30 ,200, 60]
+const hoverRect = [w / 2 - 100, h / 2 - 30, 200, 60]
 
 const textConfig = {
   name: 'text',
@@ -1712,7 +1732,7 @@ const textConfig = {
   shape: {
     content: 'CRender',
     position: centerPoint,
-    maxWidth: 200
+    maxWidth: 200,
   },
   style: {
     fill: '#9ce5f4',
@@ -1722,20 +1742,20 @@ const textConfig = {
     shadowColor: '#66eece',
     hoverCursor: 'pointer',
     scale: [1, 1],
-    rotate: 0
+    rotate: 0,
   },
-  mouseEnter (e) {
+  mouseEnter(e) {
     this.animation('style', { shadowBlur: 20, scale: [1.5, 1.5], rotate: 30 })
   },
-  mouseOuter (e) {
+  mouseOuter(e) {
     this.animation('style', { shadowBlur: 0, scale: [1, 1], rotate: 0 })
   },
-  moved (e, { hoverRect }) {
+  moved(e, { hoverRect }) {
     const { movementX, movementY } = e
 
     hoverRect[0] += movementX
     hoverRect[1] += movementY
-  }
+  },
 }
 
 const text = render.add(textConfig)
@@ -1743,13 +1763,13 @@ const text = render.add(textConfig)
 
 ##### Tip
 
-* 图形**text**的鼠标事件依赖`hoverRect`属性，如需鼠标事件生效请对其配置
+- 图形**text**的鼠标事件依赖`hoverRect`属性，如需鼠标事件生效请对其配置
 
-* 文本中插入`\n`可以进行换行。
+- 文本中插入`\n`可以进行换行。
 
 <h3 align="center">扩展新图形</h3>
 
-CRender提供了一个方法去扩展新的图形，你可以**自定义**想要的图形。
+CRender 提供了一个方法去扩展新的图形，你可以**自定义**想要的图形。
 
 ```javascript
 import { extendNewGraph } from '@jiaminghi/c-render'
@@ -1772,8 +1792,8 @@ extendNewGraph(graphName, graphConfig)
  * @param {Object} config 图形配置
  * @return {Undefined} 无返回值
  */
-function extendNewGraph (name, config) {
-    // ...
+function extendNewGraph(name, config) {
+  // ...
 }
 ```
 
@@ -1798,7 +1818,7 @@ config = {
   // ...,
   shape: {
     // 一些属性...
-  }
+  },
 }
 ```
 
@@ -1814,10 +1834,10 @@ config = {
  */
 config = {
   // ...,
-  validator ({ shape }) {
+  validator({ shape }) {
     // 检查图形配置...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -1833,9 +1853,9 @@ config = {
  */
 config = {
   // ...,
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     // 绘制...
-  }
+  },
 }
 ```
 
@@ -1852,10 +1872,10 @@ config = {
  */
 config = {
   // ...,
-  validator ([offsetX, offsetY], { shape }) {
+  validator([offsetX, offsetY], { shape }) {
     // 检测是否处于鼠标悬浮状态...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -1873,9 +1893,9 @@ config = {
  */
 config = {
   // ...,
-  setGraphCenter ([offsetX, offsetY], { style }) {
+  setGraphCenter([offsetX, offsetY], { style }) {
     // style.graphCenter = [offsetX, offsetY]
-  }
+  },
 }
 ```
 
@@ -1891,9 +1911,9 @@ config = {
  */
 config = {
   // ...,
-  move ([offsetX, offsetY], { shape }) {
+  move([offsetX, offsetY], { shape }) {
     // 一些操作...
-  }
+  },
 }
 ```
 
@@ -1906,10 +1926,10 @@ const circle = {
   shape: {
     rx: 0,
     ry: 0,
-    r: 0
+    r: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
@@ -1921,7 +1941,7 @@ const circle = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r } = shape
@@ -1934,24 +1954,24 @@ const circle = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, r } = shape
 
     return checkPointIsInCircle(rx, ry, r, position)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 extendNewGraph('circle', circle)
@@ -1971,4 +1991,4 @@ extendNewGraph('circle', circle)
 
 - [Color](https://github.com/DataV-Team/Color)
 
-  提供了颜色计算，例如获取颜色的rgba值，以便于颜色动画状态的计算。
+  提供了颜色计算，例如获取颜色的 rgba 值，以便于颜色动画状态的计算。

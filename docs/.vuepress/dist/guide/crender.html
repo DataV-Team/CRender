@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CRender | CRender</title>
+    <meta name="description" content="基于Canvas的矢量图形渲染插件">
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="preload" href="/assets/css/0.styles.ed763282.css" as="style"><link rel="preload" href="/assets/js/app.480932d2.js" as="script"><link rel="preload" href="/assets/js/5.5ab6cec6.js" as="script"><link rel="preload" href="/assets/js/24.b314d9e4.js" as="script"><link rel="prefetch" href="/assets/js/1.8fb37d83.js"><link rel="prefetch" href="/assets/js/10.90cef666.js"><link rel="prefetch" href="/assets/js/11.59363ab1.js"><link rel="prefetch" href="/assets/js/12.7f0e60c8.js"><link rel="prefetch" href="/assets/js/13.d9bea6a3.js"><link rel="prefetch" href="/assets/js/14.52db5d60.js"><link rel="prefetch" href="/assets/js/15.e5219430.js"><link rel="prefetch" href="/assets/js/16.18498f56.js"><link rel="prefetch" href="/assets/js/17.f97dc697.js"><link rel="prefetch" href="/assets/js/18.98b1d849.js"><link rel="prefetch" href="/assets/js/19.08aff127.js"><link rel="prefetch" href="/assets/js/2.0d902091.js"><link rel="prefetch" href="/assets/js/20.6294489e.js"><link rel="prefetch" href="/assets/js/21.2480d0a3.js"><link rel="prefetch" href="/assets/js/22.047c14d4.js"><link rel="prefetch" href="/assets/js/23.49fd739f.js"><link rel="prefetch" href="/assets/js/25.33db3df8.js"><link rel="prefetch" href="/assets/js/26.baf9fe58.js"><link rel="prefetch" href="/assets/js/27.12181430.js"><link rel="prefetch" href="/assets/js/28.1b225c42.js"><link rel="prefetch" href="/assets/js/3.e6351491.js"><link rel="prefetch" href="/assets/js/6.f0e82098.js"><link rel="prefetch" href="/assets/js/7.fe062aa5.js"><link rel="prefetch" href="/assets/js/8.c71a62a4.js"><link rel="prefetch" href="/assets/js/9.ce66efc2.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ed763282.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">CRender</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">指南</a></div><div class="nav-item"><a href="/extend/" class="nav-link">扩展</a></div><div class="nav-item"><a href="/support/" class="nav-link">支持</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/Crender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/crender.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li><li class="dropdown-item"><!----> <a href="/EN/guide/crender.html" class="nav-link">English</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">指南</a></div><div class="nav-item"><a href="/extend/" class="nav-link">扩展</a></div><div class="nav-item"><a href="/support/" class="nav-link">支持</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/Crender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/crender.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li><li class="dropdown-item"><!----> <a href="/EN/guide/crender.html" class="nav-link">English</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><a href="/guide/crender.html" class="active sidebar-link">CRender</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#类" class="sidebar-link">类</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#实例化" class="sidebar-link">实例化</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#实例属性" class="sidebar-link">实例属性</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#ctx" class="sidebar-link">ctx</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#area" class="sidebar-link">area</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#animationstatus" class="sidebar-link">animationStatus</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#graphs" class="sidebar-link">graphs</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#color" class="sidebar-link">color</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#beziercurve" class="sidebar-link">bezierCurve</a></li></ul></li><li class="sidebar-sub-header"><a href="/guide/crender.html#原型方法" class="sidebar-link">原型方法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#add" class="sidebar-link">add</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#clone" class="sidebar-link">clone</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#delgraph" class="sidebar-link">delGraph</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#delallgraph" class="sidebar-link">delAllGraph</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#drawallgraph" class="sidebar-link">drawAllGraph</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#cleararea" class="sidebar-link">clearArea</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#launchanimation" class="sidebar-link">launchAnimation</a></li></ul></li></ul></li><li><a href="/guide/graph.html" class="sidebar-link">Graph</a></li><li><a href="/guide/style.html" class="sidebar-link">Style</a></li><li><a href="/guide/graphs.html" class="sidebar-link">基础图形</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="crender"><a href="#crender" aria-hidden="true" class="header-anchor">#</a> CRender</h1> <p>这里将介绍<strong>CRender</strong>类，例如实例化、实例属性以及原型方法。</p> <h2 id="类"><a href="#类" aria-hidden="true" class="header-anchor">#</a> 类</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description           CRender类
+ * @param {Object} canvas Canvas节点
+ * @return {CRender}      CRender实例
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">CRender</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="实例化"><a href="#实例化" aria-hidden="true" class="header-anchor">#</a> 实例化</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> CRender <span class="token keyword">from</span> <span class="token string">'@jiaminghi/c-render'</span>
+
+<span class="token keyword">const</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'canvas'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> render <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CRender</span><span class="token punctuation">(</span>canvas<span class="token punctuation">)</span>
+</code></pre></div><h2 id="实例属性"><a href="#实例属性" aria-hidden="true" class="header-anchor">#</a> 实例属性</h2> <p>这里是<strong>CRender</strong>实例属性的介绍。</p> <h3 id="ctx"><a href="#ctx" aria-hidden="true" class="header-anchor">#</a> ctx</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description canvas context
+ * @type {Object}
+ * @example ctx = canvas.getContext('2d')
+ */</span>
+</code></pre></div><h3 id="area"><a href="#area" aria-hidden="true" class="header-anchor">#</a> area</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description canvas宽高
+ * @type {Array&lt;Number&gt;}
+ * @example area = [300，100]
+ */</span>
+</code></pre></div><h3 id="animationstatus"><a href="#animationstatus" aria-hidden="true" class="header-anchor">#</a> animationStatus</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description render是否处于动画渲染中
+ * @type {Boolean}
+ * @example animationStatus = true|false
+ */</span>
+</code></pre></div><h3 id="graphs"><a href="#graphs" aria-hidden="true" class="header-anchor">#</a> graphs</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 已添加的图形
+ * @type {Array&lt;Graph&gt;}
+ * @example graphs = [Graph, Graph, ...]
+ */</span>
+</code></pre></div><h3 id="color"><a href="#color" aria-hidden="true" class="header-anchor">#</a> <a href="https://github.com/jiaming743/color" target="_blank" rel="noopener noreferrer">color<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 颜色插件
+ * @type {Object}
+ */</span>
+</code></pre></div><h3 id="beziercurve"><a href="#beziercurve" aria-hidden="true" class="header-anchor">#</a> <a href="https://github.com/jiaming743/BezierCurve" target="_blank" rel="noopener noreferrer">bezierCurve<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 贝塞尔曲线插件
+ * @type {Object}
+ */</span>
+</code></pre></div><h2 id="原型方法"><a href="#原型方法" aria-hidden="true" class="header-anchor">#</a> 原型方法</h2> <p>这里是<strong>CRender</strong>原型方法的介绍。</p> <h3 id="add"><a href="#add" aria-hidden="true" class="header-anchor">#</a> add</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 向render中添加图形
+ * @param {Object} config 图形配置
+ * @return {Graph} 图形实例
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">config <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="clone"><a href="#clone" aria-hidden="true" class="header-anchor">#</a> clone</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 克隆一个图形
+ * @param {Graph} graph 将要被克隆的图形
+ * @return {Graph} 克隆的图形
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">clone</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">graph</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="delgraph"><a href="#delgraph" aria-hidden="true" class="header-anchor">#</a> delGraph</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 删除render中的一个图形
+ * @param {Graph} graph 将要删除的图形实例
+ * @return {Undefined} 无返回值
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">delGraph</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">graph</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="delallgraph"><a href="#delallgraph" aria-hidden="true" class="header-anchor">#</a> delAllGraph</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 删除render中所有的图形
+ * @return {Undefined} 无返回值
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">delAllGraph</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="drawallgraph"><a href="#drawallgraph" aria-hidden="true" class="header-anchor">#</a> drawAllGraph</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 渲染render中所有的图形
+ * @return {Undefined} 无返回值
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">drawAllGraph</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="cleararea"><a href="#cleararea" aria-hidden="true" class="header-anchor">#</a> clearArea</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 擦除canvas绘制区域
+ * @return {Undefined} 无返回值
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">clearArea</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="launchanimation"><a href="#launchanimation" aria-hidden="true" class="header-anchor">#</a> launchAnimation</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 使动画队列不为空且animationPause不为false的图形进行动画
+ * @return {Promise} Animation Promise
+ */</span>
+<span class="token class-name">CRender</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">launchAnimation</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/guide/" class="prev router-link-active">
+          介绍
+        </a></span> <span class="next"><a href="/guide/graph.html">
+          Graph
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.480932d2.js" defer></script><script src="/assets/js/5.5ab6cec6.js" defer></script><script src="/assets/js/24.b314d9e4.js" defer></script>
+  </body>
+</html>

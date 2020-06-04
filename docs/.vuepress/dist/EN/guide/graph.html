@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Graph | CRender</title>
+    <meta name="description" content="Canvas-based vector graphics rendering plugin">
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="preload" href="/assets/css/0.styles.ed763282.css" as="style"><link rel="preload" href="/assets/js/app.480932d2.js" as="script"><link rel="preload" href="/assets/js/5.5ab6cec6.js" as="script"><link rel="preload" href="/assets/js/17.f97dc697.js" as="script"><link rel="prefetch" href="/assets/js/1.8fb37d83.js"><link rel="prefetch" href="/assets/js/10.90cef666.js"><link rel="prefetch" href="/assets/js/11.59363ab1.js"><link rel="prefetch" href="/assets/js/12.7f0e60c8.js"><link rel="prefetch" href="/assets/js/13.d9bea6a3.js"><link rel="prefetch" href="/assets/js/14.52db5d60.js"><link rel="prefetch" href="/assets/js/15.e5219430.js"><link rel="prefetch" href="/assets/js/16.18498f56.js"><link rel="prefetch" href="/assets/js/18.98b1d849.js"><link rel="prefetch" href="/assets/js/19.08aff127.js"><link rel="prefetch" href="/assets/js/2.0d902091.js"><link rel="prefetch" href="/assets/js/20.6294489e.js"><link rel="prefetch" href="/assets/js/21.2480d0a3.js"><link rel="prefetch" href="/assets/js/22.047c14d4.js"><link rel="prefetch" href="/assets/js/23.49fd739f.js"><link rel="prefetch" href="/assets/js/24.b314d9e4.js"><link rel="prefetch" href="/assets/js/25.33db3df8.js"><link rel="prefetch" href="/assets/js/26.baf9fe58.js"><link rel="prefetch" href="/assets/js/27.12181430.js"><link rel="prefetch" href="/assets/js/28.1b225c42.js"><link rel="prefetch" href="/assets/js/3.e6351491.js"><link rel="prefetch" href="/assets/js/6.f0e82098.js"><link rel="prefetch" href="/assets/js/7.fe062aa5.js"><link rel="prefetch" href="/assets/js/8.c71a62a4.js"><link rel="prefetch" href="/assets/js/9.ce66efc2.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ed763282.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/EN/" class="home-link router-link-active"><!----> <span class="site-name">CRender</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/EN/guide/" class="nav-link router-link-active">Guide</a></div><div class="nav-item"><a href="/EN/extend/" class="nav-link">Extend</a></div><div class="nav-item"><a href="/EN/support/" class="nav-link">Support</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/Crender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/graph.html" class="nav-link">简体中文</a></li><li class="dropdown-item"><!----> <a href="/EN/guide/graph.html" class="nav-link router-link-exact-active router-link-active">English</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/EN/guide/" class="nav-link router-link-active">Guide</a></div><div class="nav-item"><a href="/EN/extend/" class="nav-link">Extend</a></div><div class="nav-item"><a href="/EN/support/" class="nav-link">Support</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/Crender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/graph.html" class="nav-link">简体中文</a></li><li class="dropdown-item"><!----> <a href="/EN/guide/graph.html" class="nav-link router-link-exact-active router-link-active">English</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/EN/guide/" class="sidebar-link">Introduction</a></li><li><a href="/EN/guide/crender.html" class="sidebar-link">CRender</a></li><li><a href="/EN/guide/graph.html" class="active sidebar-link">Graph</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#properties" class="sidebar-link">properties</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#visible" class="sidebar-link">visible</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#shape" class="sidebar-link">shape</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#style" class="sidebar-link">style</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#drag" class="sidebar-link">drag</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#hover" class="sidebar-link">hover</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#index" class="sidebar-link">index</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animationdelay" class="sidebar-link">animationDelay</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animationframe" class="sidebar-link">animationFrame</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animationcurve" class="sidebar-link">animationCurve</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animationpause" class="sidebar-link">animationPause</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#hoverrect" class="sidebar-link">hoverRect</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#mouseenter" class="sidebar-link">mouseEnter</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#mouseouter" class="sidebar-link">mouseOuter</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#click" class="sidebar-link">click</a></li></ul></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#prototype" class="sidebar-link">prototype</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#attr" class="sidebar-link">attr</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animation" class="sidebar-link">animation</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#animationend" class="sidebar-link">animationEnd</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#pauseanimation" class="sidebar-link">pauseAnimation</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#playanimation" class="sidebar-link">playAnimation</a></li></ul></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#life-cycle" class="sidebar-link">Life Cycle</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#added" class="sidebar-link">added</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#beforedraw" class="sidebar-link">beforeDraw</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#drawed" class="sidebar-link">drawed</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#beforemove" class="sidebar-link">beforeMove</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#moved" class="sidebar-link">moved</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#beforedelete" class="sidebar-link">beforeDelete</a></li><li class="sidebar-sub-header"><a href="/EN/guide/graph.html#deleted" class="sidebar-link">deleted</a></li></ul></li></ul></li><li><a href="/EN/guide/style.html" class="sidebar-link">Style</a></li><li><a href="/EN/guide/graphs.html" class="sidebar-link">Basic graphics</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="graph"><a href="#graph" aria-hidden="true" class="header-anchor">#</a> Graph</h1> <p>Here we will introduce the <strong>Graph</strong> class, such as instance properties, prototype methods, and lifecycle.</p> <h2 id="properties"><a href="#properties" aria-hidden="true" class="header-anchor">#</a> properties</h2> <p>Here is an introduction to the <strong>Graph</strong> instance properties, which you can configure when adding graphics.</p> <h3 id="visible"><a href="#visible" aria-hidden="true" class="header-anchor">#</a> visible</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Weather to render graph
+ * @type {Boolean}
+ * @default visible = true
+ */</span>
+</code></pre></div><h3 id="shape"><a href="#shape" aria-hidden="true" class="header-anchor">#</a> shape</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Graph shape data
+ * @type {Object}
+ */</span>
+</code></pre></div><h3 id="style"><a href="#style" aria-hidden="true" class="header-anchor">#</a> <a href="/guide/style.html">style</a></h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Graph style data (Instance of Style)
+ * @type {Style}
+ */</span>
+</code></pre></div><h3 id="drag"><a href="#drag" aria-hidden="true" class="header-anchor">#</a> drag</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Whether to enable drag
+ * @type {Boolean}
+ * @default drag = false
+ */</span>
+</code></pre></div><h3 id="hover"><a href="#hover" aria-hidden="true" class="header-anchor">#</a> hover</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Whether to enable hover
+ * @type {Boolean}
+ * @default hover = false
+ */</span>
+</code></pre></div><h3 id="index"><a href="#index" aria-hidden="true" class="header-anchor">#</a> index</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Graph rendering index
+ *  Give priority to index high graph in rendering
+ * @type {Number}
+ * @default index = 1
+ */</span>
+</code></pre></div><h3 id="animationdelay"><a href="#animationdelay" aria-hidden="true" class="header-anchor">#</a> animationDelay</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Animation delay time(ms)
+ * @type {Number}
+ * @default animationDelay = 0
+ */</span>
+</code></pre></div><h3 id="animationframe"><a href="#animationframe" aria-hidden="true" class="header-anchor">#</a> animationFrame</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Number of animation frames
+ * @type {Number}
+ * @default animationFrame = 30
+ */</span>
+</code></pre></div><h3 id="animationcurve"><a href="#animationcurve" aria-hidden="true" class="header-anchor">#</a> <a href="http://transition.jiaminghi.com/EN/" target="_blank" rel="noopener noreferrer">animationCurve<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Animation easing curve
+ * @type {String}
+ * @default animationCurve = 'linear'
+ */</span>
+</code></pre></div><h3 id="animationpause"><a href="#animationpause" aria-hidden="true" class="header-anchor">#</a> animationPause</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Weather to pause graph animation
+ * @type {Boolean}
+ * @default animationPause = false
+ */</span>
+</code></pre></div><h3 id="hoverrect"><a href="#hoverrect" aria-hidden="true" class="header-anchor">#</a> hoverRect</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Rectangular hover detection zone
+ *  Use this method for hover detection first
+ * @type {Null|Array&lt;Number&gt;}
+ * @default hoverRect = null
+ * @example hoverRect = [0, 0, 100, 100] // [Rect start x, y, Rect width, height]
+ */</span>
+</code></pre></div><h3 id="mouseenter"><a href="#mouseenter" aria-hidden="true" class="header-anchor">#</a> mouseEnter</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Mouse enter event handler
+ * @type {Null|Function}
+ * @default mouseEnter = null
+ */</span>
+</code></pre></div><h3 id="mouseouter"><a href="#mouseouter" aria-hidden="true" class="header-anchor">#</a> mouseOuter</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Mouse outer event handler
+ * @type {Null|Function}
+ * @default mouseOuter = null
+ */</span>
+</code></pre></div><h3 id="click"><a href="#click" aria-hidden="true" class="header-anchor">#</a> click</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Mouse click event handler
+ * @type {Null|Function}
+ * @default click = null
+ */</span>
+</code></pre></div><div class="tip custom-block"><p class="custom-block-title">TIP</p> <p>Enable <strong>mouseEnter</strong>, <strong>mouseOuter</strong>, <strong>click</strong> event support requires configuring the <code>hover</code> property of the graph to <code>true</code>. Extended new graph require the <strong>hoverCheck</strong> method to be configured to provide event support.</p></div> <h2 id="prototype"><a href="#prototype" aria-hidden="true" class="header-anchor">#</a> prototype</h2> <p>Here is an introduction to the <strong>Graph</strong> prototype method.</p> <h3 id="attr"><a href="#attr" aria-hidden="true" class="header-anchor">#</a> attr</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Update graph state
+ * @param {String} attrName Updated attribute name
+ * @param {Any} change      Updated value
+ * @return {Undefined} Void
+ */</span>
+<span class="token class-name">Graph</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">attr</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">attrName<span class="token punctuation">,</span> change <span class="token operator">=</span> <span class="token keyword">undefined</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="animation"><a href="#animation" aria-hidden="true" class="header-anchor">#</a> animation</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Update graphics state (with animation)
+ *  Only shape and style attributes are supported
+ * @param {String} attrName Updated attribute name
+ * @param {Any} change      Updated value
+ * @param {Boolean} wait    Whether to store the animation waiting
+ * 							for the next animation request
+ * @return {Promise} Animation Promise
+ */</span>
+<span class="token class-name">Graph</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">animation</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">attrName<span class="token punctuation">,</span> change<span class="token punctuation">,</span> wait <span class="token operator">=</span> <span class="token boolean">false</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="animationend"><a href="#animationend" aria-hidden="true" class="header-anchor">#</a> animationEnd</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Skip to the last frame of animation
+ * @return {Undefined} Void
+ */</span>
+<span class="token class-name">Graph</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">animationEnd</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="pauseanimation"><a href="#pauseanimation" aria-hidden="true" class="header-anchor">#</a> pauseAnimation</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Pause animation behavior
+ * @return {Undefined} Void
+ */</span>
+<span class="token class-name">Graph</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">pauseAnimation</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="playanimation"><a href="#playanimation" aria-hidden="true" class="header-anchor">#</a> playAnimation</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description Try animation behavior
+ * @return {Undefined} Void
+ */</span>
+<span class="token class-name">Graph</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">playAnimation</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="life-cycle"><a href="#life-cycle" aria-hidden="true" class="header-anchor">#</a> Life Cycle</h2> <p>When you add graph to the render, you can configure the following functions in the configuration, they will be called at a specific time.</p> <h3 id="added"><a href="#added" aria-hidden="true" class="header-anchor">#</a> added</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called after the graphics are added
+ * @param {Graph} Graph instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">added</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="beforedraw"><a href="#beforedraw" aria-hidden="true" class="header-anchor">#</a> beforeDraw</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called before the drawing is drawn,
+ *  the graphic style has been initialized.
+ *  You can modify the ctx property before drawing.
+ * @param {Graph} Graph instance
+ * @param {CRender} CRender instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">beforeDraw</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> ctx <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+    ctx<span class="token punctuation">.</span>stroke <span class="token operator">=</span> <span class="token string">'transparent'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="drawed"><a href="#drawed" aria-hidden="true" class="header-anchor">#</a> drawed</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called after the drawing is completed
+ * @param {Graph} Graph instance
+ * @param {CRender} CRender instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">drawed</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> ctx <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="beforemove"><a href="#beforemove" aria-hidden="true" class="header-anchor">#</a> beforeMove</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called before moving the graphic,
+ *  before the drag behavior occurs
+ * @param {Event} Mouse event
+ * @param {Graph} Graph instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">beforeMove</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> offsetX<span class="token punctuation">,</span> offsetY <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="moved"><a href="#moved" aria-hidden="true" class="header-anchor">#</a> moved</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called after moving the graphic,
+ *  after the drag behavior occurs
+ * @param {Event} Mouse event
+ * @param {Graph} Graph instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">moved</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> offsetX<span class="token punctuation">,</span> offsetY <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="beforedelete"><a href="#beforedelete" aria-hidden="true" class="header-anchor">#</a> beforeDelete</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called before deleting the graphic
+ * @param {Graph} Graph instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">beforeDelete</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="deleted"><a href="#deleted" aria-hidden="true" class="header-anchor">#</a> deleted</h3> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">/**
+ * @description Called after the graphic is deleted
+ * @param {Graph} Graph instance
+ */</span>
+config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">//...,</span>
+  <span class="token function">deleted</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> shape<span class="token punctuation">,</span> style <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// do something...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/EN/guide/crender.html" class="prev">
+          CRender
+        </a></span> <span class="next"><a href="/EN/guide/style.html">
+          Style
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.480932d2.js" defer></script><script src="/assets/js/5.5ab6cec6.js" defer></script><script src="/assets/js/17.f97dc697.js" defer></script>
+  </body>
+</html>

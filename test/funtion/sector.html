@@ -4,7 +4,9 @@
     <meta charset="utf8" />
     <title>Sector</title>
     <style>
-      html, body, #canvas {
+      html,
+      body,
+      #canvas {
         width: 100%;
         height: 100%;
         margin: 0px;
@@ -15,9 +17,7 @@
   </head>
 
   <body>
-
     <canvas id="canvas"></canvas>
-
   </body>
 
   <script>
@@ -38,39 +38,42 @@
         ry: h / 2,
         r: 100,
         startAngle: -Math.PI / 2,
-        endAngle: Math.PI
+        endAngle: Math.PI,
       },
       style: {
         fill: '#ffee97',
         stroke: 'goldenrod',
         lineWidth: 2,
-        rotate: 0
-      }
+        rotate: 0,
+      },
     })
 
-    function wait (time) {
+    function wait(time) {
       return new Promise(resolve => setTimeout(resolve, time))
     }
 
-    async function start () {
+    async function start() {
       await wait(1000)
 
-      sector.animation('shape', {
-        r: 150
-      }, true)
+      sector.animation(
+        'shape',
+        {
+          r: 150,
+        },
+        true
+      )
 
       await sector.animation('style', {
-        rotate: 45
+        rotate: 45,
       })
 
       await wait(1000)
 
       sector.animation('style', {
-        fill: 'lemonchiffon'
+        fill: 'lemonchiffon',
       })
     }
 
     start()
-
   </script>
 </html>
