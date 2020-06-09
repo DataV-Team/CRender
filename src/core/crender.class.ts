@@ -70,7 +70,7 @@ export default class CRender {
     this.graphs.filter(graph => graph.visible).forEach(graph => graph.drawProcessor())
   }
 
-  add(config: GraphConfig): null | Graph {
+  add(config: GraphConfig, wait: boolean = false): null | Graph {
     const { name } = config
 
     if (!name) {
@@ -95,7 +95,7 @@ export default class CRender {
 
     this.sortGraphsByIndex()
 
-    this.drawAllGraph()
+    if (!wait) this.drawAllGraph()
 
     return graph
   }

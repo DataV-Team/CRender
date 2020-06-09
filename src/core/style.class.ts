@@ -168,9 +168,11 @@ export default class Style {
     const processedStyle = { ...style }
     const transform = transformColor(reverse)
 
-    processedStyle.fill = transform(processedStyle.fill)
-    processedStyle.stroke = transform(processedStyle.stroke)
-    processedStyle.shadowColor = transform(processedStyle.shadowColor)
+    if (processedStyle.fill) processedStyle.fill = transform(processedStyle.fill)
+    if (processedStyle.stroke) processedStyle.stroke = transform(processedStyle.stroke)
+    if (processedStyle.shadowColor)
+      processedStyle.shadowColor = transform(processedStyle.shadowColor)
+
     processedStyle.gradientColor = (processedStyle.gradientColor || []).map(transform)
 
     if (reverse) {

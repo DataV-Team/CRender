@@ -2,6 +2,7 @@ import CRender from '../../core/crender.class'
 import { GraphConfig } from '../../types/core/graph'
 import { Point } from '@jiaminghi/transition/types/types/core/curves'
 import Graph from '../../core/graph.class'
+import { LiteralUnion } from 'types/common'
 
 export type Draw<Shape, Cache> = (render: CRender, graph: Graph<Shape, Cache>) => void
 
@@ -26,7 +27,7 @@ export type GraphModel<Shape = any, Cache = any> = {
   move?: Move<Shape, Cache>
 }
 
-export type GraphName =
+export type GraphName = LiteralUnion<
   | 'arc'
   | 'bezierCurve'
   | 'circle'
@@ -37,5 +38,6 @@ export type GraphName =
   | 'ring'
   | 'sector'
   | 'smoothline'
-  | 'text'
-  | string
+  | 'text',
+  string
+>

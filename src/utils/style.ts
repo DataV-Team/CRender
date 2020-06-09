@@ -1,21 +1,20 @@
 import { getColorFromRgbValue, getRgbaValue } from '@jiaminghi/color'
 import { RgbaValue } from '@jiaminghi/color/types/types'
-import Style from '../core/style'
+import Style from '../core/style.class'
 
 /**
  * reverse: false | string    -> RgbaValue
  * reverse: true  | RgbaValue -> string
  */
 export function transformColor(reverse?: boolean) {
-  // eslint-disable-next-line
-  return (color: any): string | RgbaValue => {
+  return (color: string | RgbaValue): string | RgbaValue => {
     const isString = typeof color === 'string'
     const isArray = Array.isArray(color)
 
     if (isString && reverse) return color
-    if (isArray && !reverse) return [...color] as RgbaValue
-    if (isString && !reverse) return getRgbaValue(color)
-    if (isArray && reverse) return getColorFromRgbValue(color)
+    if (isArray && !reverse) return [...(color as RgbaValue)] as RgbaValue
+    if (isString && !reverse) return getRgbaValue(color as string)
+    if (isArray && reverse) return getColorFromRgbValue(color as RgbaValue)
 
     throw new Error('CRender Style transformColor: Unexpected color!')
   }

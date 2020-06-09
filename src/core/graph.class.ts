@@ -19,7 +19,7 @@ import { StyleConfig } from '../types/core/style'
 import { Optional } from '../types/common'
 import { RgbaValue } from '@jiaminghi/color/types/types'
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
-import Style from './style'
+import Style from './style.class'
 import CRender from './crender.class'
 import {
   getRotatePointPos,

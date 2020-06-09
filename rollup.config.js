@@ -1,16 +1,13 @@
-import nodeResolve from 'rollup-plugin-node-resolve'
-import babel from 'rollup-plugin-babel'
-import replace from 'rollup-plugin-replace'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
+import babel from '@rollup/plugin-babel'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
-import commonjs from '@rollup/plugin-commonjs'
 
 import pkg from './package.json'
-
-const extensions = ['.ts']
-const noDeclarationFiles = { compilerOptions: { declaration: false } }
-
 const babelRuntimeVersion = pkg.dependencies['@babel/runtime'].replace(/^[^0-9]*/, '')
+const noDeclarationFiles = { compilerOptions: { declaration: false } }
 
 const makeExternalPredicate = externalArr => {
   if (externalArr.length === 0) {
@@ -31,15 +28,12 @@ export default [
       ...Object.keys(pkg.peerDependencies || {}),
     ]),
     plugins: [
-      nodeResolve({
-        extensions,
+      babel({
+        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]],
+        babelHelpers: 'runtime',
       }),
       typescript({ useTsconfigDeclarationDir: true }),
-      babel({
-        extensions,
-        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]],
-        runtimeHelpers: true,
-      }),
+      resolve(),
     ],
   },
 
@@ -52,17 +46,14 @@ export default [
       ...Object.keys(pkg.peerDependencies || {}),
     ]),
     plugins: [
-      nodeResolve({
-        extensions,
-      }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
       babel({
-        extensions,
         plugins: [
           ['@babel/plugin-transform-runtime', { version: babelRuntimeVersion, useESModules: true }],
         ],
-        runtimeHelpers: true,
+        babelHelpers: 'runtime',
       }),
+      typescript({ tsconfigOverride: noDeclarationFiles }),
+      resolve(),
     ],
   },
 
@@ -71,17 +62,8 @@ export default [
     input: 'src/index.ts',
     output: { file: 'es/index.mjs', format: 'es', indent: false, exports: 'named' },
     plugins: [
-      nodeResolve({
-        extensions,
-      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
-      }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        runtimeHelpers: true,
       }),
       terser({
         compress: {
@@ -91,7 +73,13 @@ export default [
           warnings: false,
         },
       }),
+      babel({
+        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]],
+        babelHelpers: 'runtime',
+      }),
+      typescript({ tsconfigOverride: noDeclarationFiles }),
       commonjs(),
+      resolve(),
     ],
   },
 
@@ -101,24 +89,21 @@ export default [
     output: {
       file: 'dist/index.js',
       format: 'umd',
-      name: 'Transition',
+      name: 'CRender',
       indent: false,
       exports: 'named',
     },
     plugins: [
-      nodeResolve({
-        extensions,
-      }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        runtimeHelpers: true,
-      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
+      babel({
+        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]],
+        babelHelpers: 'runtime',
+      }),
+      typescript({ tsconfigOverride: noDeclarationFiles }),
       commonjs(),
+      resolve(),
     ],
   },
 
@@ -128,20 +113,11 @@ export default [
     output: {
       file: 'dist/index.min.js',
       format: 'umd',
-      name: 'Transition',
+      name: 'CRender',
       indent: false,
       exports: 'named',
     },
     plugins: [
-      nodeResolve({
-        extensions,
-      }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      babel({
-        extensions,
-        exclude: 'node_modules/**',
-        runtimeHelpers: true,
-      }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
@@ -153,7 +129,13 @@ export default [
           warnings: false,
         },
       }),
+      babel({
+        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]],
+        babelHelpers: 'runtime',
+      }),
+      typescript({ tsconfigOverride: noDeclarationFiles }),
       commonjs(),
+      resolve(),
     ],
   },
 ]
