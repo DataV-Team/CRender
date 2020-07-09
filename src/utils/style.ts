@@ -1,6 +1,6 @@
+import Style from '../core/style.class'
 import { getColorFromRgbValue, getRgbaValue } from '@jiaminghi/color'
 import { RgbaValue } from '@jiaminghi/color/types/types'
-import Style from '../core/style.class'
 
 /**
  * reverse: false | string    -> RgbaValue

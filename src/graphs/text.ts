@@ -1,40 +1,42 @@
-import { GraphModel } from '../types/graphs/index'
 import { TextShape } from '../types/graphs/shape'
-import { Point } from '../types/core/graph'
+import { Point, GraphConfig } from '../types/core/graph'
+import Graph from '../core/graph.class'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const text: GraphModel<TextShape> = {
-  shape: {
-    content: '',
-    position: [0, 0],
-    maxWidth: undefined,
-    rowGap: 0,
-  },
+class Text extends Graph<TextShape> {
+  name: GraphName = 'text'
 
-  validator({ shape }) {
-    const { content, position, rowGap } = shape
+  constructor(config: GraphConfig<TextShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          content: '',
+          position: [0, 0],
+          maxWidth: undefined,
+          rowGap: 0,
+        },
+        config,
+        ({ shape: { content, position, rowGap } }) => {
+          if (typeof content !== 'string')
+            throw new Error('CRender Graph Text: Text content should be a string!')
 
-    if (typeof content !== 'string') {
-      console.error('CRender Graph Text: Text content should be a string!')
+          if (!Array.isArray(position))
+            throw new Error('CRender Graph Text: Text position should be an array!')
 
-      return false
-    }
+          if (typeof rowGap !== 'number')
+            throw new Error('CRender Graph Text: Text rowGap should be a number!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (!Array.isArray(position)) {
-      console.error('CRender Graph Text: Text position should be an array!')
-
-      return false
-    }
-
-    if (typeof rowGap !== 'number') {
-      console.error('CRender Graph Text: Text rowGap should be a number!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
     const { content, position, maxWidth, rowGap } = shape
     const { textBaseline, font } = ctx
 
@@ -71,27 +73,26 @@ const text: GraphModel<TextShape> = {
     })
 
     ctx.closePath()
-  },
+  }
 
-  hoverCheck() {
-    return false
-  },
-
-  setGraphCenter({ shape, style }) {
-    const { position } = shape
+  setGraphCenter(): void {
+    const {
+      shape: { position },
+      style,
+    } = this
 
     style.graphCenter = [...position] as [number, number]
-  },
+  }
 
-  move({ movementX, movementY }, text) {
+  move({ movementX, movementY }: MouseEvent): void {
     const {
       position: [x, y],
-    } = text.shape
+    } = this.shape
 
-    text.attr('shape', {
+    this.attr('shape', {
       position: [x + movementX, y + movementY],
     })
-  },
+  }
 }
 
-export default text
+export default Text

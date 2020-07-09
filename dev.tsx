@@ -1,8 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import './dev.less'
 import CRender from './src/index'
-import Graph from './src/core/graph.class'
 
 function randomNum(start: number, end: number, fixed = 0): number {
   const differ = end - start
@@ -14,40 +13,33 @@ function randomNum(start: number, end: number, fixed = 0): number {
 const Dev: React.FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null)
 
-  useEffect(() => {
+  const renderTest = useCallback(async () => {
     const render = new CRender(canvas.current!)
     const [w, h] = render.area
 
-    const circles: Graph[] = []
-
-    console.time('test')
-
-    for (let i = 0; i < 1000; i++) {
-      circles.push(
-        render.add(
-          {
-            name: 'circle',
-            shape: {
-              rx: randomNum(0, w),
-              ry: randomNum(0, h),
-              r: randomNum(10, 50),
-            },
-            style: {
-              stroke: 'red',
-              fill: 'transparent',
-            },
+    new Array(1000).fill(0).map(
+      _ =>
+        render.add({
+          name: 'circle',
+          animationCurve: 'easeOutBack',
+          shape: {
+            rx: randomNum(0, w),
+            ry: randomNum(0, h),
+            r: randomNum(10, 50),
           },
-          true
-        )!
-      )
-    }
+          style: {
+            stroke: 'red',
+            fill: 'transparent',
+          },
+        })!
+    )
 
-    render.drawAllGraph()
+    await render.drawAllGraph()
+  }, [])
 
-    console.timeEnd('test')
-
-    console.warn(circles)
-  })
+  useEffect(() => {
+    renderTest()
+  }, [renderTest])
 
   return <canvas ref={canvas} />
 }

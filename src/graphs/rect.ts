@@ -1,33 +1,42 @@
-import { GraphModel } from '../types/graphs/index'
 import { RectShape } from '../types/graphs/shape'
 import { checkPointIsInRect } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const rect: GraphModel<RectShape> = {
-  shape: {
-    x: 0,
-    y: 0,
-    w: 0,
-    h: 0,
-  },
+class Rect extends Graph<RectShape> {
+  name: GraphName = 'rect'
 
-  validator({ shape }) {
-    const { x, y, w, h } = shape
+  constructor(config: GraphConfig<RectShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          x: 0,
+          y: 0,
+          w: 0,
+          h: 0,
+        },
+        config,
+        ({ shape: { x, y, w, h } }) => {
+          if (
+            typeof x !== 'number' ||
+            typeof y !== 'number' ||
+            typeof w !== 'number' ||
+            typeof h !== 'number'
+          )
+            throw new Error('CRender Graph Rect: Rect shape configuration is invalid!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (
-      typeof x !== 'number' ||
-      typeof y !== 'number' ||
-      typeof w !== 'number' ||
-      typeof h !== 'number'
-    ) {
-      console.error('CRender Graph Rect: Rect shape configuration is invalid!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
     const { x, y, w, h } = shape
 
     ctx.beginPath()
@@ -35,26 +44,29 @@ const rect: GraphModel<RectShape> = {
 
     ctx.fill()
     ctx.stroke()
-  },
+  }
 
-  hoverCheck(point, { shape }) {
+  hoverCheck(point: Point): boolean {
+    const { shape } = this
+
     return checkPointIsInRect(point, shape)
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { x, y, w, h } = shape
 
     style.graphCenter = [x + w / 2, y + h / 2]
-  },
+  }
 
-  move({ movementX, movementY }, rect) {
-    const { shape } = rect
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape } = this
 
-    rect.attr('shape', {
+    this.attr('shape', {
       x: shape.x + movementX,
       y: shape.y + movementY,
     })
-  },
+  }
 }
 
-export default rect
+export default Rect

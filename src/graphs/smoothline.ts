@@ -1,31 +1,42 @@
-import { GraphModel } from '../types/graphs/index'
-import { Point } from '../types/core/graph'
+import { Point, GraphConfig } from '../types/core/graph'
 import { SmoothlineShape, SmoothlineShapeCache } from '../types/graphs/shape'
 import { deepClone } from '../utils/common'
 import { drawBezierCurvePath } from '../utils/canvas'
 import { checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 import { polylineToBezierCurve, bezierCurveToPolyline } from '@jiaminghi/bezier-curve'
 import { BezierCurveSegment, BezierCurve } from '@jiaminghi/bezier-curve/types/types'
 
-const smoothline: GraphModel<SmoothlineShape, SmoothlineShapeCache> = {
-  shape: {
-    points: [],
-    close: false,
-  },
+class Smoothline extends Graph<SmoothlineShape> {
+  name: GraphName = 'smoothline'
 
-  validator({ shape }) {
-    const { points } = shape
+  cache: SmoothlineShapeCache = {}
 
-    if (!(points instanceof Array)) {
-      console.error('CRender Graph Smoothline: Smoothline points should be an array!')
+  constructor(config: GraphConfig<SmoothlineShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          points: [],
+          close: false,
+        },
+        config,
+        ({ shape: { points } }) => {
+          if (!(points instanceof Array))
+            throw new Error('CRender Graph Smoothline: Smoothline points should be an array!')
+        }
+      ),
+      render
+    )
+  }
 
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape, cache }) {
+  draw(): void {
+    const {
+      shape,
+      cache,
+      render: { ctx },
+    } = this
     const { points, close } = shape
 
     if (!cache.points || cache.points.toString() !== points.toString()) {
@@ -43,7 +54,7 @@ const smoothline: GraphModel<SmoothlineShape, SmoothlineShapeCache> = {
 
     ctx.beginPath()
 
-    drawBezierCurvePath(ctx, bezierCurve.slice(1) as Point[][], bezierCurve[0])
+    drawBezierCurvePath(ctx, bezierCurve!.slice(1) as Point[][], bezierCurve![0])
 
     if (close) {
       ctx.closePath()
@@ -53,9 +64,10 @@ const smoothline: GraphModel<SmoothlineShape, SmoothlineShapeCache> = {
     } else {
       ctx.stroke()
     }
-  },
+  }
 
-  hoverCheck(point, { cache, shape, style }) {
+  hoverCheck(point: Point): boolean {
+    const { cache, shape, style } = this
     const { hoverPoints } = cache
 
     const { close } = shape
@@ -63,28 +75,31 @@ const smoothline: GraphModel<SmoothlineShape, SmoothlineShapeCache> = {
     const { lineWidth } = style
 
     if (close) {
-      return checkPointIsInPolygon(point, hoverPoints)
+      return checkPointIsInPolygon(point, hoverPoints!)
     } else {
-      return checkPointIsNearPolyline(point, hoverPoints, lineWidth)
+      return checkPointIsNearPolyline(point, hoverPoints!, lineWidth)
     }
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
-    const { points } = shape
+  setGraphCenter(): void {
+    const {
+      shape: { points },
+      style,
+    } = this
 
     style.graphCenter = points[0]
-  },
+  }
 
-  move({ movementX, movementY }, smoothline) {
-    const { shape, cache } = smoothline
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape, cache } = this
     const { points } = shape
 
     const moveAfterPoints = points.map<Point>(([x, y]) => [x + movementX, y + movementY])
 
     cache.points = moveAfterPoints
 
-    const [fx, fy] = cache.bezierCurve[0]
-    const curves = cache.bezierCurve.slice(1)
+    const [fx, fy] = cache.bezierCurve![0]
+    const curves = cache.bezierCurve!.slice(1)
 
     cache.bezierCurve = [
       [fx + movementX, fy + movementY],
@@ -93,12 +108,12 @@ const smoothline: GraphModel<SmoothlineShape, SmoothlineShapeCache> = {
       ),
     ] as BezierCurve
 
-    cache.hoverPoints = cache.hoverPoints.map(([x, y]) => [x + movementX, y + movementY])
+    cache.hoverPoints = cache.hoverPoints!.map(([x, y]) => [x + movementX, y + movementY])
 
-    smoothline.attr('shape', {
+    this.attr('shape', {
       points: moveAfterPoints,
     })
-  },
+  }
 }
 
-export default smoothline
+export default Smoothline

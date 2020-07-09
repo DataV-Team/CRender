@@ -71,7 +71,7 @@ export type StyleConfig<ColorType = RgbaValue> = {
   /**
    * @description LineDash of Ctx
    */
-  lineDash?: [number, number]
+  lineDash?: number[]
   /**
    * @description LineDashOffset of Ctx
    */

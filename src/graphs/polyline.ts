@@ -1,27 +1,37 @@
-import { GraphModel } from '../types/graphs/index'
 import { PolylineShape } from '../types/graphs/shape'
 import { drawPolylinePath } from '../utils/canvas'
 import { eliminateBlur, checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const polyline: GraphModel<PolylineShape> = {
-  shape: {
-    points: [],
-    close: false,
-  },
+class Polyline extends Graph<PolylineShape> {
+  name: GraphName = 'polyline'
 
-  validator({ shape }) {
-    const { points } = shape
+  constructor(config: GraphConfig<PolylineShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          points: [],
+          close: false,
+        },
+        config,
+        ({ shape: { points } }) => {
+          if (!(points instanceof Array))
+            throw new Error('CRender Graph Polyline: Polyline points should be an array!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (!(points instanceof Array)) {
-      console.error('CRender Graph Polyline: Polyline points should be an array!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape, style: { lineWidth } }) {
+  draw(): void {
+    const {
+      shape,
+      style: { lineWidth },
+      render: { ctx },
+    } = this
     const { points, close } = shape
 
     ctx.beginPath()
@@ -35,9 +45,10 @@ const polyline: GraphModel<PolylineShape> = {
     } else {
       ctx.stroke()
     }
-  },
+  }
 
-  hoverCheck(point, { shape, style }) {
+  hoverCheck(point: Point): boolean {
+    const { shape, style } = this
     const { points, close } = shape
 
     const { lineWidth } = style
@@ -47,23 +58,26 @@ const polyline: GraphModel<PolylineShape> = {
     } else {
       return checkPointIsNearPolyline(point, points, lineWidth)
     }
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { points } = shape
 
     style.graphCenter = points[0]
-  },
+  }
 
-  move({ movementX, movementY }, polyline) {
-    const { points } = polyline.shape
+  move({ movementX, movementY }: MouseEvent): void {
+    const {
+      shape: { points },
+    } = this
 
     const moveAfterPoints = points.map(([x, y]) => [x + movementX, y + movementY])
 
-    polyline.attr('shape', {
+    this.attr('shape', {
       points: moveAfterPoints,
     })
-  },
+  }
 }
 
-export default polyline
+export default Polyline

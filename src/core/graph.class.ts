@@ -7,18 +7,9 @@ import {
   AnimationQueueItem,
   AnimationFrameStateItem,
 } from '../types/core/graph'
-import {
-  GraphModel,
-  Draw,
-  SetGraphCenter,
-  HoverCheck,
-  Move,
-  GraphName,
-} from '../types/graphs/index'
+import { GraphName } from '../types/graphs/index'
 import { StyleConfig } from '../types/core/style'
 import { Optional } from '../types/common'
-import { RgbaValue } from '@jiaminghi/color/types/types'
-import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 import Style from './style.class'
 import CRender from './crender.class'
 import {
@@ -30,9 +21,11 @@ import {
 } from '../utils/graph'
 import { deepClone } from '../utils/common'
 import transition from '@jiaminghi/transition'
+import { RgbaValue } from '@jiaminghi/color/types/types'
+import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 
 // eslint-disable-next-line
-export default class Graph<Shape = any, Cache = any> {
+export default class Graph<Shape = any> {
   /**
    * @description Graph Render
    */
@@ -113,39 +106,42 @@ export default class Graph<Shape = any, Cache = any> {
    */
   animationQueue: AnimationQueueItem<Shape>[] = []
   /**
-   * @description Graph animation cache
-   */
-  cache!: Cache
-  /**
    * @description Funciton of draw graph
    */
-  draw!: Draw<Shape, Cache>
+  // eslint-disable-next-line
+  draw(): void {}
   /**
    * @description Function of set Graph center
    */
-  setGraphCenter?: SetGraphCenter<Shape, Cache>
+  // eslint-disable-next-line
+  setGraphCenter(): void {}
   /**
    * @description Funciton of check graph is hovered
    */
-  hoverCheck?: HoverCheck<Shape, Cache>
+  hoverCheck(_point: Point): boolean {
+    return false
+  }
   /**
    * @description Function of Graph move
    */
-  move?: Move<Shape, Cache>
+  // eslint-disable-next-line
+  move(_e: MouseEvent): void {}
   /**
    * @description Life Cycle when graph added
+   * Called in subclasses
    */
-  added?: Function
+  // eslint-disable-next-line
+  added?: () => any
   /**
    * @description Life Cycle when graph before draw
    */
   // eslint-disable-next-line
-  beforeDraw?: (render: CRender) => any
+  beforeDraw?: () => any
   /**
    * @description Life Cycle when graph drawed
    */
   // eslint-disable-next-line
-  drawed?: (render: CRender) => any
+  drawed?: () => any
   /**
    * @description Life Cycle when graph before move
    */
@@ -167,45 +163,50 @@ export default class Graph<Shape = any, Cache = any> {
   // eslint-disable-next-line
   deleted?: () => any
 
-  constructor(graphModel: GraphModel<Shape>, config: GraphConfig<Shape>, render: CRender) {
-    const shape = Object.assign({}, graphModel.shape, config.shape) as Shape
+  constructor(config: GraphConfig<Shape>, render: CRender) {
     const style = new Style(config.style)
 
-    Object.assign(
-      this,
-      graphModel,
-      config,
-      {
-        shape,
-        style,
-      },
-      {
-        status: Status.STATIC,
-        animationRoot: [],
-        animationKeys: [],
-        animationFrameState: [],
-        cache: {},
-        render,
-      }
-    )
+    Object.assign(this, config, {
+      status: Status.STATIC,
+      animationRoot: [],
+      animationKeys: [],
+      animationFrameState: [],
+      style,
+      render,
+    })
 
-    if (this.setGraphCenter) this.setGraphCenter(this)
+    this.setGraphCenter()
 
-    // The life cycle 'added'
+    // life cycle added
     if (this.added) this.added()
+  }
+
+  static mergeDefaultShape<Shape>(
+    defaultShape: Optional<Shape>,
+    config: GraphConfig<Shape>,
+    checker?: (config: GraphConfig<Shape>) => void
+  ): GraphConfig<Shape> {
+    const mergedConfig = {
+      ...config,
+      shape: Object.assign(defaultShape, config.shape || {}),
+    }
+
+    if (checker) checker(mergedConfig)
+
+    return mergedConfig
   }
 
   drawProcessor(): void {
     const { render } = this
-    const { ctx } = render
+    const { ctx, dpr } = render
 
-    this.style.setCtx(ctx)
+    this.style.setCtx(ctx, dpr)
 
-    if (this.beforeDraw) this.beforeDraw(render)
+    if (this.beforeDraw) this.beforeDraw()
 
-    this.draw(render, this)
+    this.draw()
 
-    if (this.drawed) this.drawed(render)
+    if (this.drawed) this.drawed()
 
     this.style.restoreCtx(ctx)
   }
@@ -228,7 +229,7 @@ export default class Graph<Shape = any, Cache = any> {
 
     if (hoverRect) return checkPointIsInRect(point, ...hoverRect)
 
-    return this.hoverCheck(point, this)
+    return this.hoverCheck(point)
   }
 
   moveProcessor(e: MouseEvent): void {
@@ -236,11 +237,11 @@ export default class Graph<Shape = any, Cache = any> {
 
     if (this.beforeMove) this.beforeMove(e)
 
-    this.move(e, this)
+    this.move(e)
 
     if (this.moved) this.moved(e)
 
-    if (this.setGraphCenter) this.setGraphCenter(this)
+    this.setGraphCenter()
   }
 
   /**
@@ -275,11 +276,11 @@ export default class Graph<Shape = any, Cache = any> {
    * @description Update graphics state (with animation)
    * Only shape and style attributes are supported
    */
-  async animation(key: 'shape', value: Optional<Shape>, wait: boolean): Promise<void>
+  async animation(key: 'shape', value: Optional<Shape>, wait?: boolean): Promise<void>
   async animation(
     key: 'style',
     value: StyleConfig<string | RgbaValue>,
-    wait: boolean
+    wait?: boolean
   ): Promise<void>
   async animation(
     key: AnimationKey,

@@ -1,7 +1,6 @@
 import CRender from './core/crender.class'
+import Graph from './core/graph.class'
 
-import { extendNewGraph } from './graphs/index'
-
-export { CRender, extendNewGraph }
+export { CRender, Graph }
 
 export default CRender

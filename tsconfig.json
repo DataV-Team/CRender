@@ -3,7 +3,6 @@
     "target": "es5",
     "lib": ["dom", "esnext"],
     "declaration": true,
-    "declarationDir": "./types",
     "experimentalDecorators": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "baseUrl": "src",
     "jsx": "react"
-  }
+  },
+  "exclude": ["node_modules"]
 }

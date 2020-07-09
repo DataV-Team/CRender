@@ -1,39 +1,53 @@
-import { GraphModel } from '../types/graphs/index'
+import Graph from '../core/graph.class'
 import { ArcShape } from '../types/graphs/shape'
 import { checkPointIsInSector } from '../utils/graphs'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const arc: GraphModel<ArcShape> = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    r: 0,
-    startAngle: 0,
-    endAngle: 0,
-    clockWise: true,
-  },
+class Arc extends Graph<ArcShape> {
+  name: GraphName = 'arc'
 
-  validator({ shape }) {
-    const keys: (keyof ArcShape)[] = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
+  constructor(config: GraphConfig<ArcShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          rx: 0,
+          ry: 0,
+          r: 0,
+          startAngle: 0,
+          endAngle: 0,
+          clockWise: true,
+        },
+        config,
+        ({ shape }) => {
+          const keys: (keyof ArcShape)[] = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
 
-    if (keys.find(key => typeof shape[key] !== 'number')) {
-      console.error('CRender Graph Arc: Arc shape configuration is invalid!')
+          if (keys.find(key => typeof shape[key] !== 'number'))
+            throw new Error('CRender Graph Arc: Arc shape configuration is invalid!')
+        }
+      ),
+      render
+    )
+  }
 
-      return false
-    }
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
 
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
     ctx.beginPath()
     ctx.arc(rx, ry, r > 0 ? r : 0, startAngle, endAngle, !clockWise)
 
     ctx.stroke()
-  },
+  }
 
-  hoverCheck(point, { shape, style }) {
+  hoverCheck(point: Point): boolean {
+    const { shape, style } = this
+
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
     const { lineWidth } = style
@@ -62,22 +76,24 @@ const arc: GraphModel<ArcShape> = {
     })
 
     return !inSide && outSide
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
+
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
-  },
+  }
 
-  move({ movementX, movementY }, arc) {
-    const { shape } = arc
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape } = this
 
-    arc.attr('shape', {
+    this.attr('shape', {
       rx: shape.rx + movementX,
       ry: shape.ry + movementY,
     })
-  },
+  }
 }
 
-export default arc
+export default Arc

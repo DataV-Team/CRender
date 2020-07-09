@@ -1,3 +1,5 @@
+import { UnFunctionParams } from '../types/common'
+
 // eslint-disable-next-line
 export function deepClone<T = any>(obj: T, cache = new Map<any, any>([])): T {
   if (obj === null || typeof obj !== 'object') return obj
@@ -12,4 +14,17 @@ export function deepClone<T = any>(obj: T, cache = new Map<any, any>([])): T {
   Object.keys(obj).forEach(key => (clone[key] = deepClone(obj[key], cache)))
 
   return clone
+}
+
+export function debounce<T extends Function>(callback: T, delay: number = 0): Function {
+  let timer: NodeJS.Timeout | undefined = undefined
+
+  return (...args: UnFunctionParams<T>): void => {
+    if (timer) clearTimeout(timer)
+
+    timer = setTimeout(() => {
+      // @ts-ignore
+      callback.call(this, ...args)
+    }, delay)
+  }
 }

@@ -1,35 +1,46 @@
-import { GraphModel } from '../types/graphs/index'
-import { Point } from '../types/core/graph'
+import { Point, GraphConfig } from '../types/core/graph'
 import { BezierCurveShape, BezierCurveShapeCache } from '../types/graphs/shape'
 import { deepClone } from '../utils/common'
 import { drawBezierCurvePath } from '../utils/canvas'
 import { checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 import { bezierCurveToPolyline } from '@jiaminghi/bezier-curve'
-import { BezierCurveSegment, BezierCurve } from '@jiaminghi/bezier-curve/types/types'
+import {
+  BezierCurveSegment,
+  BezierCurve as BezierCurveType,
+} from '@jiaminghi/bezier-curve/types/types'
 
-const bezierCurve: GraphModel<BezierCurveShape, BezierCurveShapeCache> = {
-  shape: {
-    points: [],
-    close: false,
-  },
+class BezierCurve extends Graph<BezierCurveShape> {
+  name: GraphName = 'bezierCurve'
 
-  validator({ shape }) {
-    const { points } = shape
+  cache: BezierCurveShapeCache = {}
 
-    if (!(points instanceof Array)) {
-      console.error('CRender Graph BezierCurve: BezierCurve points should be an array!')
+  constructor(config: GraphConfig<BezierCurveShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          points: [],
+          close: false,
+        },
+        config,
+        ({ shape: { points } }) => {
+          if (!(points instanceof Array))
+            throw new Error('CRender Graph BezierCurve: BezierCurve points should be an array!')
+        }
+      ),
+      render
+    )
+  }
 
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape, cache }) {
+  draw(): void {
+    const { shape, cache, render } = this
     const { points, close } = shape
+    const { ctx } = render
 
     if (!cache.points || cache.points.toString() !== points.toString()) {
-      const hoverPoints = bezierCurveToPolyline(points as BezierCurve, 20)
+      const hoverPoints = bezierCurveToPolyline(points as BezierCurveType, 20)
 
       Object.assign(cache, {
         points: deepClone(points),
@@ -49,31 +60,33 @@ const bezierCurve: GraphModel<BezierCurveShape, BezierCurveShapeCache> = {
     } else {
       ctx.stroke()
     }
-  },
+  }
 
-  hoverCheck(point, { cache, shape, style }) {
+  hoverCheck(point: Point): boolean {
+    const { cache, shape, style } = this
     const { hoverPoints } = cache
-
     const { close } = shape
-
     const { lineWidth } = style
 
     if (close) {
-      return checkPointIsInPolygon(point, hoverPoints)
+      return checkPointIsInPolygon(point, hoverPoints!)
     } else {
-      return checkPointIsNearPolyline(point, hoverPoints, lineWidth)
+      return checkPointIsNearPolyline(point, hoverPoints!, lineWidth)
     }
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { points } = shape
 
     style.graphCenter = points[0]
-  },
+  }
 
-  move({ movementX, movementY }, bezierCurve) {
-    const { shape, cache } = bezierCurve
-    const { points } = shape
+  move({ movementX, movementY }: MouseEvent): void {
+    const {
+      shape: { points },
+      cache,
+    } = this
 
     const [fx, fy] = points[0] as Point
     const curves = points.slice(1)
@@ -83,15 +96,15 @@ const bezierCurve: GraphModel<BezierCurveShape, BezierCurveShapeCache> = {
       ...(curves as BezierCurveSegment[]).map(curve =>
         curve.map(([x, y]) => [x + movementX, y + movementY])
       ),
-    ] as BezierCurve
+    ] as BezierCurveType
 
     cache.points = bezierCurvePoints
-    cache.hoverPoints = cache.hoverPoints.map(([x, y]) => [x + movementX, y + movementY])
+    cache.hoverPoints = cache.hoverPoints!.map(([x, y]) => [x + movementX, y + movementY])
 
-    bezierCurve.attr('shape', {
+    this.attr('shape', {
       points: bezierCurvePoints,
     })
-  },
+  }
 }
 
-export default bezierCurve
+export default BezierCurve

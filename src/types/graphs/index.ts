@@ -1,33 +1,17 @@
-import CRender from '../../core/crender.class'
-import { GraphConfig } from '../../types/core/graph'
-import { Point } from '@jiaminghi/transition/types/types/core/curves'
+import Arc from '../../graphs/arc'
+import BezierCurve from '../../graphs/bezierCurve'
+import Circle from '../../graphs/circle'
+import Ellipse from '../../graphs/ellipse'
+import Polyline from '../../graphs/polyline'
+import Rect from '../../graphs/rect'
+import RegPolygon from '../../graphs/regPolygon'
+import Ring from '../../graphs/ring'
+import Sector from '../../graphs/sector'
+import Smoothline from '../../graphs/smoothline'
+import Text from '../../graphs/text'
 import Graph from '../../core/graph.class'
-import { LiteralUnion } from 'types/common'
 
-export type Draw<Shape, Cache> = (render: CRender, graph: Graph<Shape, Cache>) => void
-
-export type HoverCheck<Shape, Cache> = (point: Point, graph: Graph<Shape, Cache>) => boolean
-
-export type SetGraphCenter<Shape, Cache> = (graph: Graph<Shape, Cache>) => void
-
-export type Move<Shape, Cache> = (e: MouseEvent, graph: Graph<Shape, Cache>) => void
-
-// eslint-disable-next-line
-export type GraphModel<Shape = any, Cache = any> = {
-  shape: Shape
-
-  validator: (graphConfig: GraphConfig<Shape>) => boolean
-
-  draw: Draw<Shape, Cache>
-
-  hoverCheck?: HoverCheck<Shape, Cache>
-
-  setGraphCenter?: SetGraphCenter<Shape, Cache>
-
-  move?: Move<Shape, Cache>
-}
-
-export type GraphName = LiteralUnion<
+export type GraphName =
   | 'arc'
   | 'bezierCurve'
   | 'circle'
@@ -38,6 +22,34 @@ export type GraphName = LiteralUnion<
   | 'ring'
   | 'sector'
   | 'smoothline'
-  | 'text',
-  string
->
+  | 'text'
+
+export type UnionGraph =
+  | typeof Arc
+  | typeof BezierCurve
+  | typeof Circle
+  | typeof Ellipse
+  | typeof Polyline
+  | typeof Rect
+  | typeof RegPolygon
+  | typeof Ring
+  | typeof Sector
+  | typeof Smoothline
+  | typeof Text
+  | typeof Graph
+
+export type Graphs = {
+  arc: Arc
+  bezierCurve: BezierCurve
+  circle: Circle
+  ellipse: Ellipse
+  polyline: Polyline
+  rect: Rect
+  regPolygon: RegPolygon
+  ring: Ring
+  sector: Sector
+  smoothline: Smoothline
+  text: Text
+}
+
+export type GraphNameInfer<T> = T extends { name: infer P } ? P : GraphName

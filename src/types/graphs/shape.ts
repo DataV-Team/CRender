@@ -1,5 +1,5 @@
 import { Point } from '../core/graph'
-import { Optional, LiteralUnion } from '../common'
+import { Optional } from '../common'
 import { BezierCurve } from '@jiaminghi/bezier-curve/types/types'
 
 export type CircleShape = {
@@ -68,9 +68,9 @@ export type SmoothlineShape = {
 }
 
 export type SmoothlineShapeCache = {
-  points: Point[]
-  bezierCurve: BezierCurve
-  hoverPoints: Point[]
+  points?: Point[]
+  bezierCurve?: BezierCurve
+  hoverPoints?: Point[]
 }
 
 export type BezierCurveShape = {
@@ -79,8 +79,8 @@ export type BezierCurveShape = {
 }
 
 export type BezierCurveShapeCache = {
-  points: BezierCurve
-  hoverPoints: Point[]
+  points?: BezierCurve
+  hoverPoints?: Point[]
 }
 
 export type TextShape = {
@@ -89,19 +89,3 @@ export type TextShape = {
   maxWidth: undefined | number
   rowGap: number
 }
-
-export type Shapes = LiteralUnion<
-  | ArcShape
-  | BezierCurveShape
-  | CircleShape
-  | EllipseShape
-  | PolylineShape
-  | RectShape
-  | RegPolygonShape
-  | RingShape
-  | SectorShape
-  | SmoothlineShape
-  | TextShape,
-  // eslint-disable-next-line
-  any
->

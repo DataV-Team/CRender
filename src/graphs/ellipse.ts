@@ -1,34 +1,42 @@
-import { GraphModel } from '../types/graphs/index'
 import { EllipseShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
-import { Point } from '../types/core/graph'
+import { Point, GraphConfig } from '../types/core/graph'
+import Graph from '../core/graph.class'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const ellipse: GraphModel<EllipseShape> = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    hr: 0,
-    vr: 0,
-  },
+class Ellipse extends Graph<EllipseShape> {
+  name: GraphName = 'ellipse'
 
-  validator({ shape }) {
-    const { rx, ry, hr, vr } = shape
+  constructor(config: GraphConfig<EllipseShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          rx: 0,
+          ry: 0,
+          hr: 0,
+          vr: 0,
+        },
+        config,
+        ({ shape: { rx, ry, hr, vr } }) => {
+          if (
+            typeof rx !== 'number' ||
+            typeof ry !== 'number' ||
+            typeof hr !== 'number' ||
+            typeof vr !== 'number'
+          )
+            throw new Error('CRender Graph Ellipse: Ellipse shape configuration is invalid!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (
-      typeof rx !== 'number' ||
-      typeof ry !== 'number' ||
-      typeof hr !== 'number' ||
-      typeof vr !== 'number'
-    ) {
-      console.error('CRender Graph Ellipse: Ellipse shape configuration is invalid!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
     const { rx, ry, hr, vr } = shape
 
     ctx.beginPath()
@@ -36,9 +44,10 @@ const ellipse: GraphModel<EllipseShape> = {
 
     ctx.fill()
     ctx.stroke()
-  },
+  }
 
-  hoverCheck(point, { shape }) {
+  hoverCheck(point: Point): boolean {
+    const { shape } = this
     const { rx, ry, hr, vr } = shape
 
     const a = Math.max(hr, vr)
@@ -53,22 +62,23 @@ const ellipse: GraphModel<EllipseShape> = {
       getTwoPointDistance(point, leftFocusPoint) + getTwoPointDistance(point, rightFocusPoint)
 
     return distance <= 2 * a
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
-  },
+  }
 
-  move({ movementX, movementY }, ellipse) {
-    const { shape } = ellipse
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape } = this
 
-    ellipse.attr('shape', {
+    this.attr('shape', {
       rx: shape.rx + movementX,
       ry: shape.ry + movementY,
     })
-  },
+  }
 }
 
-export default ellipse
+export default Ellipse

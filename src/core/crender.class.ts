@@ -1,18 +1,51 @@
 import Graph from './graph.class'
-import GRAPHS from '../graphs/index'
 import { GraphConfig, Status } from '../types/core/graph'
-import { deepClone } from '../utils/common'
+import { deepClone, debounce } from '../utils/common'
 import { Point } from '../types/core/graph'
+import { CanvasCtx } from '../types/common'
+import { Graphs, GraphName } from '../types/graphs/index'
+import GRAPHS from '../graphs'
+import Arc from '../graphs/arc'
+import BezierCurve from '../graphs/bezierCurve'
+import Circle from '../graphs/circle'
+import Ellipse from '../graphs/ellipse'
+import Polyline from '../graphs/polyline'
+import RegPolygon from '../graphs/regPolygon'
+import Rect from '../graphs/rect'
+import Ring from '../graphs/ring'
+import Sector from '../graphs/sector'
+import Smoothline from '../graphs/smoothline'
+import Text from '../graphs/text'
 
 export default class CRender {
+  /**
+   * @description Device Pixel Ratio
+   */
+  dpr: number = 1
+  /**
+   * @description Off Screen Rendering
+   */
+  offScreenRendering: boolean = false
   /**
    * @description Canvas Element
    */
   canvas!: HTMLCanvasElement
   /**
-   * @description Context of the canvas
+   * @description Off Screen Canvas Element
    */
-  ctx!: CanvasRenderingContext2D
+  osCanvas?: OffscreenCanvas
+  /**
+   * @description Ctx for current rendering
+   */
+  ctx!: CanvasCtx
+  /**
+   * @description Actual Canvas Context
+   */
+  actualCtx!: CanvasRenderingContext2D
+  /**
+   * @description Off Screen Canvas Context
+   */
+  osCtx!: OffscreenCanvasRenderingContext2D
   /**
    * @description Width and height of the canvas
    */
@@ -26,32 +59,55 @@ export default class CRender {
    */
   graphs: Graph[] = []
 
-  constructor(canvas: HTMLCanvasElement) {
-    if (!canvas) {
-      console.error('CRender: Missing parameters!')
+  constructor(canvas: HTMLCanvasElement, offScreenRendering: boolean = false) {
+    if (!canvas) throw new Error('CRender: Missing parameters!')
 
-      return
-    }
+    const dpr = devicePixelRatio || 1
 
     const ctx = canvas.getContext('2d')
 
     const { clientWidth, clientHeight } = canvas
-    const area = [clientWidth, clientHeight]
+    const width = clientWidth * dpr
+    const height = clientHeight * dpr
+    const area = [width, height]
 
-    canvas.setAttribute('width', clientWidth + '')
-    canvas.setAttribute('height', clientHeight + '')
+    canvas.setAttribute('width', width + '')
+    canvas.setAttribute('height', height + '')
 
-    Object.assign(this, { canvas, ctx, area })
+    Object.assign(this, {
+      dpr,
+      area,
+      canvas,
+      ctx,
+      actualCtx: ctx,
+    })
 
     canvas.addEventListener('mousedown', this.mouseDown.bind(this))
     canvas.addEventListener('mousemove', this.mouseMove.bind(this))
     canvas.addEventListener('mouseup', this.mouseUp.bind(this))
+
+    // Off Screen Canvas
+    if (!OffscreenCanvas && offScreenRendering) {
+      console.warn('Your browser does not support off-screen rendering!')
+
+      return
+    }
+
+    const osCanvas = new OffscreenCanvas(width, height)
+    const osCtx = osCanvas!.getContext('2d')
+
+    Object.assign(this, {
+      osCanvas,
+      osCtx,
+      offScreenRendering,
+    })
   }
 
   clearArea(): void {
-    const { canvas, area } = this
+    const { canvas, osCanvas, area, offScreenRendering } = this
 
     canvas.width = area[0]
+    if (offScreenRendering) osCanvas!.width = area[0]
   }
 
   /**
@@ -64,40 +120,63 @@ export default class CRender {
     graphs.sort(({ index: a }, { index: b }) => a - b)
   }
 
-  drawAllGraph(): void {
-    this.clearArea()
-
-    this.graphs.filter(graph => graph.visible).forEach(graph => graph.drawProcessor())
+  drawAllGraph(immediately: boolean = false): void {
+    if (immediately) {
+      this.drawAllGraphImmediately()
+    } else {
+      this.drawAllGraphDebounced()
+    }
   }
 
-  add(config: GraphConfig, wait: boolean = false): null | Graph {
+  private drawAllGraphDebounced = debounce(this.drawAllGraphImmediately.bind(this), 0)
+
+  private drawAllGraphImmediately(): void {
+    const { offScreenRendering, actualCtx, osCtx, osCanvas } = this
+
+    this.clearArea()
+
+    this.ctx = offScreenRendering ? osCtx! : actualCtx
+
+    this.graphs.filter(graph => graph.visible).forEach(graph => graph.drawProcessor())
+
+    if (offScreenRendering) actualCtx.drawImage(osCanvas!, 0, 0)
+  }
+
+  add<T extends GraphConfig & { name: 'arc' }>(config: T, wait?: boolean): Arc
+  add<T extends GraphConfig & { name: 'bezierCurve' }>(config: T, wait?: boolean): BezierCurve
+  add<T extends GraphConfig & { name: 'circle' }>(config: T, wait?: boolean): Circle
+  add<T extends GraphConfig & { name: 'ellipse' }>(config: T, wait?: boolean): Ellipse
+  add<T extends GraphConfig & { name: 'polyline' }>(config: T, wait?: boolean): Polyline
+  add<T extends GraphConfig & { name: 'rect' }>(config: T, wait?: boolean): Rect
+  add<T extends GraphConfig & { name: 'regPolygon' }>(config: T, wait?: boolean): RegPolygon
+  add<T extends GraphConfig & { name: 'ring' }>(config: T, wait?: boolean): Ring
+  add<T extends GraphConfig & { name: 'sector' }>(config: T, wait?: boolean): Sector
+  add<T extends GraphConfig & { name: 'smoothline' }>(config: T, wait?: boolean): Smoothline
+  add<T extends GraphConfig & { name: 'text' }>(config: T, wait?: boolean): Text
+  add<T extends GraphConfig & { name: GraphName }>(
+    config: T,
+    wait: boolean = false
+  ): Graphs[GraphName] {
     const { name } = config
 
-    if (!name) {
-      console.error('CRender add: Missing parameters!')
+    if (!name) throw new Error('CRender add: Missing parameters!')
 
-      return null
-    }
+    const Graph = GRAPHS[name]
+    if (!Graph) throw new Error(`CRender add: Graph ${name} has not been registered!`)
 
-    const graphConfig = GRAPHS.get(name)
+    const graph = new Graph(config, this)
 
-    if (!graphConfig) {
-      console.warn('CRender add: No corresponding graph configuration found!')
+    this.addGraph(graph, wait)
 
-      return null
-    }
+    return graph
+  }
 
-    if (!graphConfig.validator(config)) return null
-
-    const graph = new Graph(graphConfig, config, this)
-
+  addGraph(graph: Graph, wait: boolean): void {
     this.graphs.push(graph)
 
     this.sortGraphsByIndex()
 
     if (!wait) this.drawAllGraph()
-
-    return graph
   }
 
   delGraph(graph: Graph): void {
@@ -112,10 +191,22 @@ export default class CRender {
     this.clearArea()
   }
 
-  clone(graph: Graph): Graph {
+  clone(graph: Arc, wait?: boolean): Arc
+  clone(graph: BezierCurve, wait?: boolean): BezierCurve
+  clone(graph: Circle, wait?: boolean): Circle
+  clone(graph: Ellipse, wait?: boolean): Ellipse
+  clone(graph: Polyline, wait?: boolean): Polyline
+  clone(graph: Rect, wait?: boolean): Rect
+  clone(graph: RegPolygon, wait?: boolean): RegPolygon
+  clone(graph: Ring, wait?: boolean): Ring
+  clone(graph: Sector, wait?: boolean): Sector
+  clone(graph: Smoothline, wait?: boolean): Smoothline
+  clone(graph: Text, wait?: boolean): Text
+  clone<T extends Graph>(graph: T, wait: boolean = false): T {
     const config = deepClone({ ...graph })
 
-    return this.add((config as unknown) as GraphConfig)!
+    // @ts-ignore
+    return this.add(config, wait)
   }
 
   /**
@@ -241,7 +332,6 @@ export default class CRender {
 
   /**
    * @description Handler of CRender mouseup event
-   * @return {Undefined} Void
    */
   private mouseUp(e: MouseEvent): void {
     const { graphs } = this

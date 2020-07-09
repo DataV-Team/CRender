@@ -16,13 +16,14 @@ import {
   LinearGradientParams,
   RadialGradientParams,
 } from '../types/core/style'
-import { RgbaValue } from '@jiaminghi/color/types/types'
 import {
   getCtxRealColorWithOpacity,
   gradientColorValidator,
   transformColor,
   getAutoColorStops,
 } from '../utils/style'
+import { CanvasCtx } from '../types/common'
+import { RgbaValue } from '@jiaminghi/color/types/types'
 
 export default class Style {
   /**
@@ -182,15 +183,15 @@ export default class Style {
     }
   }
 
-  setCtx(ctx: CanvasRenderingContext2D): void {
-    Style.setCtxTransform(ctx, this)
+  setCtx(ctx: CanvasCtx, dpr: number): void {
+    Style.setCtxTransform(ctx, this, dpr)
 
     Style.setCtxStyle(ctx, this)
 
     Style.setCtxGradientColor(ctx, this)
   }
 
-  static setCtxTransform(ctx: CanvasRenderingContext2D, style: Style): void {
+  static setCtxTransform(ctx: CanvasCtx, style: Style, dpr: number): void {
     ctx.save()
 
     const { graphCenter, rotate, scale, translate } = style
@@ -201,14 +202,18 @@ export default class Style {
 
     if (rotate) ctx.rotate((rotate * Math.PI) / 180)
 
-    if (scale instanceof Array) ctx.scale(...scale)
+    if (scale instanceof Array) {
+      ctx.scale(...(scale.map(_ => _ * dpr) as [number, number]))
+    } else if (dpr !== 1) {
+      ctx.scale(dpr, dpr)
+    }
 
     if (translate) ctx.translate(...translate)
 
     ctx.translate(-graphCenter[0], -graphCenter[1])
   }
 
-  static setCtxStyle(ctx: CanvasRenderingContext2D, style: Style): void {
+  static setCtxStyle(ctx: CanvasCtx, style: Style): void {
     // Set directly
     ctx.lineCap = style.lineCap
     ctx.lineJoin = style.lineJoin
@@ -239,7 +244,7 @@ export default class Style {
     ctx.font = `${fontStyle} ${fontVarient} ${fontWeight} ${fontSize}px ${fontFamily}`
   }
 
-  static setCtxGradientColor(ctx: CanvasRenderingContext2D, style: Style): void {
+  static setCtxGradientColor(ctx: CanvasCtx, style: Style): void {
     if (!gradientColorValidator(style)) return
 
     const {
@@ -269,7 +274,7 @@ export default class Style {
     ctx[gradientWith === 'fill' ? 'fillStyle' : 'strokeStyle'] = gradient
   }
 
-  restoreCtx(ctx: CanvasRenderingContext2D): void {
+  restoreCtx(ctx: CanvasCtx): void {
     ctx.restore()
   }
 }

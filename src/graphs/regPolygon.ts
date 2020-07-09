@@ -1,37 +1,47 @@
-import { GraphModel } from '../types/graphs/index'
 import { RegPolygonShape, RegPolygonShapeCache } from '../types/graphs/shape'
 import { getRegularPolygonPoints, checkPointIsInPolygon } from '../utils/graphs'
 import { drawPolylinePath } from '../utils/canvas'
+import Graph from '../core/graph.class'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const regPolygon: GraphModel<RegPolygonShape, RegPolygonShapeCache> = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    r: 0,
-    side: 0,
-  },
+class RegPolygon extends Graph<RegPolygonShape> {
+  name: GraphName = 'regPolygon'
 
-  validator({ shape }) {
-    const { side } = shape
+  cache: RegPolygonShapeCache = {}
 
-    const keys: (keyof RegPolygonShape)[] = ['rx', 'ry', 'r', 'side']
+  constructor(config: GraphConfig<RegPolygonShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          rx: 0,
+          ry: 0,
+          r: 0,
+          side: 0,
+        },
+        config,
+        ({ shape }) => {
+          const { side } = shape
 
-    if (keys.find(key => typeof shape[key] !== 'number')) {
-      console.error('CRender Graph RegPolygon: RegPolygon shape configuration is invalid!')
+          const keys: (keyof RegPolygonShape)[] = ['rx', 'ry', 'r', 'side']
 
-      return false
-    }
+          if (keys.find(key => typeof shape[key] !== 'number'))
+            throw new Error('CRender Graph RegPolygon: RegPolygon shape configuration is invalid!')
 
-    if (side < 3) {
-      console.error('CRender Graph RegPolygon: RegPolygon at least trigon!')
+          if (side! < 3) throw new Error('CRender Graph RegPolygon: RegPolygon at least trigon!')
+        }
+      ),
+      render
+    )
+  }
 
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape, cache }) {
+  draw(): void {
+    const {
+      shape,
+      cache,
+      render: { ctx },
+    } = this
     const { rx, ry, r, side } = shape
 
     if (
@@ -53,34 +63,35 @@ const regPolygon: GraphModel<RegPolygonShape, RegPolygonShapeCache> = {
 
     ctx.stroke()
     ctx.fill()
-  },
+  }
 
-  hoverCheck(point, { cache }) {
-    const { points } = cache!
+  hoverCheck(point: Point): boolean {
+    const { points } = this.cache!
 
     return checkPointIsInPolygon(point, points!)
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
-  },
+  }
 
-  move({ movementX, movementY }, regPolygon) {
-    const { shape, cache } = regPolygon
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape, cache } = this
     const { rx, ry } = shape
 
     cache.rx! += movementX
     cache.ry! += movementY
 
-    regPolygon.attr('shape', {
+    this.attr('shape', {
       rx: rx + movementX,
       ry: ry + movementY,
     })
 
     cache.points = cache.points!.map(([x, y]) => [x + movementX, y + movementY])
-  },
+  }
 }
 
-export default regPolygon
+export default RegPolygon

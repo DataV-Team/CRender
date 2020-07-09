@@ -1,10 +1,11 @@
 import { Point } from '../types/core/graph'
+import { CanvasCtx } from '../types/common'
 
 /**
  * @description Draw a polyline path
  */
 export function drawPolylinePath(
-  ctx: CanvasRenderingContext2D,
+  ctx: CanvasCtx,
   points: Point[],
   beginPath: boolean = false,
   closePath: boolean = false
@@ -22,7 +23,7 @@ export function drawPolylinePath(
  * @description Draw a bezier curve path
  */
 export function drawBezierCurvePath(
-  ctx: CanvasRenderingContext2D,
+  ctx: CanvasCtx,
   points: Point[][],
   moveTo: false | Point = false,
   beginPath: boolean = false,

@@ -1,11 +1,14 @@
-import CRender from '../../core/crender.class'
 import { Optional } from '../common'
 import { GraphName } from '../graphs/index'
+import { StyleConfig } from './style'
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 import { RgbaValue } from '@jiaminghi/color/types/types'
-import { StyleConfig } from './style'
 
 export type HoverRect = [number, number, number, number]
+
+export type HoverCheck = (point: Point) => boolean
+
+export type Move = (e: MouseEvent) => void
 
 // eslint-disable-next-line
 export type GraphConfig<Shape = any> = {
@@ -16,7 +19,7 @@ export type GraphConfig<Shape = any> = {
   /**
    * @description Graph shape
    */
-  shape: Shape
+  shape: Optional<Shape>
   /**
    * @description Graph style
    */
@@ -50,11 +53,11 @@ export type GraphConfig<Shape = any> = {
    * @description Animation dynamic curve (Supported by transition)
    * @link https://github.com/jiaming743/Transition
    */
-  animationCurve?: string
+  animationCurve?: EaseCurve
   /**
    * @description Weather to pause graph animation
    */
-  animationPause?: EaseCurve
+  animationPause?: boolean
   /**
    * @description Rectangular hover detection zone
    *  Use this method for hover detection first
@@ -81,12 +84,12 @@ export type GraphConfig<Shape = any> = {
    * Life Cycle when graph before draw
    */
   // eslint-disable-next-line
-  beforeDraw?: (render: CRender) => any
+  beforeDraw?: () => any
   /**
    * Life Cycle when graph drawed
    */
   // eslint-disable-next-line
-  drawed?: (render: CRender) => any
+  drawed?: () => any
   /**
    * Life Cycle when graph before move
    */

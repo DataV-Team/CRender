@@ -1,36 +1,46 @@
-import { GraphModel } from '../types/graphs/index'
 import { RingShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const ring: GraphModel<RingShape> = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    r: 0,
-  },
+class Ring extends Graph<RingShape> {
+  name: GraphName = 'ring'
 
-  validator({ shape }) {
-    const { rx, ry, r } = shape
+  constructor(config: GraphConfig<RingShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          rx: 0,
+          ry: 0,
+          r: 0,
+        },
+        config,
+        ({ shape: { rx, ry, r } }) => {
+          if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
+            throw new Error('CRender Graph Ring: Ring shape configuration is invalid!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
-      console.error('CRender Graph Ring: Ring shape configuration is invalid!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
     const { rx, ry, r } = shape
 
     ctx.beginPath()
     ctx.arc(rx, ry, r > 0 ? r : 0, 0, Math.PI * 2)
 
     ctx.stroke()
-  },
+  }
 
-  hoverCheck(point, { shape, style }) {
+  hoverCheck(point: Point): boolean {
+    const { shape, style } = this
     const { rx, ry, r } = shape
 
     const { lineWidth } = style
@@ -43,22 +53,23 @@ const ring: GraphModel<RingShape> = {
     const distance = getTwoPointDistance(point, [rx, ry])
 
     return distance >= minDistance && distance <= maxDistance
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
-  },
+  }
 
-  move({ movementX, movementY }, ring) {
-    const { shape } = ring
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape } = this
 
-    ring.attr('shape', {
+    this.attr('shape', {
       rx: shape.rx + movementX,
       ry: shape.ry + movementY,
     })
-  },
+  }
 }
 
-export default ring
+export default Ring

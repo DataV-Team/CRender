@@ -1,27 +1,36 @@
-import { GraphModel } from '../types/graphs/index'
 import { CircleShape } from '../types/graphs/shape'
 import { checkPointIsInCircle } from '../utils/graphs'
+import Graph from '../core/graph.class'
+import { GraphConfig, Point } from '../types/core/graph'
+import CRender from '../core/crender.class'
+import { GraphName } from '../types/graphs'
 
-const circle: GraphModel<CircleShape> = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    r: 0,
-  },
+class Circle extends Graph<CircleShape> {
+  name: GraphName = 'circle'
 
-  validator({ shape }) {
-    const { rx, ry, r } = shape
+  constructor(config: GraphConfig<CircleShape>, render: CRender) {
+    super(
+      Graph.mergeDefaultShape(
+        {
+          rx: 0,
+          ry: 0,
+          r: 0,
+        },
+        config,
+        ({ shape: { rx, ry, r } }) => {
+          if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
+            throw new Error('CRender Graph Circle: Circle shape configuration is invalid!')
+        }
+      ),
+      render
+    )
+  }
 
-    if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
-      console.error('CRender Graph Circle: Circle shape configuration is invalid!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw({ ctx }, { shape }) {
+  draw(): void {
+    const {
+      shape,
+      render: { ctx },
+    } = this
     const { rx, ry, r } = shape
 
     ctx.beginPath()
@@ -29,26 +38,28 @@ const circle: GraphModel<CircleShape> = {
 
     ctx.fill()
     ctx.stroke()
-  },
+  }
 
-  hoverCheck(point, { shape }) {
+  hoverCheck(point: Point): boolean {
+    const { shape } = this
     return checkPointIsInCircle(point, shape)
-  },
+  }
 
-  setGraphCenter({ shape, style }) {
+  setGraphCenter(): void {
+    const { shape, style } = this
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
-  },
+  }
 
-  move({ movementX, movementY }, circle) {
-    const { shape } = circle
+  move({ movementX, movementY }: MouseEvent): void {
+    const { shape } = this
 
-    circle.attr('shape', {
+    this.attr('shape', {
       rx: shape.rx + movementX,
       ry: shape.ry + movementY,
     })
-  },
+  }
 }
 
-export default circle
+export default Circle
