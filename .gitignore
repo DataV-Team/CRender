@@ -2,6 +2,7 @@
 node_modules
 scripts/config.json
 dev
+server.json
 
 # local env files
 .env.local
