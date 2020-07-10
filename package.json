@@ -26,7 +26,7 @@
     "check": "npm run type:check && npm run lint && npm run format:check && npm run test",
     "docs": "vuepress dev docs",
     "build:docs": "vuepress build docs",
-    "deploy": "ts-node deploy/index.ts"
+    "deploy": "ts-node scripts/deploy.ts"
   },
   "husky": {
     "hooks": {
