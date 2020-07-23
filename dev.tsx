@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom'
 import './dev.less'
-import CRender from './src/index'
+import CRender, { GRAPHS } from './src/index'
 
 function randomNum(start: number, end: number, fixed = 0): number {
   const differ = end - start
@@ -17,24 +17,34 @@ const Dev: React.FC = () => {
     const render = new CRender(canvas.current!)
     const [w, h] = render.area
 
-    new Array(1000).fill(0).map(
-      _ =>
-        render.add({
-          name: 'circle',
-          animationCurve: 'easeOutBack',
-          shape: {
-            rx: randomNum(0, w),
-            ry: randomNum(0, h),
-            r: randomNum(10, 50),
-          },
-          style: {
-            stroke: 'red',
-            fill: 'transparent',
-          },
-        })!
-    )
+    const graph = new GRAPHS.Text({
+      animationCurve: 'easeOutElastic',
+      shape: {
+        content: 'top\nmiddle\nbottom',
+        position: [w / 2, h / 2],
+      },
+      hover: true,
+      drag: true,
+      style: {
+        stroke: 'black',
+        fontSize: 30,
+        fontWeight: 'normal',
+        textAlign: 'start',
+        textBaseline: 'top',
+      },
+    })
 
-    await render.drawAllGraph()
+    render.add(graph)
+
+    await graph.animation('shape', {
+      position: [100, 100],
+    })
+
+    await graph.animation('shape', {
+      position: [w / 2, h / 2],
+    })
+
+    render.delAllGraph()
   }, [])
 
   useEffect(() => {

@@ -4,20 +4,19 @@ import { deepClone } from '../utils/common'
 import { drawBezierCurvePath } from '../utils/canvas'
 import { checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
 import Graph from '../core/graph.class'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
 import { bezierCurveToPolyline } from '@jiaminghi/bezier-curve'
 import {
   BezierCurveSegment,
   BezierCurve as BezierCurveType,
 } from '@jiaminghi/bezier-curve/types/types'
+import { Optional } from '../types/common'
 
 class BezierCurve extends Graph<BezierCurveShape> {
-  name: GraphName = 'bezierCurve'
+  name = 'bezierCurve'
 
-  cache: BezierCurveShapeCache = {}
+  private cache: BezierCurveShapeCache = {}
 
-  constructor(config: GraphConfig<BezierCurveShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<BezierCurveShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -29,8 +28,7 @@ class BezierCurve extends Graph<BezierCurveShape> {
           if (!(points instanceof Array))
             throw new Error('CRender Graph BezierCurve: BezierCurve points should be an array!')
         }
-      ),
-      render
+      )
     )
   }
 

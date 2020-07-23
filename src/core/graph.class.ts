@@ -7,18 +7,11 @@ import {
   AnimationQueueItem,
   AnimationFrameStateItem,
 } from '../types/core/graph'
-import { GraphName } from '../types/graphs/index'
 import { StyleConfig } from '../types/core/style'
 import { Optional } from '../types/common'
 import Style from './style.class'
 import CRender from './crender.class'
-import {
-  getRotatePointPos,
-  getScalePointPos,
-  getTranslatePointPos,
-  checkPointIsInRect,
-  delay,
-} from '../utils/graph'
+import { delay } from '../utils/graph'
 import { deepClone } from '../utils/common'
 import transition from '@jiaminghi/transition'
 import { RgbaValue } from '@jiaminghi/color/types/types'
@@ -30,10 +23,6 @@ export default class Graph<Shape = any> {
    * @description Graph Render
    */
   render!: CRender
-  /**
-   * @description Graph name
-   */
-  name!: GraphName
   /**
    * @description Graph shape
    */
@@ -127,8 +116,16 @@ export default class Graph<Shape = any> {
   // eslint-disable-next-line
   move(_e: MouseEvent): void {}
   /**
+   * @LifeCyle
+   * @description Life Cycle hooks, will all be called in render
+   */
+  /**
+   * @description Life Cycle when graph before add
+   */
+  // eslint-disable-next-line
+  beforeAdd?: () => any
+  /**
    * @description Life Cycle when graph added
-   * Called in subclasses
    */
   // eslint-disable-next-line
   added?: () => any
@@ -163,7 +160,9 @@ export default class Graph<Shape = any> {
   // eslint-disable-next-line
   deleted?: () => any
 
-  constructor(config: GraphConfig<Shape>, render: CRender) {
+  constructor(config: GraphConfig<Shape>) {
+    config = deepClone(config)
+
     const style = new Style(config.style)
 
     Object.assign(this, config, {
@@ -172,18 +171,12 @@ export default class Graph<Shape = any> {
       animationKeys: [],
       animationFrameState: [],
       style,
-      render,
     })
-
-    this.setGraphCenter()
-
-    // life cycle added
-    if (this.added) this.added()
   }
 
   static mergeDefaultShape<Shape>(
-    defaultShape: Optional<Shape>,
-    config: GraphConfig<Shape>,
+    defaultShape: Shape,
+    config: GraphConfig<Optional<Shape>>,
     checker?: (config: GraphConfig<Shape>) => void
   ): GraphConfig<Shape> {
     const mergedConfig = {
@@ -196,52 +189,8 @@ export default class Graph<Shape = any> {
     return mergedConfig
   }
 
-  drawProcessor(): void {
-    const { render } = this
-    const { ctx, dpr } = render
-
-    this.style.setCtx(ctx, dpr)
-
-    if (this.beforeDraw) this.beforeDraw()
-
-    this.draw()
-
-    if (this.drawed) this.drawed()
-
-    this.style.restoreCtx(ctx)
-  }
-
-  hoverCheckProcessor(point: Point): boolean {
-    const { hoverRect, style } = this
-    const { graphCenter, rotate, scale, translate } = style
-
-    if (!this.hoverCheck) return false
-
-    if (graphCenter) {
-      if (rotate) point = getRotatePointPos(-rotate, point, graphCenter)
-
-      if (scale)
-        point = getScalePointPos(scale.map(s => 1 / s) as [number, number], point, graphCenter)
-
-      if (translate)
-        point = getTranslatePointPos(translate.map(v => v * -1) as [number, number], point)
-    }
-
-    if (hoverRect) return checkPointIsInRect(point, ...hoverRect)
-
-    return this.hoverCheck(point)
-  }
-
-  moveProcessor(e: MouseEvent): void {
-    if (!this.move) return
-
-    if (this.beforeMove) this.beforeMove(e)
-
-    this.move(e)
-
-    if (this.moved) this.moved(e)
-
-    this.setGraphCenter()
+  private checkRender(): void {
+    if (!this.render) throw new Error('Graph has not been pushed into render!')
   }
 
   /**
@@ -252,6 +201,8 @@ export default class Graph<Shape = any> {
     value: Optional<GraphConfig<Shape>[typeof key]>,
     reDraw: boolean = true
   ): void {
+    this.checkRender()
+
     const isObject = typeof this[key] === 'object'
 
     if (isObject) value = deepClone(value)
@@ -287,17 +238,13 @@ export default class Graph<Shape = any> {
     value: Optional<Shape> | StyleConfig<string | RgbaValue>,
     wait: boolean = false
   ): Promise<void> {
-    if (key !== 'shape' && key !== 'style') {
-      console.error('Graph animation: Only supported shape and style animation!')
+    this.checkRender()
 
-      return
-    }
+    if (key !== 'shape' && key !== 'style')
+      throw new Error('Graph animation: Only supported shape and style animation!')
 
-    if (typeof value !== 'object') {
-      console.error('Graph animation: Shape or style must be an object!')
-
-      return
-    }
+    if (typeof value !== 'object')
+      throw new Error('Graph animation: Shape or style must be an object!')
 
     value = deepClone(value)
     if (key === 'style') value = Style.colorProcessor(value as StyleConfig<string | RgbaValue>)
@@ -332,33 +279,11 @@ export default class Graph<Shape = any> {
   }
 
   /**
-   * @description Extract the next frame of data from the animation queue
-   * and update the graph state
-   * @param timeStamp {number} Animation start timestamp
-   */
-  turnNextAnimationFrame(timeStamp: number): void {
-    const { animationPause, animationDelay, animationQueue } = this
-
-    if (animationPause || Date.now() - timeStamp < animationDelay) return
-
-    this.animationQueue = animationQueue.reduce<AnimationQueueItem<Shape>[]>(
-      (queue, { key, frameState }) => {
-        Object.assign(this[key], frameState.shift())
-
-        if (frameState.length) {
-          return [...queue, { key, frameState }]
-        } else {
-          return queue
-        }
-      },
-      []
-    )
-  }
-
-  /**
    * @description Skip to the last frame of animation
    */
   animationEnd(): void {
+    this.checkRender()
+
     const { animationQueue, render } = this
 
     animationQueue.forEach(({ key, frameState }) => Object.assign(this[key], frameState.pop()))
@@ -372,6 +297,8 @@ export default class Graph<Shape = any> {
    * @description Pause animation behavior
    */
   pauseAnimation(): void {
+    this.checkRender()
+
     this.attr('animationPause', true)
   }
 
@@ -379,6 +306,8 @@ export default class Graph<Shape = any> {
    * @description Try animate
    */
   playAnimation(): Promise<void> {
+    this.checkRender()
+
     const { render } = this
 
     this.attr('animationPause', false)
@@ -390,19 +319,20 @@ export default class Graph<Shape = any> {
     })
   }
 
-  /**
-   * @description Processor of delete
-   */
-  delProcessor(): void {
-    const { graphs } = this.render
+  clone(add: boolean = true): this {
+    this.checkRender()
 
-    const index = graphs.findIndex(graph => graph === this)
-    if (index === -1) return
+    const { render } = this
 
-    if (this.beforeDelete) this.beforeDelete()
+    // @ts-ignore
+    const Constructor = this.__proto__.constructor
 
-    graphs.splice(index, 1)
+    const config = { ...this }
+    delete config.render
 
-    if (this.deleted) this.deleted()
+    const graph = new Constructor(config)
+    if (add) render.add(graph)
+
+    return graph
   }
 }

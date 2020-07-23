@@ -1,3 +1,5 @@
+import { Polyline } from '../../../lib'
+
 export default function (render) {
   const {
     area: [w, h],
@@ -11,8 +13,7 @@ export default function (render) {
 
   const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
-  return {
-    name: 'polyline',
+  return new Polyline({
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -32,5 +33,5 @@ export default function (render) {
     mouseOuter(e) {
       this.animation('style', { lineWidth: 10, shadowBlur: 0 })
     },
-  }
+  })
 }

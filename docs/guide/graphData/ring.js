@@ -4,7 +4,6 @@ export default function (render) {
   } = render
 
   return {
-    name: 'ring',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

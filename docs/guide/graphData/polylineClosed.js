@@ -1,4 +1,5 @@
-import { deepClone } from '../../CRender/plugin/util'
+import { Polyline } from '../../../lib'
+import { deepClone } from '../../../lib'
 
 export default function (render) {
   const {
@@ -16,7 +17,6 @@ export default function (render) {
   points[2][1] += top * 1.3
 
   return {
-    name: 'polyline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

@@ -7,18 +7,18 @@
 <script>
 import canvasMixin from '../mixins/canvasMixin.js'
 
-import CRender from '../../CRender/index.js'
+import CRender from '../../../es'
 
 export default {
   name: 'Demo',
-  props: ['config'],
+  props: ['graph'],
   mixins: [canvasMixin],
   data() {
     return {}
   },
   methods: {
     async init() {
-      const { initCanvas, config } = this
+      const { initCanvas, graph } = this
 
       await initCanvas('canvas')
 
@@ -26,7 +26,7 @@ export default {
 
       if (!config) return
 
-      const item = render.add(config(render))
+      const item = render.add(graph)
     },
   },
   mounted() {

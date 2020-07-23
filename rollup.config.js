@@ -1,7 +1,7 @@
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import replace from '@rollup/plugin-replace'
 import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
+import replace from '@rollup/plugin-replace'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 
@@ -38,24 +38,24 @@ export default [
   },
 
   // ES
-  {
-    input: 'src/index.ts',
-    output: { file: 'es/index.js', format: 'es', indent: false, exports: 'named' },
-    external: makeExternalPredicate([
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-    ]),
-    plugins: [
-      babel({
-        plugins: [
-          ['@babel/plugin-transform-runtime', { version: babelRuntimeVersion, useESModules: true }],
-        ],
-        babelHelpers: 'runtime',
-      }),
-      typescript({ tsconfigOverride: noDeclarationFiles }),
-      resolve(),
-    ],
-  },
+  // {
+  //   input: 'src/index.ts',
+  //   output: { file: 'es', format: 'es', indent: false, exports: 'named' },
+  //   external: makeExternalPredicate([
+  //     ...Object.keys(pkg.dependencies || {}),
+  //     ...Object.keys(pkg.peerDependencies || {}),
+  //   ]),
+  //   plugins: [
+  //     babel({
+  //       plugins: [
+  //         ['@babel/plugin-transform-runtime', { version: babelRuntimeVersion, useESModules: true }],
+  //       ],
+  //       babelHelpers: 'runtime',
+  //     }),
+  //     typescript({ tsconfigOverride: noDeclarationFiles }),
+  //     resolve(),
+  //   ],
+  // },
 
   // ES for Browsers
   {

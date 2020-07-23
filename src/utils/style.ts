@@ -23,7 +23,7 @@ export function transformColor(reverse?: boolean) {
 export function getCtxRealColorWithOpacity(opacity: number): (color: RgbaValue) => string {
   return (color: RgbaValue): string => {
     const _color = [...color]
-    _color[3] * opacity
+    _color[3] *= opacity
 
     return getColorFromRgbValue(_color as RgbaValue)
   }

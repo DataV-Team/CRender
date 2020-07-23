@@ -1,4 +1,4 @@
-import { deepClone } from '../../../CRender/plugin/util'
+import { deepClone } from '../../../../es/utils/common'
 
 export default function (render) {
   const {

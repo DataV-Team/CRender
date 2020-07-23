@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CRender from '../../CRender'
+import CRender from '../../../es'
 
 export default {
   name: 'DEV',

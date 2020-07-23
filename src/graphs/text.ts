@@ -1,13 +1,15 @@
-import { TextShape } from '../types/graphs/shape'
+import { TextShape, TextShapeCache } from '../types/graphs/shape'
 import { Point, GraphConfig } from '../types/core/graph'
 import Graph from '../core/graph.class'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
+import { checkPointIsInRect } from '../utils/graphs'
 
 class Text extends Graph<TextShape> {
-  name: GraphName = 'text'
+  name = 'text'
 
-  constructor(config: GraphConfig<TextShape>, render: CRender) {
+  private cache: TextShapeCache = {}
+
+  constructor(config: GraphConfig<Optional<TextShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -27,8 +29,7 @@ class Text extends Graph<TextShape> {
           if (typeof rowGap !== 'number')
             throw new Error('CRender Graph Text: Text rowGap should be a number!')
         }
-      ),
-      render
+      )
     )
   }
 
@@ -56,7 +57,7 @@ class Text extends Graph<TextShape> {
       y += fontSize / 2
     }
 
-    if (textBaseline === 'bottom') {
+    if (textBaseline === 'bottom' || textBaseline === 'alphabetic') {
       offset = allHeight
       y += fontSize
     }
@@ -67,12 +68,46 @@ class Text extends Graph<TextShape> {
 
     ctx.beginPath()
 
+    let realMaxWidth = 0
     contentArr.forEach((text, i) => {
+      // calc text width and height for hover check
+      const width = ctx.measureText(text).width
+      if (width > realMaxWidth) realMaxWidth = width
+
       ctx.fillText(text, positions[i][0], positions[i][1], maxWidth)
       ctx.strokeText(text, positions[i][0], positions[i][1], maxWidth)
     })
 
     ctx.closePath()
+
+    this.setCache(realMaxWidth, allHeight)
+  }
+
+  private setCache(width: number, height: number): void {
+    const {
+      cache,
+      shape: {
+        position: [x, y],
+      },
+      render: { ctx },
+    } = this
+    const { textAlign, textBaseline } = ctx
+
+    cache.w = width
+    cache.h = height
+    cache.x = x
+    cache.y = y
+    if (textAlign === 'center') {
+      cache.x = x - width / 2
+    } else if (textAlign === 'end' || textAlign === 'right') {
+      cache.x = x - width
+    }
+
+    if (textBaseline === 'middle') {
+      cache.y = y - height / 2
+    } else if (textBaseline === 'bottom' || textBaseline === 'alphabetic') {
+      cache.y = y - height
+    }
   }
 
   setGraphCenter(): void {
@@ -92,6 +127,14 @@ class Text extends Graph<TextShape> {
     this.attr('shape', {
       position: [x + movementX, y + movementY],
     })
+  }
+
+  hoverCheck(point: Point): boolean {
+    const {
+      cache: { x, y, w, h },
+    } = this
+
+    return checkPointIsInRect(point, { x: x!, y: y!, w: w!, h: h! })
   }
 }
 

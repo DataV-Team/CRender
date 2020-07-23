@@ -2,13 +2,12 @@ import { RectShape } from '../types/graphs/shape'
 import { checkPointIsInRect } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Rect extends Graph<RectShape> {
-  name: GraphName = 'rect'
+  name = 'rect'
 
-  constructor(config: GraphConfig<RectShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<RectShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -27,8 +26,7 @@ class Rect extends Graph<RectShape> {
           )
             throw new Error('CRender Graph Rect: Rect shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 

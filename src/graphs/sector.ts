@@ -2,13 +2,12 @@ import { SectorShape } from '../types/graphs/shape'
 import { checkPointIsInSector } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Sector extends Graph<SectorShape> {
-  name: GraphName = 'sector'
+  name = 'sector'
 
-  constructor(config: GraphConfig<SectorShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<SectorShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -26,8 +25,7 @@ class Sector extends Graph<SectorShape> {
           if (keys.find(key => typeof shape[key] !== 'number'))
             throw new Error('CRender Graph Sector: Sector shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 
@@ -41,6 +39,7 @@ class Sector extends Graph<SectorShape> {
     ctx.beginPath()
     ctx.arc(rx, ry, r > 0 ? r : 0, startAngle, endAngle, !clockWise)
     ctx.lineTo(rx, ry)
+    ctx.closePath()
 
     ctx.stroke()
     ctx.fill()

@@ -21,9 +21,9 @@ const compile = debounce(async () => {
 
   print.tip(`Compiling...`)
 
-  await compiler(INPUT_FILE, OUTPUT_FILE).catch(({ messafe }) => {
+  await compiler(INPUT_FILE, OUTPUT_FILE).catch(({ message }) => {
     success = false
-    print.error(`Compile Exception: ${messafe}`, true)
+    print.error(`Compile Exception: ${message}`, true)
   })
 
   if (success) print.success(`Compile Successed: http://localhost:${ServerPort}`, true)

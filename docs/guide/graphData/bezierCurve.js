@@ -1,3 +1,5 @@
+import { BezierCurve } from '../../../lib'
+
 export default function (render) {
   const {
     area: [w, h],
@@ -18,8 +20,7 @@ export default function (render) {
     ],
   ]
 
-  return {
-    name: 'bezierCurve',
+  return new BezierCurve({
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -39,5 +40,5 @@ export default function (render) {
     mouseOuter(e) {
       this.animation('style', { lineWidth: 10, shadowBlur: 0 })
     },
-  }
+  })
 }

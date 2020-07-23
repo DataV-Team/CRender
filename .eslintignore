@@ -4,3 +4,4 @@
 **/node_modules/**
 rollup.config.js
 dev.tsx
+docs

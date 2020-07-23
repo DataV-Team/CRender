@@ -44,6 +44,13 @@ var __assign = function() {
     return __assign.apply(this, arguments);
 };
 
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
 function __awaiter(thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -129,6 +136,417 @@ function debounce(callback, delay) {
         }, delay);
     };
 }
+
+/**
+ * @description Get the coordinates of the rotated point
+ */
+function getRotatePointPos(rotate, point, origin) {
+    if (rotate === void 0) { rotate = 0; }
+    if (origin === void 0) { origin = [0, 0]; }
+    if (rotate % 360 === 0)
+        return point;
+    var x = point[0], y = point[1];
+    var ox = origin[0], oy = origin[1];
+    rotate *= Math.PI / 180;
+    return [
+        (x - ox) * Math.cos(rotate) - (y - oy) * Math.sin(rotate) + ox,
+        (x - ox) * Math.sin(rotate) + (y - oy) * Math.cos(rotate) + oy,
+    ];
+}
+/**
+ * @description Get the coordinates of the scaled point
+ */
+function getScalePointPos(scale, point, origin) {
+    if (scale === void 0) { scale = [1, 1]; }
+    if (origin === void 0) { origin = [0, 0]; }
+    var x = point[0], y = point[1];
+    var ox = origin[0], oy = origin[1];
+    var xs = scale[0], ys = scale[1];
+    var relativePosX = x - ox;
+    var relativePosY = y - oy;
+    return [relativePosX * xs + ox, relativePosY * ys + oy];
+}
+/**
+ * @description Get the coordinates of the scaled point
+ */
+function getTranslatePointPos(translate, point) {
+    var x = point[0], y = point[1];
+    var tx = translate[0], ty = translate[1];
+    return [x + tx, y + ty];
+}
+/**
+ * @description Check if the point is inside the rect
+ */
+function checkPointIsInRect(_a, x, y, width, height) {
+    var px = _a[0], py = _a[1];
+    if (px < x)
+        return false;
+    if (py < y)
+        return false;
+    if (px > x + width)
+        return false;
+    if (py > y + height)
+        return false;
+    return true;
+}
+/**
+ * @description Return a timed release Promise
+ */
+function delay(time) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, time);
+    });
+}
+
+function bound(
+// eslint-disable-next-line
+target, name, descriptor) {
+    return {
+        configurable: true,
+        enumerable: false,
+        // eslint-disable-next-line
+        get: function () {
+            Object.defineProperty(target, name, {
+                enumerable: false,
+                writable: true,
+                configurable: true,
+                // @ts-ignore
+                value: (descriptor.value || descriptor.initializer.call(this)).bind(this),
+            });
+            // @ts-ignore
+            return this[name];
+        },
+        set: function () {
+            throw new Error('Reassign able not after bound!');
+        },
+    };
+}
+
+var CRender = /** @class */ (function () {
+    function CRender(canvas, offScreenRendering) {
+        if (offScreenRendering === void 0) { offScreenRendering = false; }
+        /**
+         * @description Device Pixel Ratio
+         */
+        this.dpr = 1;
+        /**
+         * @description Off Screen Rendering
+         */
+        this.offScreenRendering = false;
+        /**
+         * @description Width and height of the canvas
+         */
+        this.area = [0, 0];
+        /**
+         * @description Whether render is in animation rendering
+         */
+        this.animationStatus = false;
+        /**
+         * @description Added graph
+         */
+        this.graphs = [];
+        this.drawAllGraphDebounced = debounce(this.drawAllGraphImmediately, 0);
+        if (!canvas)
+            throw new Error('CRender: Missing parameters!');
+        var dpr = devicePixelRatio || 1;
+        var ctx = canvas.getContext('2d');
+        var clientWidth = canvas.clientWidth, clientHeight = canvas.clientHeight;
+        var width = clientWidth * dpr;
+        var height = clientHeight * dpr;
+        var area = [clientWidth, clientHeight];
+        canvas.setAttribute('width', width + '');
+        canvas.setAttribute('height', height + '');
+        Object.assign(this, {
+            dpr: dpr,
+            area: area,
+            canvas: canvas,
+            ctx: ctx,
+            actualCtx: ctx,
+        });
+        canvas.addEventListener('mousedown', this.mouseDown.bind(this));
+        canvas.addEventListener('mousemove', this.mouseMove.bind(this));
+        canvas.addEventListener('mouseup', this.mouseUp.bind(this));
+        // Off Screen Canvas
+        if (!OffscreenCanvas && offScreenRendering) {
+            console.warn('Your browser does not support off-screen rendering!');
+            return;
+        }
+        var osCanvas = new OffscreenCanvas(width, height);
+        var osCtx = osCanvas.getContext('2d');
+        Object.assign(this, {
+            osCanvas: osCanvas,
+            osCtx: osCtx,
+            offScreenRendering: offScreenRendering,
+        });
+    }
+    CRender.prototype.clearArea = function () {
+        var _a = this, canvas = _a.canvas, osCanvas = _a.osCanvas, area = _a.area, offScreenRendering = _a.offScreenRendering;
+        var width = area[0] * this.dpr;
+        canvas.width = width;
+        if (offScreenRendering)
+            osCanvas.width = width;
+    };
+    /**
+     * @description Sort the graphs by index
+     * Give priority to index high graph in rendering
+     */
+    CRender.prototype.sortGraphsByIndex = function () {
+        var graphs = this.graphs;
+        graphs.sort(function (_a, _b) {
+            var a = _a.index;
+            var b = _b.index;
+            return a - b;
+        });
+    };
+    CRender.prototype.drawAllGraph = function (immediately) {
+        if (immediately === void 0) { immediately = false; }
+        if (immediately) {
+            this.drawAllGraphImmediately();
+        }
+        else {
+            this.drawAllGraphDebounced();
+        }
+    };
+    CRender.prototype.drawAllGraphImmediately = function () {
+        var _a = this, offScreenRendering = _a.offScreenRendering, actualCtx = _a.actualCtx, osCtx = _a.osCtx, osCanvas = _a.osCanvas;
+        this.clearArea();
+        this.ctx = offScreenRendering ? osCtx : actualCtx;
+        this.graphs.filter(function (graph) { return graph.visible; }).forEach(this.drawGraphProcessor);
+        if (offScreenRendering)
+            actualCtx.drawImage(osCanvas, 0, 0);
+    };
+    CRender.prototype.drawGraphProcessor = function (graph) {
+        graph.style.setCtx(this);
+        if (graph.beforeDraw)
+            graph.beforeDraw();
+        graph.draw();
+        if (graph.drawed)
+            graph.drawed();
+        graph.style.restoreCtx(this);
+    };
+    CRender.prototype.add = function (graph, wait) {
+        if (wait === void 0) { wait = false; }
+        if (Array.isArray(graph)) {
+            graph.forEach(this.graphAddProcessor);
+        }
+        else {
+            this.graphAddProcessor(graph);
+        }
+        if (!wait)
+            this.drawAllGraph();
+    };
+    CRender.prototype.graphAddProcessor = function (graph) {
+        if (graph.beforeAdd)
+            graph.beforeAdd();
+        graph.render = this;
+        graph.setGraphCenter();
+        this.graphs.push(graph);
+        this.sortGraphsByIndex();
+        if (graph.added)
+            graph.added();
+    };
+    CRender.prototype.delGraph = function (graph, wait) {
+        if (wait === void 0) { wait = false; }
+        if (Array.isArray(graph)) {
+            __spreadArrays(graph).forEach(this.graphDelProcessor);
+        }
+        else {
+            this.graphDelProcessor(graph);
+        }
+        if (!wait)
+            this.drawAllGraph();
+    };
+    CRender.prototype.graphDelProcessor = function (graph) {
+        var graphs = this.graphs;
+        var index = graphs.findIndex(function (_) { return _ === graph; });
+        if (index === -1)
+            return;
+        if (graph.beforeDelete)
+            graph.beforeDelete();
+        graphs.splice(index, 1);
+        if (graph.deleted)
+            graph.deleted();
+    };
+    CRender.prototype.delAllGraph = function () {
+        this.delGraph(this.graphs);
+        this.clearArea();
+    };
+    /**
+     * @description Animate the graph whose animation queue is not empty
+     * and the animationPause is false
+     */
+    CRender.prototype.launchAnimation = function () {
+        var _this = this;
+        var animationStatus = this.animationStatus;
+        if (animationStatus)
+            return;
+        this.animationStatus = true;
+        return new Promise(function (resolve) {
+            _this.animate(function () {
+                _this.animationStatus = false;
+                resolve();
+            }, Date.now());
+        });
+    };
+    CRender.prototype.animate = function (callback, timeStamp) {
+        var _this = this;
+        var graphs = this.graphs;
+        if (!this.animateAble()) {
+            callback();
+            return;
+        }
+        graphs.forEach(function (graph) { return _this.graphTrunNextAnimationFrame(graph, timeStamp); });
+        this.drawAllGraph();
+        requestAnimationFrame(this.animate.bind(this, callback, timeStamp));
+    };
+    /**
+     * @description Extract the next frame of data from the animation queue
+     * and update the graph state
+     * @param timeStamp {number} Animation start timestamp
+     */
+    CRender.prototype.graphTrunNextAnimationFrame = function (graph, timeStamp) {
+        var animationPause = graph.animationPause, animationDelay = graph.animationDelay, animationQueue = graph.animationQueue;
+        if (animationPause || Date.now() - timeStamp < animationDelay)
+            return;
+        graph.animationQueue = animationQueue.reduce(function (queue, _a) {
+            var key = _a.key, frameState = _a.frameState;
+            Object.assign(graph[key], frameState.shift());
+            if (frameState.length) {
+                return __spreadArrays(queue, [{ key: key, frameState: frameState }]);
+            }
+            else {
+                return queue;
+            }
+        }, []);
+    };
+    CRender.prototype.animateAble = function () {
+        var graphs = this.graphs;
+        return !!graphs.find(function (graph) { return !graph.animationPause && graph.animationQueue.length; });
+    };
+    /**
+     * @description Handler of CRender mousedown event
+     */
+    CRender.prototype.mouseDown = function () {
+        var graphs = this.graphs;
+        var hoverGraph = graphs.find(function (graph) { return graph.status === Status.HOVER; });
+        if (!hoverGraph)
+            return;
+        hoverGraph.status = Status.ACTIVE;
+    };
+    /**
+     * @description Handler of CRender mousemove event
+     */
+    CRender.prototype.mouseMove = function (e) {
+        var _this = this;
+        var offsetX = e.offsetX, offsetY = e.offsetY;
+        var position = [offsetX, offsetY];
+        var graphs = this.graphs;
+        var activeGraph = graphs.find(function (graph) { return graph.status === Status.ACTIVE || graph.status === Status.DRAG; });
+        // Active Graph | Drag Able | Move Able
+        if (activeGraph && activeGraph.drag && activeGraph.move) {
+            this.graphMoveProcessor(activeGraph, e);
+            activeGraph.status = Status.DRAG;
+            return;
+        }
+        var hoverGraph = graphs.find(function (graph) { return graph.status === Status.HOVER; });
+        var hoverAbleGraphs = graphs.filter(function (graph) { return graph.hover && (graph.hoverCheck || graph.hoverRect); });
+        var hoveredGraph = hoverAbleGraphs.find(function (graph) {
+            return _this.graphHoverCheckProcessor(graph, position);
+        });
+        // Hover Graph
+        if (hoveredGraph) {
+            document.body.style.cursor = hoveredGraph.style.hoverCursor;
+        }
+        else {
+            document.body.style.cursor = 'default';
+        }
+        // No hover graph
+        if (!hoveredGraph && !hoverGraph)
+            return;
+        // Same hover graph
+        if (hoveredGraph === hoverGraph)
+            return;
+        // No hoverd graph But before had
+        if (!hoveredGraph && hoverGraph) {
+            if (hoverGraph.onMouseOuter)
+                hoverGraph.onMouseOuter(e);
+            hoverGraph.status = Status.STATIC;
+            return;
+        }
+        // Only has hovered graph
+        if (hoveredGraph && !hoverGraph) {
+            if (hoveredGraph.onMouseEnter)
+                hoveredGraph.onMouseEnter(e);
+            hoveredGraph.status = Status.HOVER;
+            return;
+        }
+        // Not a same graph
+        if (hoverGraph.onMouseOuter)
+            hoverGraph.onMouseOuter(e);
+        hoverGraph.status = Status.STATIC;
+        if (hoveredGraph.onMouseEnter)
+            hoveredGraph.onMouseEnter(e);
+        hoveredGraph.status = Status.HOVER;
+    };
+    CRender.prototype.graphMoveProcessor = function (graph, e) {
+        if (!graph.move)
+            return;
+        if (graph.beforeMove)
+            graph.beforeMove(e);
+        graph.move(e);
+        if (graph.moved)
+            graph.moved(e);
+        graph.setGraphCenter();
+    };
+    CRender.prototype.graphHoverCheckProcessor = function (graph, point) {
+        var hoverRect = graph.hoverRect, style = graph.style;
+        var graphCenter = style.graphCenter, rotate = style.rotate, scale = style.scale, translate = style.translate;
+        if (!graph.hoverCheck)
+            return false;
+        if (graphCenter) {
+            if (rotate)
+                point = getRotatePointPos(-rotate, point, graphCenter);
+            if (scale)
+                point = getScalePointPos(scale.map(function (s) { return 1 / s; }), point, graphCenter);
+            if (translate)
+                point = getTranslatePointPos(translate.map(function (v) { return v * -1; }), point);
+        }
+        if (hoverRect)
+            return checkPointIsInRect.apply(void 0, __spreadArrays([point], hoverRect));
+        return graph.hoverCheck(point);
+    };
+    /**
+     * @description Handler of CRender mouseup event
+     */
+    CRender.prototype.mouseUp = function (e) {
+        var graphs = this.graphs;
+        var activeGraph = graphs.find(function (graph) { return graph.status === Status.ACTIVE; });
+        var dragGraph = graphs.find(function (graph) { return graph.status === Status.DRAG; });
+        if (activeGraph && activeGraph.onClick)
+            activeGraph.onClick(e);
+        graphs.forEach(function (graph) { return (graph.status = Status.STATIC); });
+        if (activeGraph)
+            activeGraph.status = Status.HOVER;
+        if (dragGraph)
+            dragGraph.status = Status.HOVER;
+    };
+    __decorate([
+        bound
+    ], CRender.prototype, "drawAllGraphImmediately", null);
+    __decorate([
+        bound
+    ], CRender.prototype, "drawGraphProcessor", null);
+    __decorate([
+        bound
+    ], CRender.prototype, "graphAddProcessor", null);
+    __decorate([
+        bound
+    ], CRender.prototype, "graphDelProcessor", null);
+    __decorate([
+        bound
+    ], CRender.prototype, "launchAnimation", null);
+    return CRender;
+}());
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -461,7 +879,7 @@ function transformColor(reverse) {
 function getCtxRealColorWithOpacity(opacity) {
     return function (color) {
         var _color = __spreadArrays(color);
-        _color[3] * opacity;
+        _color[3] *= opacity;
         return getColorFromRgbValue(_color);
     };
 }
@@ -615,30 +1033,27 @@ var Style = /** @class */ (function () {
             return processedStyle;
         }
     };
-    Style.prototype.setCtx = function (ctx, dpr) {
-        Style.setCtxTransform(ctx, this, dpr);
-        Style.setCtxStyle(ctx, this);
-        Style.setCtxGradientColor(ctx, this);
+    Style.prototype.setCtx = function (render) {
+        Style.setCtxTransform(this, render);
+        Style.setCtxStyle(render, this);
+        Style.setCtxGradientColor(render, this);
     };
-    Style.setCtxTransform = function (ctx, style, dpr) {
+    Style.setCtxTransform = function (style, _a) {
+        var ctx = _a.ctx, dpr = _a.dpr;
         ctx.save();
-        var graphCenter = style.graphCenter, rotate = style.rotate, scale = style.scale, translate = style.translate;
-        if (!(graphCenter instanceof Array))
+        var graphCenter = style.graphCenter, rotate = style.rotate, _b = style.scale, _c = _b === void 0 ? [1, 1] : _b, sx = _c[0], sy = _c[1], _d = style.translate, _e = _d === void 0 ? [0, 0] : _d, x = _e[0], y = _e[1];
+        if (!graphCenter)
             return;
-        ctx.translate.apply(ctx, graphCenter);
+        var ox = graphCenter[0], oy = graphCenter[1];
+        ctx.translate((ox + x) * dpr, (oy + y) * dpr);
         if (rotate)
             ctx.rotate((rotate * Math.PI) / 180);
-        if (scale instanceof Array) {
-            ctx.scale.apply(ctx, scale.map(function (_) { return _ * dpr; }));
-        }
-        else if (dpr !== 1) {
-            ctx.scale(dpr, dpr);
-        }
-        if (translate)
-            ctx.translate.apply(ctx, translate);
-        ctx.translate(-graphCenter[0], -graphCenter[1]);
+        if (sx !== 1 || sy !== 1 || dpr !== 1)
+            ctx.scale(sx * dpr, sy * dpr);
+        ctx.translate(-ox, -oy);
     };
-    Style.setCtxStyle = function (ctx, style) {
+    Style.setCtxStyle = function (_a, style) {
+        var ctx = _a.ctx;
         // Set directly
         ctx.lineCap = style.lineCap;
         ctx.lineJoin = style.lineJoin;
@@ -664,7 +1079,8 @@ var Style = /** @class */ (function () {
         var fontStyle = style.fontStyle, fontVarient = style.fontVarient, fontWeight = style.fontWeight, fontSize = style.fontSize, fontFamily = style.fontFamily;
         ctx.font = fontStyle + " " + fontVarient + " " + fontWeight + " " + fontSize + "px " + fontFamily;
     };
-    Style.setCtxGradientColor = function (ctx, style) {
+    Style.setCtxGradientColor = function (_a, style) {
+        var ctx = _a.ctx;
         if (!gradientColorValidator(style))
             return;
         var gradientColor = style.gradientColor, gradientParams = style.gradientParams, gradientType = style.gradientType, gradientWith = style.gradientWith, gradientStops = style.gradientStops, opacity = style.opacity;
@@ -681,72 +1097,12 @@ var Style = /** @class */ (function () {
         _gradientStops.forEach(function (stop, i) { return gradient.addColorStop(stop, _gradientColor[i]); });
         ctx[gradientWith === 'fill' ? 'fillStyle' : 'strokeStyle'] = gradient;
     };
-    Style.prototype.restoreCtx = function (ctx) {
+    Style.prototype.restoreCtx = function (_a) {
+        var ctx = _a.ctx;
         ctx.restore();
     };
     return Style;
 }());
-
-/**
- * @description Get the coordinates of the rotated point
- */
-function getRotatePointPos(rotate, point, origin) {
-    if (rotate === void 0) { rotate = 0; }
-    if (origin === void 0) { origin = [0, 0]; }
-    if (rotate % 360 === 0)
-        return point;
-    var x = point[0], y = point[1];
-    var ox = origin[0], oy = origin[1];
-    rotate *= Math.PI / 180;
-    return [
-        (x - ox) * Math.cos(rotate) - (y - oy) * Math.sin(rotate) + ox,
-        (x - ox) * Math.sin(rotate) + (y - oy) * Math.cos(rotate) + oy,
-    ];
-}
-/**
- * @description Get the coordinates of the scaled point
- */
-function getScalePointPos(scale, point, origin) {
-    if (scale === void 0) { scale = [1, 1]; }
-    if (origin === void 0) { origin = [0, 0]; }
-    var x = point[0], y = point[1];
-    var ox = origin[0], oy = origin[1];
-    var xs = scale[0], ys = scale[1];
-    var relativePosX = x - ox;
-    var relativePosY = y - oy;
-    return [relativePosX * xs + ox, relativePosY * ys + oy];
-}
-/**
- * @description Get the coordinates of the scaled point
- */
-function getTranslatePointPos(translate, point) {
-    var x = point[0], y = point[1];
-    var tx = translate[0], ty = translate[1];
-    return [x + tx, y + ty];
-}
-/**
- * @description Check if the point is inside the rect
- */
-function checkPointIsInRect(_a, x, y, width, height) {
-    var px = _a[0], py = _a[1];
-    if (px < x)
-        return false;
-    if (py < y)
-        return false;
-    if (px > x + width)
-        return false;
-    if (py > y + height)
-        return false;
-    return true;
-}
-/**
- * @description Return a timed release Promise
- */
-function delay(time) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time);
-    });
-}
 
 var curves = new Map([]);
 /**
@@ -1189,7 +1545,7 @@ function transition(easeCurve, startState, endState, frameNum, deep) {
 
 // eslint-disable-next-line
 var Graph = /** @class */ (function () {
-    function Graph(config, render) {
+    function Graph(config) {
         /**
          * @description Weather to render graph
          */
@@ -1232,6 +1588,7 @@ var Graph = /** @class */ (function () {
          * @description Graph animation frame state
          */
         this.animationQueue = [];
+        config = deepClone(config);
         var style = new Style(config.style);
         Object.assign(this, config, {
             status: Status.STATIC,
@@ -1239,12 +1596,7 @@ var Graph = /** @class */ (function () {
             animationKeys: [],
             animationFrameState: [],
             style: style,
-            render: render,
         });
-        this.setGraphCenter();
-        // life cycle added
-        if (this.added)
-            this.added();
     }
     /**
      * @description Funciton of draw graph
@@ -1273,49 +1625,16 @@ var Graph = /** @class */ (function () {
             checker(mergedConfig);
         return mergedConfig;
     };
-    Graph.prototype.drawProcessor = function () {
-        var render = this.render;
-        var ctx = render.ctx, dpr = render.dpr;
-        this.style.setCtx(ctx, dpr);
-        if (this.beforeDraw)
-            this.beforeDraw();
-        this.draw();
-        if (this.drawed)
-            this.drawed();
-        this.style.restoreCtx(ctx);
-    };
-    Graph.prototype.hoverCheckProcessor = function (point) {
-        var _a = this, hoverRect = _a.hoverRect, style = _a.style;
-        var graphCenter = style.graphCenter, rotate = style.rotate, scale = style.scale, translate = style.translate;
-        if (!this.hoverCheck)
-            return false;
-        if (graphCenter) {
-            if (rotate)
-                point = getRotatePointPos(-rotate, point, graphCenter);
-            if (scale)
-                point = getScalePointPos(scale.map(function (s) { return 1 / s; }), point, graphCenter);
-            if (translate)
-                point = getTranslatePointPos(translate.map(function (v) { return v * -1; }), point);
-        }
-        if (hoverRect)
-            return checkPointIsInRect.apply(void 0, __spreadArrays([point], hoverRect));
-        return this.hoverCheck(point);
-    };
-    Graph.prototype.moveProcessor = function (e) {
-        if (!this.move)
-            return;
-        if (this.beforeMove)
-            this.beforeMove(e);
-        this.move(e);
-        if (this.moved)
-            this.moved(e);
-        this.setGraphCenter();
+    Graph.prototype.checkRender = function () {
+        if (!this.render)
+            throw new Error('Graph has not been pushed into render!');
     };
     /**
      * @description Update graph attribute
      */
     Graph.prototype.attr = function (key, value, reDraw) {
         if (reDraw === void 0) { reDraw = true; }
+        this.checkRender();
         var isObject = typeof this[key] === 'object';
         if (isObject)
             value = deepClone(value);
@@ -1343,14 +1662,11 @@ var Graph = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (key !== 'shape' && key !== 'style') {
-                            console.error('Graph animation: Only supported shape and style animation!');
-                            return [2 /*return*/];
-                        }
-                        if (typeof value !== 'object') {
-                            console.error('Graph animation: Shape or style must be an object!');
-                            return [2 /*return*/];
-                        }
+                        this.checkRender();
+                        if (key !== 'shape' && key !== 'style')
+                            throw new Error('Graph animation: Only supported shape and style animation!');
+                        if (typeof value !== 'object')
+                            throw new Error('Graph animation: Shape or style must be an object!');
                         value = deepClone(value);
                         if (key === 'style')
                             value = Style.colorProcessor(value);
@@ -1388,31 +1704,11 @@ var Graph = /** @class */ (function () {
         });
     };
     /**
-     * @description Extract the next frame of data from the animation queue
-     * and update the graph state
-     * @param timeStamp {number} Animation start timestamp
-     */
-    Graph.prototype.turnNextAnimationFrame = function (timeStamp) {
-        var _this = this;
-        var _a = this, animationPause = _a.animationPause, animationDelay = _a.animationDelay, animationQueue = _a.animationQueue;
-        if (animationPause || Date.now() - timeStamp < animationDelay)
-            return;
-        this.animationQueue = animationQueue.reduce(function (queue, _a) {
-            var key = _a.key, frameState = _a.frameState;
-            Object.assign(_this[key], frameState.shift());
-            if (frameState.length) {
-                return __spreadArrays(queue, [{ key: key, frameState: frameState }]);
-            }
-            else {
-                return queue;
-            }
-        }, []);
-    };
-    /**
      * @description Skip to the last frame of animation
      */
     Graph.prototype.animationEnd = function () {
         var _this = this;
+        this.checkRender();
         var _a = this, animationQueue = _a.animationQueue, render = _a.render;
         animationQueue.forEach(function (_a) {
             var key = _a.key, frameState = _a.frameState;
@@ -1425,6 +1721,7 @@ var Graph = /** @class */ (function () {
      * @description Pause animation behavior
      */
     Graph.prototype.pauseAnimation = function () {
+        this.checkRender();
         this.attr('animationPause', true);
     };
     /**
@@ -1432,6 +1729,7 @@ var Graph = /** @class */ (function () {
      */
     Graph.prototype.playAnimation = function () {
         var _this = this;
+        this.checkRender();
         var render = this.render;
         this.attr('animationPause', false);
         return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
@@ -1446,20 +1744,18 @@ var Graph = /** @class */ (function () {
             });
         }); });
     };
-    /**
-     * @description Processor of delete
-     */
-    Graph.prototype.delProcessor = function () {
-        var _this = this;
-        var graphs = this.render.graphs;
-        var index = graphs.findIndex(function (graph) { return graph === _this; });
-        if (index === -1)
-            return;
-        if (this.beforeDelete)
-            this.beforeDelete();
-        graphs.splice(index, 1);
-        if (this.deleted)
-            this.deleted();
+    Graph.prototype.clone = function (add) {
+        if (add === void 0) { add = true; }
+        this.checkRender();
+        var render = this.render;
+        // @ts-ignore
+        var Constructor = this.__proto__.constructor;
+        var config = __assign({}, this);
+        delete config.render;
+        var graph = new Constructor(config);
+        if (add)
+            render.add(graph);
+        return graph;
     };
     return Graph;
 }());
@@ -1594,7 +1890,7 @@ function eliminateBlur(points) {
 
 var Arc = /** @class */ (function (_super) {
     __extends(Arc, _super);
-    function Arc(config, render) {
+    function Arc(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -1607,7 +1903,7 @@ var Arc = /** @class */ (function (_super) {
             var keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle'];
             if (keys.find(function (key) { return typeof shape[key] !== 'number'; }))
                 throw new Error('CRender Graph Arc: Arc shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'arc';
         return _this;
     }
@@ -1913,7 +2209,6 @@ function recursiveCalcSegmentPoints(segmentPoints, getSegmentTPointFuns, _a, rec
 }
 
 function calcUniformPointsByIteration(segmentPoints, getSegmentTPointFuns, precision, recursiveCount) {
-  console.warn('-------------start-------------');
   var segmentPointsData = getSegmentPointsData(segmentPoints);
   if (segmentPointsData.deviation <= precision) return flatten(segmentPoints);
   segmentPoints = reGetSegmentPoints(segmentPoints, getSegmentTPointFuns, segmentPointsData, precision);
@@ -2074,7 +2369,7 @@ function polylineToBezierCurve(polyline, close, offsetA, offsetB) {
 
 var BezierCurve = /** @class */ (function (_super) {
     __extends(BezierCurve, _super);
-    function BezierCurve(config, render) {
+    function BezierCurve(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             points: [],
             close: false,
@@ -2082,7 +2377,7 @@ var BezierCurve = /** @class */ (function (_super) {
             var points = _a.shape.points;
             if (!(points instanceof Array))
                 throw new Error('CRender Graph BezierCurve: BezierCurve points should be an array!');
-        }), render) || this;
+        })) || this;
         _this.name = 'bezierCurve';
         _this.cache = {};
         return _this;
@@ -2153,7 +2448,7 @@ var BezierCurve = /** @class */ (function (_super) {
 
 var Circle = /** @class */ (function (_super) {
     __extends(Circle, _super);
-    function Circle(config, render) {
+    function Circle(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -2162,7 +2457,7 @@ var Circle = /** @class */ (function (_super) {
             var _b = _a.shape, rx = _b.rx, ry = _b.ry, r = _b.r;
             if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
                 throw new Error('CRender Graph Circle: Circle shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'circle';
         return _this;
     }
@@ -2196,7 +2491,7 @@ var Circle = /** @class */ (function (_super) {
 
 var Ellipse = /** @class */ (function (_super) {
     __extends(Ellipse, _super);
-    function Ellipse(config, render) {
+    function Ellipse(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -2209,7 +2504,7 @@ var Ellipse = /** @class */ (function (_super) {
                 typeof hr !== 'number' ||
                 typeof vr !== 'number')
                 throw new Error('CRender Graph Ellipse: Ellipse shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'ellipse';
         return _this;
     }
@@ -2250,7 +2545,7 @@ var Ellipse = /** @class */ (function (_super) {
 
 var Polyline = /** @class */ (function (_super) {
     __extends(Polyline, _super);
-    function Polyline(config, render) {
+    function Polyline(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             points: [],
             close: false,
@@ -2258,7 +2553,7 @@ var Polyline = /** @class */ (function (_super) {
             var points = _a.shape.points;
             if (!(points instanceof Array))
                 throw new Error('CRender Graph Polyline: Polyline points should be an array!');
-        }), render) || this;
+        })) || this;
         _this.name = 'polyline';
         return _this;
     }
@@ -2308,7 +2603,7 @@ var Polyline = /** @class */ (function (_super) {
 
 var Rect = /** @class */ (function (_super) {
     __extends(Rect, _super);
-    function Rect(config, render) {
+    function Rect(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             x: 0,
             y: 0,
@@ -2321,7 +2616,7 @@ var Rect = /** @class */ (function (_super) {
                 typeof w !== 'number' ||
                 typeof h !== 'number')
                 throw new Error('CRender Graph Rect: Rect shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'rect';
         return _this;
     }
@@ -2355,7 +2650,7 @@ var Rect = /** @class */ (function (_super) {
 
 var RegPolygon = /** @class */ (function (_super) {
     __extends(RegPolygon, _super);
-    function RegPolygon(config, render) {
+    function RegPolygon(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -2369,7 +2664,7 @@ var RegPolygon = /** @class */ (function (_super) {
                 throw new Error('CRender Graph RegPolygon: RegPolygon shape configuration is invalid!');
             if (side < 3)
                 throw new Error('CRender Graph RegPolygon: RegPolygon at least trigon!');
-        }), render) || this;
+        })) || this;
         _this.name = 'regPolygon';
         _this.cache = {};
         return _this;
@@ -2388,6 +2683,7 @@ var RegPolygon = /** @class */ (function (_super) {
         var points = cache.points;
         ctx.beginPath();
         drawPolylinePath(ctx, points);
+        ctx.closePath();
         ctx.stroke();
         ctx.fill();
     };
@@ -2420,7 +2716,7 @@ var RegPolygon = /** @class */ (function (_super) {
 
 var Ring = /** @class */ (function (_super) {
     __extends(Ring, _super);
-    function Ring(config, render) {
+    function Ring(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -2429,7 +2725,7 @@ var Ring = /** @class */ (function (_super) {
             var _b = _a.shape, rx = _b.rx, ry = _b.ry, r = _b.r;
             if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
                 throw new Error('CRender Graph Ring: Ring shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'ring';
         return _this;
     }
@@ -2468,7 +2764,7 @@ var Ring = /** @class */ (function (_super) {
 
 var Sector = /** @class */ (function (_super) {
     __extends(Sector, _super);
-    function Sector(config, render) {
+    function Sector(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             rx: 0,
             ry: 0,
@@ -2481,7 +2777,7 @@ var Sector = /** @class */ (function (_super) {
             var keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle'];
             if (keys.find(function (key) { return typeof shape[key] !== 'number'; }))
                 throw new Error('CRender Graph Sector: Sector shape configuration is invalid!');
-        }), render) || this;
+        })) || this;
         _this.name = 'sector';
         return _this;
     }
@@ -2491,6 +2787,7 @@ var Sector = /** @class */ (function (_super) {
         ctx.beginPath();
         ctx.arc(rx, ry, r > 0 ? r : 0, startAngle, endAngle, !clockWise);
         ctx.lineTo(rx, ry);
+        ctx.closePath();
         ctx.stroke();
         ctx.fill();
     };
@@ -2517,7 +2814,7 @@ var Sector = /** @class */ (function (_super) {
 
 var Smoothline = /** @class */ (function (_super) {
     __extends(Smoothline, _super);
-    function Smoothline(config, render) {
+    function Smoothline(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             points: [],
             close: false,
@@ -2525,7 +2822,7 @@ var Smoothline = /** @class */ (function (_super) {
             var points = _a.shape.points;
             if (!(points instanceof Array))
                 throw new Error('CRender Graph Smoothline: Smoothline points should be an array!');
-        }), render) || this;
+        })) || this;
         _this.name = 'smoothline';
         _this.cache = {};
         return _this;
@@ -2602,7 +2899,7 @@ var Smoothline = /** @class */ (function (_super) {
 
 var Text = /** @class */ (function (_super) {
     __extends(Text, _super);
-    function Text(config, render) {
+    function Text(config) {
         var _this = _super.call(this, Graph.mergeDefaultShape({
             content: '',
             position: [0, 0],
@@ -2616,8 +2913,9 @@ var Text = /** @class */ (function (_super) {
                 throw new Error('CRender Graph Text: Text position should be an array!');
             if (typeof rowGap !== 'number')
                 throw new Error('CRender Graph Text: Text rowGap should be a number!');
-        }), render) || this;
+        })) || this;
         _this.name = 'text';
+        _this.cache = {};
         return _this;
     }
     Text.prototype.draw = function () {
@@ -2636,7 +2934,7 @@ var Text = /** @class */ (function (_super) {
             offset = allHeight / 2;
             y += fontSize / 2;
         }
-        if (textBaseline === 'bottom') {
+        if (textBaseline === 'bottom' || textBaseline === 'alphabetic') {
             offset = allHeight;
             y += fontSize;
         }
@@ -2644,11 +2942,37 @@ var Text = /** @class */ (function (_super) {
             .fill(0)
             .map(function (_, i) { return [x, y + i * lineHeight - offset]; });
         ctx.beginPath();
+        var realMaxWidth = 0;
         contentArr.forEach(function (text, i) {
+            // calc text width and height for hover check
+            var width = ctx.measureText(text).width;
+            if (width > realMaxWidth)
+                realMaxWidth = width;
             ctx.fillText(text, positions[i][0], positions[i][1], maxWidth);
             ctx.strokeText(text, positions[i][0], positions[i][1], maxWidth);
         });
         ctx.closePath();
+        this.setCache(realMaxWidth, allHeight);
+    };
+    Text.prototype.setCache = function (width, height) {
+        var _a = this, cache = _a.cache, _b = _a.shape.position, x = _b[0], y = _b[1], ctx = _a.render.ctx;
+        var textAlign = ctx.textAlign, textBaseline = ctx.textBaseline;
+        cache.w = width;
+        cache.h = height;
+        cache.x = x;
+        cache.y = y;
+        if (textAlign === 'center') {
+            cache.x = x - width / 2;
+        }
+        else if (textAlign === 'end' || textAlign === 'right') {
+            cache.x = x - width;
+        }
+        if (textBaseline === 'middle') {
+            cache.y = y - height / 2;
+        }
+        else if (textBaseline === 'bottom' || textBaseline === 'alphabetic') {
+            cache.y = y - height;
+        }
     };
     Text.prototype.setGraphCenter = function () {
         var _a = this, position = _a.shape.position, style = _a.style;
@@ -2661,260 +2985,41 @@ var Text = /** @class */ (function (_super) {
             position: [x + movementX, y + movementY],
         });
     };
+    Text.prototype.hoverCheck = function (point) {
+        var _a = this.cache, x = _a.x, y = _a.y, w = _a.w, h = _a.h;
+        return checkPointIsInRect$1(point, { x: x, y: y, w: w, h: h });
+    };
     return Text;
 }(Graph));
 
 var GRAPHS = {
-    arc: Arc,
-    bezierCurve: BezierCurve,
-    circle: Circle,
-    ellipse: Ellipse,
-    polyline: Polyline,
-    rect: Rect,
-    regPolygon: RegPolygon,
-    ring: Ring,
-    sector: Sector,
-    smoothline: Smoothline,
-    text: Text,
+    Arc: Arc,
+    BezierCurve: BezierCurve,
+    Circle: Circle,
+    Ellipse: Ellipse,
+    Polyline: Polyline,
+    Rect: Rect,
+    RegPolygon: RegPolygon,
+    Ring: Ring,
+    Sector: Sector,
+    Smoothline: Smoothline,
+    Text: Text,
 };
 
-var CRender = /** @class */ (function () {
-    function CRender(canvas, offScreenRendering) {
-        if (offScreenRendering === void 0) { offScreenRendering = false; }
-        /**
-         * @description Device Pixel Ratio
-         */
-        this.dpr = 1;
-        /**
-         * @description Off Screen Rendering
-         */
-        this.offScreenRendering = false;
-        /**
-         * @description Width and height of the canvas
-         */
-        this.area = [0, 0];
-        /**
-         * @description Whether render is in animation rendering
-         */
-        this.animationStatus = false;
-        /**
-         * @description Added graph
-         */
-        this.graphs = [];
-        this.drawAllGraphDebounced = debounce(this.drawAllGraphImmediately.bind(this), 0);
-        if (!canvas)
-            throw new Error('CRender: Missing parameters!');
-        var dpr = devicePixelRatio || 1;
-        var ctx = canvas.getContext('2d');
-        var clientWidth = canvas.clientWidth, clientHeight = canvas.clientHeight;
-        var width = clientWidth * dpr;
-        var height = clientHeight * dpr;
-        var area = [width, height];
-        canvas.setAttribute('width', width + '');
-        canvas.setAttribute('height', height + '');
-        Object.assign(this, {
-            dpr: dpr,
-            area: area,
-            canvas: canvas,
-            ctx: ctx,
-            actualCtx: ctx,
-        });
-        canvas.addEventListener('mousedown', this.mouseDown.bind(this));
-        canvas.addEventListener('mousemove', this.mouseMove.bind(this));
-        canvas.addEventListener('mouseup', this.mouseUp.bind(this));
-        // Off Screen Canvas
-        if (!OffscreenCanvas && offScreenRendering) {
-            console.warn('Your browser does not support off-screen rendering!');
-            return;
-        }
-        var osCanvas = new OffscreenCanvas(width, height);
-        var osCtx = osCanvas.getContext('2d');
-        Object.assign(this, {
-            osCanvas: osCanvas,
-            osCtx: osCtx,
-            offScreenRendering: offScreenRendering,
-        });
-    }
-    CRender.prototype.clearArea = function () {
-        var _a = this, canvas = _a.canvas, osCanvas = _a.osCanvas, area = _a.area, offScreenRendering = _a.offScreenRendering;
-        canvas.width = area[0];
-        if (offScreenRendering)
-            osCanvas.width = area[0];
-    };
-    /**
-     * @description Sort the graphs by index
-     * Give priority to index high graph in rendering
-     */
-    CRender.prototype.sortGraphsByIndex = function () {
-        var graphs = this.graphs;
-        graphs.sort(function (_a, _b) {
-            var a = _a.index;
-            var b = _b.index;
-            return a - b;
-        });
-    };
-    CRender.prototype.drawAllGraph = function (immediately) {
-        if (immediately === void 0) { immediately = false; }
-        if (immediately) {
-            this.drawAllGraphImmediately();
-        }
-        else {
-            this.drawAllGraphDebounced();
-        }
-    };
-    CRender.prototype.drawAllGraphImmediately = function () {
-        var _a = this, offScreenRendering = _a.offScreenRendering, actualCtx = _a.actualCtx, osCtx = _a.osCtx, osCanvas = _a.osCanvas;
-        this.clearArea();
-        this.ctx = offScreenRendering ? osCtx : actualCtx;
-        this.graphs.filter(function (graph) { return graph.visible; }).forEach(function (graph) { return graph.drawProcessor(); });
-        if (offScreenRendering)
-            actualCtx.drawImage(osCanvas, 0, 0);
-    };
-    CRender.prototype.add = function (config, wait) {
-        if (wait === void 0) { wait = false; }
-        var name = config.name;
-        if (!name)
-            throw new Error('CRender add: Missing parameters!');
-        var Graph = GRAPHS[name];
-        if (!Graph)
-            throw new Error("CRender add: Graph " + name + " has not been registered!");
-        var graph = new Graph(config, this);
-        this.addGraph(graph, wait);
-        return graph;
-    };
-    CRender.prototype.addGraph = function (graph, wait) {
-        this.graphs.push(graph);
-        this.sortGraphsByIndex();
-        if (!wait)
-            this.drawAllGraph();
-    };
-    CRender.prototype.delGraph = function (graph) {
-        graph.delProcessor();
-        this.drawAllGraph();
-    };
-    CRender.prototype.delAllGraph = function () {
-        this.graphs.forEach(function (graph) { return graph.delProcessor(); });
-        this.clearArea();
-    };
-    CRender.prototype.clone = function (graph, wait) {
-        if (wait === void 0) { wait = false; }
-        var config = deepClone(__assign({}, graph));
-        // @ts-ignore
-        return this.add(config, wait);
-    };
-    /**
-     * @description Animate the graph whose animation queue is not empty
-     * and the animationPause is false
-     */
-    CRender.prototype.launchAnimation = function () {
-        var _this = this;
-        var animationStatus = this.animationStatus;
-        if (animationStatus)
-            return;
-        this.animationStatus = true;
-        return new Promise(function (resolve) {
-            _this.animate(function () {
-                _this.animationStatus = false;
-                resolve();
-            }, Date.now());
-        });
-    };
-    CRender.prototype.animate = function (callback, timeStamp) {
-        var graphs = this.graphs;
-        if (!this.animateAble()) {
-            callback();
-            return;
-        }
-        graphs.forEach(function (graph) { return graph.turnNextAnimationFrame(timeStamp); });
-        this.drawAllGraph();
-        requestAnimationFrame(this.animate.bind(this, callback, timeStamp));
-    };
-    CRender.prototype.animateAble = function () {
-        var graphs = this.graphs;
-        return !!graphs.find(function (graph) { return !graph.animationPause && graph.animationQueue.length; });
-    };
-    /**
-     * @description Handler of CRender mousedown event
-     */
-    CRender.prototype.mouseDown = function () {
-        var graphs = this.graphs;
-        var hoverGraph = graphs.find(function (graph) { return graph.status === Status.HOVER; });
-        if (!hoverGraph)
-            return;
-        hoverGraph.status = Status.ACTIVE;
-    };
-    /**
-     * @description Handler of CRender mousemove event
-     */
-    CRender.prototype.mouseMove = function (e) {
-        var offsetX = e.offsetX, offsetY = e.offsetY;
-        var position = [offsetX, offsetY];
-        var graphs = this.graphs;
-        var activeGraph = graphs.find(function (graph) { return graph.status === Status.ACTIVE || graph.status === Status.DRAG; });
-        // Active Graph | Drag Able | Move Able
-        if (activeGraph && activeGraph.drag && activeGraph.move) {
-            activeGraph.moveProcessor(e);
-            activeGraph.status = Status.DRAG;
-            return;
-        }
-        var hoverGraph = graphs.find(function (graph) { return graph.status === Status.HOVER; });
-        var hoverAbleGraphs = graphs.filter(function (graph) { return graph.hover && (graph.hoverCheck || graph.hoverRect); });
-        var hoveredGraph = hoverAbleGraphs.find(function (graph) { return graph.hoverCheckProcessor(position); });
-        // Hover Graph
-        if (hoveredGraph) {
-            document.body.style.cursor = hoveredGraph.style.hoverCursor;
-        }
-        else {
-            document.body.style.cursor = 'default';
-        }
-        // No hover graph
-        if (!hoveredGraph && !hoverGraph)
-            return;
-        // Same hover graph
-        if (hoveredGraph === hoverGraph)
-            return;
-        // No hoverd graph But before had
-        if (!hoveredGraph && hoverGraph) {
-            if (hoverGraph.onMouseOuter)
-                hoverGraph.onMouseOuter(e);
-            hoverGraph.status = Status.STATIC;
-            return;
-        }
-        // Only has hovered graph
-        if (hoveredGraph && !hoverGraph) {
-            if (hoveredGraph.onMouseEnter)
-                hoveredGraph.onMouseEnter(e);
-            hoveredGraph.status = Status.HOVER;
-            return;
-        }
-        // Not a same graph
-        if (hoverGraph.onMouseOuter)
-            hoverGraph.onMouseOuter(e);
-        hoverGraph.status = Status.STATIC;
-        if (hoveredGraph.onMouseEnter)
-            hoveredGraph.onMouseEnter(e);
-        hoveredGraph.status = Status.HOVER;
-    };
-    /**
-     * @description Handler of CRender mouseup event
-     */
-    CRender.prototype.mouseUp = function (e) {
-        var graphs = this.graphs;
-        var activeGraph = graphs.find(function (graph) { return graph.status === Status.ACTIVE; });
-        var dragGraph = graphs.find(function (graph) { return graph.status === Status.DRAG; });
-        if (activeGraph && activeGraph.onClick)
-            activeGraph.onClick(e);
-        graphs.forEach(function (graph) { return (graph.status = Status.STATIC); });
-        if (activeGraph)
-            activeGraph.status = Status.HOVER;
-        if (dragGraph)
-            dragGraph.status = Status.HOVER;
-    };
-    return CRender;
-}());
-
+exports.Arc = Arc;
+exports.BezierCurve = BezierCurve;
 exports.CRender = CRender;
+exports.Circle = Circle;
+exports.Ellipse = Ellipse;
+exports.GRAPHS = GRAPHS;
 exports.Graph = Graph;
+exports.Polyline = Polyline;
+exports.Rect = Rect;
+exports.RegPolygon = RegPolygon;
+exports.Ring = Ring;
+exports.Sector = Sector;
+exports.Smoothline = Smoothline;
+exports.Text = Text;
 exports.default = CRender;
 
 Object.defineProperty(exports, '__esModule', { value: true });

@@ -23,9 +23,9 @@ export type RectShape = {
 }
 
 export type RingShape = {
-  rx: 0
-  ry: 0
-  r: 0
+  rx: number
+  ry: number
+  r: number
 }
 
 export type ArcShape = {
@@ -88,4 +88,11 @@ export type TextShape = {
   position: [number, number]
   maxWidth: undefined | number
   rowGap: number
+}
+
+export type TextShapeCache = {
+  x?: number
+  y?: number
+  w?: number
+  h?: number
 }

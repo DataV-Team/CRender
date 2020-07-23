@@ -12,7 +12,6 @@ export default function (render) {
   const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
   return {
-    name: 'smoothline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

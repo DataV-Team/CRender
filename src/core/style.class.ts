@@ -22,8 +22,8 @@ import {
   transformColor,
   getAutoColorStops,
 } from '../utils/style'
-import { CanvasCtx } from '../types/common'
 import { RgbaValue } from '@jiaminghi/color/types/types'
+import CRender from '..'
 
 export default class Style {
   /**
@@ -183,37 +183,28 @@ export default class Style {
     }
   }
 
-  setCtx(ctx: CanvasCtx, dpr: number): void {
-    Style.setCtxTransform(ctx, this, dpr)
+  setCtx(render: CRender): void {
+    Style.setCtxTransform(this, render)
 
-    Style.setCtxStyle(ctx, this)
+    Style.setCtxStyle(render, this)
 
-    Style.setCtxGradientColor(ctx, this)
+    Style.setCtxGradientColor(render, this)
   }
 
-  static setCtxTransform(ctx: CanvasCtx, style: Style, dpr: number): void {
+  static setCtxTransform(style: Style, { ctx, dpr }: CRender): void {
     ctx.save()
 
-    const { graphCenter, rotate, scale, translate } = style
+    const { graphCenter, rotate, scale: [sx, sy] = [1, 1], translate: [x, y] = [0, 0] } = style
+    if (!graphCenter) return
+    const [ox, oy] = graphCenter
 
-    if (!(graphCenter instanceof Array)) return
-
-    ctx.translate(...graphCenter)
-
+    ctx.translate((ox + x) * dpr, (oy + y) * dpr)
     if (rotate) ctx.rotate((rotate * Math.PI) / 180)
-
-    if (scale instanceof Array) {
-      ctx.scale(...(scale.map(_ => _ * dpr) as [number, number]))
-    } else if (dpr !== 1) {
-      ctx.scale(dpr, dpr)
-    }
-
-    if (translate) ctx.translate(...translate)
-
-    ctx.translate(-graphCenter[0], -graphCenter[1])
+    if (sx !== 1 || sy !== 1 || dpr !== 1) ctx.scale(sx * dpr, sy * dpr)
+    ctx.translate(-ox, -oy)
   }
 
-  static setCtxStyle(ctx: CanvasCtx, style: Style): void {
+  static setCtxStyle({ ctx }: CRender, style: Style): void {
     // Set directly
     ctx.lineCap = style.lineCap
     ctx.lineJoin = style.lineJoin
@@ -244,7 +235,7 @@ export default class Style {
     ctx.font = `${fontStyle} ${fontVarient} ${fontWeight} ${fontSize}px ${fontFamily}`
   }
 
-  static setCtxGradientColor(ctx: CanvasCtx, style: Style): void {
+  static setCtxGradientColor({ ctx }: CRender, style: Style): void {
     if (!gradientColorValidator(style)) return
 
     const {
@@ -274,7 +265,7 @@ export default class Style {
     ctx[gradientWith === 'fill' ? 'fillStyle' : 'strokeStyle'] = gradient
   }
 
-  restoreCtx(ctx: CanvasCtx): void {
+  restoreCtx({ ctx }: CRender): void {
     ctx.restore()
   }
 }

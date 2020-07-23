@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CRender from '../../CRender'
+import CRender, { GRAPHS, Graph } from '../../../es'
 
 export default {
   name: 'ShowAnimation',
@@ -71,8 +71,7 @@ export default {
     fragment1(render) {
       const [w, h] = render.area
 
-      const fragment1Ring1 = (this.fragment1Ring1 = render.add({
-        name: 'ring',
+      const fragment1Ring1 = (this.fragment1Ring1 = new GRAPHS.Ring({
         animationCurve: 'easeInOutBack',
         shape: {
           rx: 0,
@@ -85,8 +84,7 @@ export default {
         },
       }))
 
-      const fragment1Ring2 = (this.fragment1Ring2 = render.add({
-        name: 'ring',
+      const fragment1Ring2 = (this.fragment1Ring2 = new GRAPHS.Ring({
         animationCurve: 'easeInOutBack',
         shape: {
           rx: w,
@@ -99,8 +97,7 @@ export default {
         },
       }))
 
-      const fragment1Polyline1 = (this.fragment1Polyline1 = render.add({
-        name: 'polyline',
+      const fragment1Polyline1 = (this.fragment1Polyline1 = new GRAPHS.Polyline({
         animationCurve: 'easeInOutBack',
         shape: {
           points: [
@@ -114,8 +111,7 @@ export default {
         },
       }))
 
-      const fragment1Polyline2 = (this.fragment1Polyline2 = render.add({
-        name: 'polyline',
+      const fragment1Polyline2 = (this.fragment1Polyline2 = new GRAPHS.Polyline({
         animationCurve: 'easeInOutBack',
         shape: {
           points: [
@@ -128,6 +124,8 @@ export default {
           lineWidth: 1,
         },
       }))
+
+      render.add([fragment1Ring1, fragment1Ring2, fragment1Polyline1, fragment1Polyline2])
 
       fragment1Ring1.animation('shape', { rx: w / 2 - 80 }, true)
       fragment1Ring2.animation('shape', { rx: w / 2 + 80 }, true)
@@ -205,8 +203,7 @@ export default {
         true
       )
 
-      const fragment2Ring1 = (this.fragment2Ring1 = render.add({
-        name: 'ring',
+      const fragment2Ring1 = (this.fragment2Ring1 = new GRAPHS.Ring({
         animationCurve: 'easeOutCubic',
         animationFrame: 60,
         shape: {
@@ -220,8 +217,7 @@ export default {
         },
       }))
 
-      const fragment2Ring2 = (this.fragment2Ring2 = render.add({
-        name: 'ring',
+      const fragment2Ring2 = (this.fragment2Ring2 = new GRAPHS.Ring({
         animationCurve: 'easeOutCubic',
         animationFrame: 60,
         shape: {
@@ -235,14 +231,15 @@ export default {
         },
       }))
 
+      render.add([fragment2Ring1, fragment2Ring2])
+
       fragment2Ring1.animation('shape', { r: 30 }, true)
       fragment2Ring1.animation('style', { opacity: 0 }, true)
 
       fragment2Ring2.animation('shape', { r: 30 }, true)
       fragment2Ring2.animation('style', { opacity: 0 }, true)
 
-      const fragment2Arc1 = (this.fragment2Arc1 = render.add({
-        name: 'arc',
+      const fragment2Arc1 = (this.fragment2Arc1 = new GRAPHS.Arc({
         animationFrame: 90,
         animationCurve: 'easeOutCubic',
         shape: {
@@ -259,8 +256,7 @@ export default {
         },
       }))
 
-      const fragment2Arc2 = (this.fragment2Arc2 = render.add({
-        name: 'arc',
+      const fragment2Arc2 = (this.fragment2Arc2 = new GRAPHS.Arc({
         animationFrame: 90,
         animationCurve: 'easeOutCubic',
         shape: {
@@ -277,8 +273,9 @@ export default {
         },
       }))
 
-      const fragment2Arc3 = (this.fragment2Arc3 = render.add({
-        name: 'arc',
+      render.add([fragment2Arc1, fragment2Arc2])
+
+      const fragment2Arc3 = (this.fragment2Arc3 = new GRAPHS.Arc({
         animationFrame: 90,
         animationCurve: 'easeOutCubic',
         shape: {
@@ -296,8 +293,7 @@ export default {
         },
       }))
 
-      const fragment2Arc4 = (this.fragment2Arc4 = render.add({
-        name: 'arc',
+      const fragment2Arc4 = (this.fragment2Arc4 = new GRAPHS.Arc({
         animationFrame: 90,
         animationCurve: 'easeOutCubic',
         shape: {
@@ -314,6 +310,8 @@ export default {
           rotate: 0,
         },
       }))
+
+      render.add([fragment2Arc3, fragment2Arc4])
 
       fragment2Arc1.animation(
         'shape',
@@ -366,8 +364,7 @@ export default {
     fragment3(render) {
       const [w, h] = render.area
 
-      const fragment2Ring12 = (this.fragment2Ring12 = render.add({
-        name: 'ring',
+      const fragment2Ring12 = (this.fragment2Ring12 = new GRAPHS.Ring({
         animationCurve: 'easeOutCubic',
         animationFrame: 60,
         shape: {
@@ -381,8 +378,7 @@ export default {
         },
       }))
 
-      const fragment2Ring22 = (this.fragment2Ring22 = render.add({
-        name: 'ring',
+      const fragment2Ring22 = (this.fragment2Ring22 = new GRAPHS.Ring({
         animationCurve: 'easeOutCubic',
         animationFrame: 60,
         shape: {
@@ -395,6 +391,8 @@ export default {
           lineWidth: 1,
         },
       }))
+
+      render.add([fragment2Ring12, fragment2Ring22])
 
       fragment2Ring12.animation('shape', { r: 40 }, true)
       fragment2Ring22.animation('shape', { r: 40 }, true)
@@ -414,8 +412,7 @@ export default {
       this.fragment2Arc3.animation('style', { opacity: 0 }, true)
       this.fragment2Arc4.animation('style', { opacity: 0 }, true)
 
-      const fragment3Circle1 = (this.fragment3Circle1 = render.add({
-        name: 'circle',
+      const fragment3Circle1 = (this.fragment3Circle1 = new GRAPHS.Circle({
         animationFrame: 90,
         animationCurve: 'easeInOutBack',
         shape: {
@@ -431,8 +428,7 @@ export default {
         setGraphCenter() {},
       }))
 
-      const fragment3Circle2 = (this.fragment3Circle2 = render.add({
-        name: 'circle',
+      const fragment3Circle2 = (this.fragment3Circle2 = new GRAPHS.Circle({
         animationFrame: 90,
         animationCurve: 'easeInOutBack',
         shape: {
@@ -443,9 +439,12 @@ export default {
         style: {
           fill: '#e9c752',
           graphCenter: [w / 2, h / 2],
+          rotate: -30,
         },
         setGraphCenter() {},
       }))
+
+      render.add([fragment3Circle1, fragment3Circle2])
 
       fragment3Circle1.animation('shape', { rx: w / 2, ry: h / 2 }, true)
       fragment3Circle2.animation('shape', { rx: w / 2, ry: h / 2 }, true)
@@ -487,9 +486,8 @@ export default {
       const randomXArea = [w / 2 - 80, w / 2 + 80]
       const randomYArea = [h / 2 - 100, h / 2 + 100]
 
-      this.fragment5Rings = new Array(10).fill(0).map(foo => {
-        return render.add({
-          name: 'ring',
+      const fragment5Rings = (this.fragment5Rings = new Array(10).fill(0).map(_ => {
+        return new GRAPHS.Ring({
           animationCurve: 'easeOutCubic',
           animationFrame: 150,
           shape: {
@@ -501,15 +499,16 @@ export default {
             stroke: color[randomNum(0, 6)],
           },
         })
-      })
+      }))
+
+      render.add(fragment5Rings)
 
       this.fragment5Rings.forEach(ring => {
         ring.animation('shape', { r: randomNum(40, 50) }, true)
         ring.animation('style', { opacity: 0 }, true)
       })
 
-      const fragment5Text = (this.fragment5Text = render.add({
-        name: 'text',
+      const fragment5Text = (this.fragment5Text = new GRAPHS.Text({
         animationCurve: 'easeOutBack',
         shape: {
           content: 'CRender',
@@ -527,6 +526,8 @@ export default {
         },
       }))
 
+      render.add(fragment5Text)
+
       fragment5Text.animation(
         'style',
         {
@@ -538,8 +539,7 @@ export default {
         true
       )
 
-      const fragment5Polyline1 = (this.fragment1Polyline1 = render.add({
-        name: 'polyline',
+      const fragment5Polyline1 = (this.fragment1Polyline1 = new GRAPHS.Polyline({
         animationCurve: 'easeOutBack',
         shape: {
           points: [
@@ -554,6 +554,8 @@ export default {
           shadowBlur: 20,
         },
       }))
+
+      render.add(fragment5Polyline1)
 
       fragment5Polyline1.animation(
         'shape',

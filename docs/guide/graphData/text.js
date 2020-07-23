@@ -8,7 +8,6 @@ export default function (render) {
   const hoverRect = [w / 2 - 100, h / 2 - 30, 200, 60]
 
   return {
-    name: 'text',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

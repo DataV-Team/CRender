@@ -1,21 +1,15 @@
 import Graph from './graph.class'
-import { GraphConfig, Status } from '../types/core/graph'
-import { deepClone, debounce } from '../utils/common'
+import { Status, AnimationQueueItem } from '../types/core/graph'
+import { debounce } from '../utils/common'
 import { Point } from '../types/core/graph'
 import { CanvasCtx } from '../types/common'
-import { Graphs, GraphName } from '../types/graphs/index'
-import GRAPHS from '../graphs'
-import Arc from '../graphs/arc'
-import BezierCurve from '../graphs/bezierCurve'
-import Circle from '../graphs/circle'
-import Ellipse from '../graphs/ellipse'
-import Polyline from '../graphs/polyline'
-import RegPolygon from '../graphs/regPolygon'
-import Rect from '../graphs/rect'
-import Ring from '../graphs/ring'
-import Sector from '../graphs/sector'
-import Smoothline from '../graphs/smoothline'
-import Text from '../graphs/text'
+import {
+  getRotatePointPos,
+  getScalePointPos,
+  getTranslatePointPos,
+  checkPointIsInRect,
+} from '../utils/graph'
+import { bound } from '../utils/decorator'
 
 export default class CRender {
   /**
@@ -69,7 +63,7 @@ export default class CRender {
     const { clientWidth, clientHeight } = canvas
     const width = clientWidth * dpr
     const height = clientHeight * dpr
-    const area = [width, height]
+    const area = [clientWidth, clientHeight]
 
     canvas.setAttribute('width', width + '')
     canvas.setAttribute('height', height + '')
@@ -105,9 +99,10 @@ export default class CRender {
 
   clearArea(): void {
     const { canvas, osCanvas, area, offScreenRendering } = this
+    const width = area[0] * this.dpr
 
-    canvas.width = area[0]
-    if (offScreenRendering) osCanvas!.width = area[0]
+    canvas.width = width
+    if (offScreenRendering) osCanvas!.width = width
   }
 
   /**
@@ -128,8 +123,9 @@ export default class CRender {
     }
   }
 
-  private drawAllGraphDebounced = debounce(this.drawAllGraphImmediately.bind(this), 0)
+  private drawAllGraphDebounced = debounce(this.drawAllGraphImmediately, 0)
 
+  @bound
   private drawAllGraphImmediately(): void {
     const { offScreenRendering, actualCtx, osCtx, osCanvas } = this
 
@@ -137,82 +133,82 @@ export default class CRender {
 
     this.ctx = offScreenRendering ? osCtx! : actualCtx
 
-    this.graphs.filter(graph => graph.visible).forEach(graph => graph.drawProcessor())
+    this.graphs.filter(graph => graph.visible).forEach(this.drawGraphProcessor)
 
     if (offScreenRendering) actualCtx.drawImage(osCanvas!, 0, 0)
   }
 
-  add<T extends GraphConfig & { name: 'arc' }>(config: T, wait?: boolean): Arc
-  add<T extends GraphConfig & { name: 'bezierCurve' }>(config: T, wait?: boolean): BezierCurve
-  add<T extends GraphConfig & { name: 'circle' }>(config: T, wait?: boolean): Circle
-  add<T extends GraphConfig & { name: 'ellipse' }>(config: T, wait?: boolean): Ellipse
-  add<T extends GraphConfig & { name: 'polyline' }>(config: T, wait?: boolean): Polyline
-  add<T extends GraphConfig & { name: 'rect' }>(config: T, wait?: boolean): Rect
-  add<T extends GraphConfig & { name: 'regPolygon' }>(config: T, wait?: boolean): RegPolygon
-  add<T extends GraphConfig & { name: 'ring' }>(config: T, wait?: boolean): Ring
-  add<T extends GraphConfig & { name: 'sector' }>(config: T, wait?: boolean): Sector
-  add<T extends GraphConfig & { name: 'smoothline' }>(config: T, wait?: boolean): Smoothline
-  add<T extends GraphConfig & { name: 'text' }>(config: T, wait?: boolean): Text
-  add<T extends GraphConfig & { name: GraphName }>(
-    config: T,
-    wait: boolean = false
-  ): Graphs[GraphName] {
-    const { name } = config
+  @bound
+  private drawGraphProcessor(graph: Graph): void {
+    graph.style.setCtx(this)
 
-    if (!name) throw new Error('CRender add: Missing parameters!')
+    if (graph.beforeDraw) graph.beforeDraw()
 
-    const Graph = GRAPHS[name]
-    if (!Graph) throw new Error(`CRender add: Graph ${name} has not been registered!`)
+    graph.draw()
 
-    const graph = new Graph(config, this)
+    if (graph.drawed) graph.drawed()
 
-    this.addGraph(graph, wait)
-
-    return graph
+    graph.style.restoreCtx(this)
   }
 
-  addGraph(graph: Graph, wait: boolean): void {
-    this.graphs.push(graph)
-
-    this.sortGraphsByIndex()
+  add(graph: Graph | Graph[], wait: boolean = false): void {
+    if (Array.isArray(graph)) {
+      graph.forEach(this.graphAddProcessor)
+    } else {
+      this.graphAddProcessor(graph)
+    }
 
     if (!wait) this.drawAllGraph()
   }
 
-  delGraph(graph: Graph): void {
-    graph.delProcessor()
+  @bound
+  private graphAddProcessor(graph: Graph): void {
+    if (graph.beforeAdd) graph.beforeAdd()
 
-    this.drawAllGraph()
+    graph.render = this
+    graph.setGraphCenter()
+
+    this.graphs.push(graph)
+    this.sortGraphsByIndex()
+
+    if (graph.added) graph.added()
+  }
+
+  delGraph(graph: Graph | Graph[], wait: boolean = false): void {
+    if (Array.isArray(graph)) {
+      ;[...graph].forEach(this.graphDelProcessor)
+    } else {
+      this.graphDelProcessor(graph)
+    }
+
+    if (!wait) this.drawAllGraph()
+  }
+
+  @bound
+  private graphDelProcessor(graph: Graph): void {
+    const { graphs } = this
+
+    const index = graphs.findIndex(_ => _ === graph)
+    if (index === -1) return
+
+    if (graph.beforeDelete) graph.beforeDelete()
+
+    graphs.splice(index, 1)
+
+    if (graph.deleted) graph.deleted()
   }
 
   delAllGraph(): void {
-    this.graphs.forEach(graph => graph.delProcessor())
+    this.delGraph(this.graphs)
 
     this.clearArea()
-  }
-
-  clone(graph: Arc, wait?: boolean): Arc
-  clone(graph: BezierCurve, wait?: boolean): BezierCurve
-  clone(graph: Circle, wait?: boolean): Circle
-  clone(graph: Ellipse, wait?: boolean): Ellipse
-  clone(graph: Polyline, wait?: boolean): Polyline
-  clone(graph: Rect, wait?: boolean): Rect
-  clone(graph: RegPolygon, wait?: boolean): RegPolygon
-  clone(graph: Ring, wait?: boolean): Ring
-  clone(graph: Sector, wait?: boolean): Sector
-  clone(graph: Smoothline, wait?: boolean): Smoothline
-  clone(graph: Text, wait?: boolean): Text
-  clone<T extends Graph>(graph: T, wait: boolean = false): T {
-    const config = deepClone({ ...graph })
-
-    // @ts-ignore
-    return this.add(config, wait)
   }
 
   /**
    * @description Animate the graph whose animation queue is not empty
    * and the animationPause is false
    */
+  @bound
   launchAnimation(): void | Promise<void> {
     const { animationStatus } = this
 
@@ -238,11 +234,35 @@ export default class CRender {
       return
     }
 
-    graphs.forEach(graph => graph.turnNextAnimationFrame(timeStamp))
+    graphs.forEach(graph => this.graphTrunNextAnimationFrame(graph, timeStamp))
 
     this.drawAllGraph()
 
     requestAnimationFrame(this.animate.bind(this, callback, timeStamp))
+  }
+
+  /**
+   * @description Extract the next frame of data from the animation queue
+   * and update the graph state
+   * @param timeStamp {number} Animation start timestamp
+   */
+  private graphTrunNextAnimationFrame(graph: Graph, timeStamp: number): void {
+    const { animationPause, animationDelay, animationQueue } = graph
+
+    if (animationPause || Date.now() - timeStamp < animationDelay) return
+
+    graph.animationQueue = animationQueue.reduce<AnimationQueueItem[]>(
+      (queue, { key, frameState }) => {
+        Object.assign(graph[key], frameState.shift())
+
+        if (frameState.length) {
+          return [...queue, { key, frameState }]
+        } else {
+          return queue
+        }
+      },
+      []
+    )
   }
 
   animateAble(): boolean {
@@ -279,7 +299,7 @@ export default class CRender {
 
     // Active Graph | Drag Able | Move Able
     if (activeGraph && activeGraph.drag && activeGraph.move) {
-      activeGraph.moveProcessor(e)
+      this.graphMoveProcessor(activeGraph, e)
       activeGraph.status = Status.DRAG
 
       return
@@ -290,7 +310,9 @@ export default class CRender {
       graph => graph.hover && (graph.hoverCheck || graph.hoverRect)
     )
 
-    const hoveredGraph = hoverAbleGraphs.find(graph => graph.hoverCheckProcessor(position))
+    const hoveredGraph = hoverAbleGraphs.find(graph =>
+      this.graphHoverCheckProcessor(graph, position)
+    )
 
     // Hover Graph
     if (hoveredGraph) {
@@ -328,6 +350,39 @@ export default class CRender {
 
     if (hoveredGraph!.onMouseEnter) hoveredGraph!.onMouseEnter(e)
     hoveredGraph!.status = Status.HOVER
+  }
+
+  private graphMoveProcessor(graph: Graph, e: MouseEvent): void {
+    if (!graph.move) return
+
+    if (graph.beforeMove) graph.beforeMove(e)
+
+    graph.move(e)
+
+    if (graph.moved) graph.moved(e)
+
+    graph.setGraphCenter()
+  }
+
+  private graphHoverCheckProcessor(graph: Graph, point: Point): boolean {
+    const { hoverRect, style } = graph
+    const { graphCenter, rotate, scale, translate } = style
+
+    if (!graph.hoverCheck) return false
+
+    if (graphCenter) {
+      if (rotate) point = getRotatePointPos(-rotate, point, graphCenter)
+
+      if (scale)
+        point = getScalePointPos(scale.map(s => 1 / s) as [number, number], point, graphCenter)
+
+      if (translate)
+        point = getTranslatePointPos(translate.map(v => v * -1) as [number, number], point)
+    }
+
+    if (hoverRect) return checkPointIsInRect(point, ...hoverRect)
+
+    return graph.hoverCheck(point)
   }
 
   /**

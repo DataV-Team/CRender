@@ -1,10 +1,11 @@
+import { Circle } from '../../../lib'
+
 export default function (render) {
   const {
     area: [w, h],
   } = render
 
-  return {
-    name: 'circle',
+  return new Circle({
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -27,5 +28,5 @@ export default function (render) {
       this.animation('shape', { r: 50 }, true)
       this.animation('style', { shadowBlur: 0 })
     },
-  }
+  })
 }

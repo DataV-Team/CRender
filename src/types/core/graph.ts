@@ -1,5 +1,4 @@
 import { Optional } from '../common'
-import { GraphName } from '../graphs/index'
 import { StyleConfig } from './style'
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 import { RgbaValue } from '@jiaminghi/color/types/types'
@@ -13,13 +12,9 @@ export type Move = (e: MouseEvent) => void
 // eslint-disable-next-line
 export type GraphConfig<Shape = any> = {
   /**
-   * @description Graph name
-   */
-  name: GraphName
-  /**
    * @description Graph shape
    */
-  shape: Optional<Shape>
+  shape: Shape
   /**
    * @description Graph style
    */
@@ -77,9 +72,15 @@ export type GraphConfig<Shape = any> = {
    */
   onClick?: Function
   /**
+   * @description Life cycle beforeAdd
+   */
+  // eslint-disable-next-line
+  beforeAdd?: () => any
+  /**
    * @description Life cycle added
    */
-  added?: Function
+  // eslint-disable-next-line
+  added?: () => any
   /**
    * Life Cycle when graph before draw
    */
@@ -115,7 +116,8 @@ export type AnimationKey = 'shape' | 'style'
 
 export type AnimationFrameStateItem<Shape> = Optional<Shape> | StyleConfig<RgbaValue>
 
-export type AnimationQueueItem<Shape> = {
+// eslint-disable-next-line
+export type AnimationQueueItem<Shape = any> = {
   key: AnimationKey
   frameState: AnimationFrameStateItem<Shape>[]
 }

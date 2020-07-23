@@ -1,6 +1,6 @@
 import CRender from './core/crender.class'
-import Graph from './core/graph.class'
-
-export { CRender, Graph }
+export { default as Graph } from './core/graph.class'
+export * from './graphs/index'
+export { CRender }
 
 export default CRender

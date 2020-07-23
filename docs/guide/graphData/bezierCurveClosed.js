@@ -1,4 +1,4 @@
-import { getCircleRadianPoint } from '../../CRender/plugin/util'
+import { BezierCurve } from '../../../lib'
 
 function getPetalPoints(insideRadius, outsideRadius, petalNum, petalCenter) {
   const PI2Dived = (Math.PI * 2) / (petalNum * 3)
@@ -27,8 +27,7 @@ export default function (render) {
   const petalCenter = [w / 2, h / 2]
   const [raidus1, raidus2, raidus3, raidus4] = [h / 6, h / 2.5, h / 3, h / 2]
 
-  return {
-    name: 'bezierCurve',
+  return new BezierCurve({
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -60,5 +59,5 @@ export default function (render) {
         style.graphCenter = [...petalCenter]
       }
     },
-  }
+  })
 }

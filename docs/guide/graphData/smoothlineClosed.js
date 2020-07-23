@@ -1,4 +1,4 @@
-import { getCircleRadianPoint } from '../../CRender/plugin/util'
+import { getCircleRadianPoint } from '../../../es/utils/graphs'
 
 function getPoints(radius, centerPoint, pointNum) {
   const PIDived = (Math.PI * 2) / pointNum
@@ -19,7 +19,6 @@ export default function (render) {
   const centerPoint = [w / 2, h / 2]
 
   return {
-    name: 'smoothline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

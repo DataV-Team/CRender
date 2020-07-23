@@ -1,4 +1,4 @@
-import { getCircleRadianPoint } from '../../../CRender/plugin/util'
+import { getCircleRadianPoint } from '../../../../es/utils/graphs'
 
 function getPetalPoints(insideRadius, outsideRadius, petalNum, petalCenter) {
   const PI2Dived = (Math.PI * 2) / (petalNum * 3)

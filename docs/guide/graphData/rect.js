@@ -7,7 +7,6 @@ export default function (render) {
   const rectHeight = 50
 
   return {
-    name: 'rect',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,

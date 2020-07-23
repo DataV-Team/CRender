@@ -1,10 +1,11 @@
+import { Arc } from '../../../lib'
+
 export default function (render) {
   const {
     area: [w, h],
   } = render
 
-  return {
-    name: 'arc',
+  return new Arc({
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -31,5 +32,5 @@ export default function (render) {
       this.animation('shape', { endAngle: Math.PI / 3 }, true)
       this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
     },
-  }
+  })
 }

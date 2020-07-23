@@ -4,17 +4,16 @@ import { deepClone } from '../utils/common'
 import { drawBezierCurvePath } from '../utils/canvas'
 import { checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
 import Graph from '../core/graph.class'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
 import { polylineToBezierCurve, bezierCurveToPolyline } from '@jiaminghi/bezier-curve'
 import { BezierCurveSegment, BezierCurve } from '@jiaminghi/bezier-curve/types/types'
+import { Optional } from '../types/common'
 
 class Smoothline extends Graph<SmoothlineShape> {
-  name: GraphName = 'smoothline'
+  name = 'smoothline'
 
-  cache: SmoothlineShapeCache = {}
+  private cache: SmoothlineShapeCache = {}
 
-  constructor(config: GraphConfig<SmoothlineShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<SmoothlineShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -26,8 +25,7 @@ class Smoothline extends Graph<SmoothlineShape> {
           if (!(points instanceof Array))
             throw new Error('CRender Graph Smoothline: Smoothline points should be an array!')
         }
-      ),
-      render
+      )
     )
   }
 

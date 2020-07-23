@@ -3,15 +3,14 @@ import { getRegularPolygonPoints, checkPointIsInPolygon } from '../utils/graphs'
 import { drawPolylinePath } from '../utils/canvas'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class RegPolygon extends Graph<RegPolygonShape> {
-  name: GraphName = 'regPolygon'
+  name = 'regPolygon'
 
-  cache: RegPolygonShapeCache = {}
+  private cache: RegPolygonShapeCache = {}
 
-  constructor(config: GraphConfig<RegPolygonShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<RegPolygonShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -31,8 +30,7 @@ class RegPolygon extends Graph<RegPolygonShape> {
 
           if (side! < 3) throw new Error('CRender Graph RegPolygon: RegPolygon at least trigon!')
         }
-      ),
-      render
+      )
     )
   }
 
@@ -60,6 +58,7 @@ class RegPolygon extends Graph<RegPolygonShape> {
 
     ctx.beginPath()
     drawPolylinePath(ctx, points!)
+    ctx.closePath()
 
     ctx.stroke()
     ctx.fill()

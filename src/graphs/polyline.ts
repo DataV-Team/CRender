@@ -3,13 +3,12 @@ import { drawPolylinePath } from '../utils/canvas'
 import { eliminateBlur, checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Polyline extends Graph<PolylineShape> {
-  name: GraphName = 'polyline'
+  name = 'polyline'
 
-  constructor(config: GraphConfig<PolylineShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<PolylineShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -21,8 +20,7 @@ class Polyline extends Graph<PolylineShape> {
           if (!(points instanceof Array))
             throw new Error('CRender Graph Polyline: Polyline points should be an array!')
         }
-      ),
-      render
+      )
     )
   }
 

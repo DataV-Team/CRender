@@ -2,13 +2,12 @@ import { RingShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Ring extends Graph<RingShape> {
-  name: GraphName = 'ring'
+  name = 'ring'
 
-  constructor(config: GraphConfig<RingShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<RingShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -21,8 +20,7 @@ class Ring extends Graph<RingShape> {
           if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
             throw new Error('CRender Graph Ring: Ring shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 

@@ -2,13 +2,12 @@ import Graph from '../core/graph.class'
 import { ArcShape } from '../types/graphs/shape'
 import { checkPointIsInSector } from '../utils/graphs'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Arc extends Graph<ArcShape> {
-  name: GraphName = 'arc'
+  name = 'arc'
 
-  constructor(config: GraphConfig<ArcShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<ArcShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -26,8 +25,7 @@ class Arc extends Graph<ArcShape> {
           if (keys.find(key => typeof shape[key] !== 'number'))
             throw new Error('CRender Graph Arc: Arc shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 

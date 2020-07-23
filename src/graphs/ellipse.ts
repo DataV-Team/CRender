@@ -2,13 +2,12 @@ import { EllipseShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
 import { Point, GraphConfig } from '../types/core/graph'
 import Graph from '../core/graph.class'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Ellipse extends Graph<EllipseShape> {
-  name: GraphName = 'ellipse'
+  name = 'ellipse'
 
-  constructor(config: GraphConfig<EllipseShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<EllipseShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -27,8 +26,7 @@ class Ellipse extends Graph<EllipseShape> {
           )
             throw new Error('CRender Graph Ellipse: Ellipse shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 

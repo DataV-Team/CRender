@@ -2,13 +2,12 @@ import { CircleShape } from '../types/graphs/shape'
 import { checkPointIsInCircle } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import CRender from '../core/crender.class'
-import { GraphName } from '../types/graphs'
+import { Optional } from '../types/common'
 
 class Circle extends Graph<CircleShape> {
-  name: GraphName = 'circle'
+  name = 'circle'
 
-  constructor(config: GraphConfig<CircleShape>, render: CRender) {
+  constructor(config: GraphConfig<Optional<CircleShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
@@ -21,8 +20,7 @@ class Circle extends Graph<CircleShape> {
           if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number')
             throw new Error('CRender Graph Circle: Circle shape configuration is invalid!')
         }
-      ),
-      render
+      )
     )
   }
 
@@ -42,6 +40,7 @@ class Circle extends Graph<CircleShape> {
 
   hoverCheck(point: Point): boolean {
     const { shape } = this
+
     return checkPointIsInCircle(point, shape)
   }
 
