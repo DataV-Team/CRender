@@ -1,83 +1,83 @@
-import { Point } from '../core/graph';
-import { Optional } from '../common';
-import { BezierCurve } from '@jiaminghi/bezier-curve/types/types';
+import { Point } from '../core/graph'
+import { Optional } from '../common'
+import { BezierCurve } from '@jiaminghi/bezier-curve/types/types'
 export declare type CircleShape = {
-    rx: number;
-    ry: number;
-    r: number;
-};
+  rx: number
+  ry: number
+  r: number
+}
 export declare type EllipseShape = {
-    rx: number;
-    ry: number;
-    hr: number;
-    vr: number;
-};
+  rx: number
+  ry: number
+  hr: number
+  vr: number
+}
 export declare type RectShape = {
-    x: number;
-    y: number;
-    w: number;
-    h: number;
-};
+  x: number
+  y: number
+  w: number
+  h: number
+}
 export declare type RingShape = {
-    rx: number;
-    ry: number;
-    r: number;
-};
+  rx: number
+  ry: number
+  r: number
+}
 export declare type ArcShape = {
-    rx: number;
-    ry: number;
-    r: number;
-    startAngle: number;
-    endAngle: number;
-    clockWise: boolean;
-};
+  rx: number
+  ry: number
+  r: number
+  startAngle: number
+  endAngle: number
+  clockWise: boolean
+}
 export declare type SectorShape = {
-    rx: number;
-    ry: number;
-    r: number;
-    startAngle: number;
-    endAngle: number;
-    clockWise: boolean;
-};
+  rx: number
+  ry: number
+  r: number
+  startAngle: number
+  endAngle: number
+  clockWise: boolean
+}
 export declare type RegPolygonShape = {
-    rx: number;
-    ry: number;
-    r: number;
-    side: number;
-};
+  rx: number
+  ry: number
+  r: number
+  side: number
+}
 export declare type RegPolygonShapeCache = {
-    points?: Point[];
-} & Optional<RegPolygonShape>;
+  points?: Point[]
+} & Optional<RegPolygonShape>
 export declare type PolylineShape = {
-    points: Point[];
-    close: boolean;
-};
+  points: Point[]
+  close: boolean
+}
 export declare type SmoothlineShape = {
-    points: Point[];
-    close: boolean;
-};
+  points: Point[]
+  close: boolean
+}
 export declare type SmoothlineShapeCache = {
-    points?: Point[];
-    bezierCurve?: BezierCurve;
-    hoverPoints?: Point[];
-};
+  points?: Point[]
+  bezierCurve?: BezierCurve
+  hoverPoints?: Point[]
+}
 export declare type BezierCurveShape = {
-    points: BezierCurve | [];
-    close: boolean;
-};
+  points: BezierCurve | []
+  close: boolean
+}
 export declare type BezierCurveShapeCache = {
-    points?: BezierCurve;
-    hoverPoints?: Point[];
-};
+  points?: BezierCurve
+  hoverPoints?: Point[]
+}
 export declare type TextShape = {
-    content: string;
-    position: [number, number];
-    maxWidth: undefined | number;
-    rowGap: number;
-};
+  content: string
+  position: [number, number]
+  maxWidth: undefined | number
+  rowGap: number
+}
 export declare type TextShapeCache = {
-    x?: number;
-    y?: number;
-    w?: number;
-    h?: number;
-};
+  x?: number
+  y?: number
+  w?: number
+  h?: number
+}
