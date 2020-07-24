@@ -9,10 +9,9 @@ sidebarDepth: 2
 
 ## 实例属性
 
-
 ### fill
 
-```js
+````js
 /**
  * @description 图形填充颜色的Rgba值
  * @type {Array<Number>}
@@ -40,7 +39,7 @@ class Style {
     // ...
   }
 }
-```
+````
 
 ## 实例属性
 
@@ -57,7 +56,8 @@ fill: RgbaValue = [0, 0, 0, 1]
 ### stroke
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形描边颜色的Rgba值
  * @type {Array<Number>}
@@ -70,12 +70,13 @@ fill: RgbaValue = [0, 0, 0, 1]
  */
 stroke: RgbaValue = [0, 0, 0, 0]
 >>>>>>> dev
-```
+````
 
 ### opacity
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形透明度
  * @type {Number}
@@ -88,12 +89,13 @@ stroke: RgbaValue = [0, 0, 0, 0]
  */
 opacity: number = 1
 >>>>>>> dev
-```
+````
 
 ### lineCap
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的lineCap属性值
  * @type {Null|String}
@@ -107,12 +109,13 @@ opacity: number = 1
  */
 lineCap: LineCap = 'butt'
 >>>>>>> dev
-```
+````
 
 ### lineJoin
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的lineJoin属性值
  * @type {Null|String}
@@ -126,12 +129,13 @@ lineCap: LineCap = 'butt'
  */
 lineJoin: LineJoin = 'miter'
 >>>>>>> dev
-```
+````
 
 ### lineDash
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的lineDash属性值
  * @type {Null|Array<Number>}
@@ -145,12 +149,13 @@ lineJoin: LineJoin = 'miter'
  */
 lineDash: number[] = []
 >>>>>>> dev
-```
+````
 
 ### lineDashOffset
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的lineDashOffset属性值
  * @type {Null|Number}
@@ -164,12 +169,13 @@ lineDash: number[] = []
  */
 lineDashOffset: number = 0
 >>>>>>> dev
-```
+````
 
 ### shadowBlur
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的shadowBlur属性值
  * @type {Number}
@@ -182,12 +188,13 @@ lineDashOffset: number = 0
  */
 shadowBlur: number = 0
 >>>>>>> dev
-```
+````
 
 ### shadowColor
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形阴影颜色的Rgba值
  * @type {Array<Number>}
@@ -200,12 +207,13 @@ shadowBlur: number = 0
  */
 shadowColor: RgbaValue = [0, 0, 0, 0]
 >>>>>>> dev
-```
+````
 
 ### shadowOffsetX
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的shadowOffsetX属性值
  * @type {Number}
@@ -218,12 +226,13 @@ shadowColor: RgbaValue = [0, 0, 0, 0]
  */
 shadowOffsetX: number = 0
 >>>>>>> dev
-```
+````
 
 ### shadowOffsetY
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的shadowOffsetY属性值
  * @type {Number}
@@ -236,12 +245,13 @@ shadowOffsetX: number = 0
  */
 shadowOffsetY: number = 0
 >>>>>>> dev
-```
+````
 
 ### lineWidth
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的lineWidth属性值
  * @type {Number}
@@ -254,12 +264,13 @@ shadowOffsetY: number = 0
  */
 lineWidth: number = 1
 >>>>>>> dev
-```
+````
 
 ### graphCenter
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形中心点
  * @type {Null|Array<Number>}
@@ -273,12 +284,13 @@ lineWidth: number = 1
  */
 graphCenter?: [number, number]
 >>>>>>> dev
-```
+````
 
 ### scale
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形缩放倍数
  * @type {Null|Array<Number>}
@@ -292,12 +304,13 @@ graphCenter?: [number, number]
  */
 scale?: [number, number]
 >>>>>>> dev
-```
+````
 
 ### rotate
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形旋转角度
  * @type {Null|Number}
@@ -311,12 +324,13 @@ scale?: [number, number]
  */
 rotate?: number
 >>>>>>> dev
-```
+````
 
 ### translate
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 图形位移距离
  * @type {Null|Array<Number>}
@@ -330,12 +344,13 @@ rotate?: number
  */
 translate?: [number, number]
 >>>>>>> dev
-```
+````
 
 ### hoverCursor
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 鼠标悬浮在图形上时cursor的值
  * @type {String}
@@ -349,12 +364,13 @@ translate?: [number, number]
  */
 hoverCursor: HoverCursor = 'pointer'
 >>>>>>> dev
-```
+````
 
 ### fontStyle
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的fontStyle属性值
  * @type {String}
@@ -368,12 +384,13 @@ hoverCursor: HoverCursor = 'pointer'
  */
 fontStyle: FontStyle = 'normal'
 >>>>>>> dev
-```
+````
 
 ### fontVarient
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的fontVarient属性值
  * @type {String}
@@ -387,12 +404,13 @@ fontStyle: FontStyle = 'normal'
  */
 fontVarient: FontVarient = 'normal'
 >>>>>>> dev
-```
+````
 
 ### fontWeight
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的fontWeight属性值
  * @type {String|Number}
@@ -406,12 +424,13 @@ fontVarient: FontVarient = 'normal'
  */
 fontWeight: FontWeight = 'normal'
 >>>>>>> dev
-```
+````
 
 ### fontSize
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的fontSize属性值
  * @type {Number}
@@ -424,12 +443,13 @@ fontWeight: FontWeight = 'normal'
  */
 fontSize: number = 10
 >>>>>>> dev
-```
+````
 
 ### fontFamily
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的fontFamily属性值
  * @type {String}
@@ -442,12 +462,13 @@ fontSize: number = 10
  */
 fontFamily: string = 'Arial'
 >>>>>>> dev
-```
+````
 
 ### textAlign
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的textAlign属性值
  * @type {String}
@@ -461,12 +482,13 @@ fontFamily: string = 'Arial'
  */
 textAlign: TextAlign = 'center'
 >>>>>>> dev
-```
+````
 
 ### textBaseline
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description Ctx的textBaseline属性值
  * @type {String}
@@ -480,12 +502,13 @@ textAlign: TextAlign = 'center'
  */
 textBaseline: TextBaseLine = 'middle'
 >>>>>>> dev
-```
+````
 
 ### gradientColor
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 用于创建渐变色的颜色
  * @type {Null|Array<String>}
@@ -499,12 +522,13 @@ textBaseline: TextBaseLine = 'middle'
  */
 gradientColor?: RgbaValue[]
 >>>>>>> dev
-```
+````
 
 ### gradientType
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 渐变类型
  * @type {String}
@@ -518,12 +542,13 @@ gradientColor?: RgbaValue[]
  */
 gradientType: GradientType = 'linear'
 >>>>>>> dev
-```
+````
 
 ### gradientParams
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 渐变参数
  * @type {Array<Number>}
@@ -540,12 +565,13 @@ gradientType: GradientType = 'linear'
  */
 gradientParams?: GradientParams
 >>>>>>> dev
-```
+````
 
 ### gradientWith
 
 <<<<<<< HEAD
-```js
+
+````js
 /**
  * @description 使用渐变色的属性
  * @type {String}
@@ -561,7 +587,7 @@ gradientParams?: GradientParams
  */
 gradientWith: GradientWith = 'stroke'
 >>>>>>> dev
-```
+````
 
 ### gradientStops
 
@@ -606,8 +632,9 @@ gradientStops: GradientStops = 'auto'
  * @description 获取图形当前样式配置
  * @return {Object} 样式配置
  */
-Style.prototype.getStyle = function () {
-}
+Style.prototype.getStyle = function () {}
 ```
+
 =======
->>>>>>> dev
+
+> > > > > > > dev

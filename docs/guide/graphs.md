@@ -3,10 +3,11 @@
 插件内置了丰富的基础图形，如下是相关实例，你还可以尝试拖拽他们。
 
 <<<<<<< HEAD
+
 ## 圆形
 
-**shape属性表**
-=======
+# **shape 属性表**
+
 <fold-box title="点击以展开或折叠内置图形 Shape 类型定义">
 <<<@/src/types/graphs/shape.ts
 </fold-box>
@@ -14,7 +15,8 @@
 ## 圆形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -33,10 +35,10 @@
 
 ## 椭圆形
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 圆心x轴坐标 |
-| ry | `number` | `0` | 圆心y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 圆心 x 轴坐标 |
+| ry | `number` | `0` | 圆心 y 轴坐标 |
 | r | `number` | `0` | 圆半径 |
 </full-width-table>
 
@@ -53,7 +55,8 @@
 ## 椭圆形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -73,10 +76,10 @@
 
 ## 矩形
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 圆心x轴坐标 |
-| ry | `number` | `0` | 圆心y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 圆心 x 轴坐标 |
+| ry | `number` | `0` | 圆心 y 轴坐标 |
 | hr | `number` | `0` | 横轴半径 |
 | vr | `number` | `0` | 竖轴半径 |
 </full-width-table>
@@ -94,7 +97,8 @@
 ## 矩形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -114,10 +118,10 @@
 
 ## 环形
 
-**shape属性表**
-=======
-| x | `number` | `0` | 矩形左上角x轴坐标 |
-| y | `number` | `0` | 矩形左上角y轴坐标 |
+# **shape 属性表**
+
+| x | `number` | `0` | 矩形左上角 x 轴坐标 |
+| y | `number` | `0` | 矩形左上角 y 轴坐标 |
 | w | `number` | `0` | 矩形宽度 |
 | h | `number` | `0` | 矩形高度 |
 </full-width-table>
@@ -135,7 +139,8 @@
 ## 环形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -154,10 +159,10 @@
 
 ## 弧形
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 中心点x轴坐标 |
-| ry | `number` | `0` | 中心点y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 中心点 x 轴坐标 |
+| ry | `number` | `0` | 中心点 y 轴坐标 |
 | r | `number` | `0` | 环半径 |
 </full-width-table>
 
@@ -174,7 +179,8 @@
 ## 弧形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -196,10 +202,10 @@
 
 ## 扇形
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 中心点x轴坐标 |
-| ry | `number` | `0` | 中心点y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 中心点 x 轴坐标 |
+| ry | `number` | `0` | 中心点 y 轴坐标 |
 | r | `number` | `0` | 弧半径 |
 | startAngle | `number` | `0` | 弧起始弧度值 |
 | endAngle | `number` | `0` | 弧结束弧度值 |
@@ -219,7 +225,8 @@
 ## 扇形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -241,10 +248,10 @@
 
 ## 正多边形
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 中心点x轴坐标 |
-| ry | `number` | `0` | 中心点y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 中心点 x 轴坐标 |
+| ry | `number` | `0` | 中心点 y 轴坐标 |
 | r | `number` | `0` | 扇形半径 |
 | startAngle | `number` | `0` | 扇形起始弧度值 |
 | endAngle | `number` | `0` | 扇形结束弧度值 |
@@ -264,7 +271,8 @@
 ## 正多边形
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -284,10 +292,10 @@
 
 ## 折线
 
-**shape属性表**
-=======
-| rx | `number` | `0` | 中心点x轴坐标 |
-| ry | `number` | `0` | 中心点y轴坐标 |
+# **shape 属性表**
+
+| rx | `number` | `0` | 中心点 x 轴坐标 |
+| ry | `number` | `0` | 中心点 y 轴坐标 |
 | r | `number` | `0` | 外接圆半径 |
 | side | `number` | `0` | 边数 |
 </full-width-table>
@@ -305,7 +313,8 @@
 ## 折线
 
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -325,8 +334,8 @@
 
 <demo :config="polylineClosed" />
 
-<fold-box>
-=======
+# <fold-box>
+
 | points | `Point[]` | `[]` | 构成折线的点 |
 | close | `boolean` | `false` | 是否闭合折线 |
 </full-width-table>
@@ -353,10 +362,11 @@
 ## 光滑曲线
 
 <<<<<<< HEAD
-**shape属性表**
+**shape 属性表**
 =======
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -376,8 +386,8 @@
 
 <demo :config="smoothlineClosed" />
 
-<fold-box>
-=======
+# <fold-box>
+
 | points | `Point[]` | `[]` | 构成光滑曲线的点 |
 | close | `boolean` | `false` | 是否闭合光滑曲线 |
 </full-width-table>
@@ -404,10 +414,11 @@
 ## 贝塞尔曲线
 
 <<<<<<< HEAD
-**shape属性表**
+**shape 属性表**
 =======
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -427,8 +438,8 @@
 
 <demo :config="bezierCurveClosed" />
 
-<fold-box>
-=======
+# <fold-box>
+
 | points | `BezierCurve | []` | `[]` | 构成贝塞尔曲线的点 |
 | close | `boolean` | `false` | 是否闭合贝塞尔曲线 |
 </full-width-table>
@@ -455,10 +466,11 @@
 ## 文本
 
 <<<<<<< HEAD
-**shape属性表**
+**shape 属性表**
 =======
 **shape 属性表**
->>>>>>> dev
+
+> > > > > > > dev
 
 <full-width-table>
 | 属性名 | 类型 | 默认值 | 注解 |
@@ -480,7 +492,7 @@
 图形**text**的鼠标事件依赖`hoverRect`属性，如需鼠标事件生效请对其配置。文本中插入`\n`可以进行换行。
 =======
 | content | `string` | `''` | 文本内容 |
-| position | `[number, number]`  | `[0, 0]` | 文本起始位置 |
+| position | `[number, number]` | `[0, 0]` | 文本起始位置 |
 | maxWidth | `number` | `undefined` | 文本最大宽度 |
 | rowGap | `number` | `0` | 行间距 |
 </full-width-table>
@@ -497,8 +509,9 @@
 
 ::: tip TIP
 文本中插入`\n`可以进行换行。
->>>>>>> dev
-:::
+
+> > > > > > > dev
+> > > > > > > :::
 
 <script>
 
@@ -540,6 +553,8 @@ export default {
 
 <<<<<<< HEAD
 </script>
+
 =======
 </script>
->>>>>>> dev
+
+> > > > > > > dev

@@ -169,7 +169,7 @@ Here is an introduction to the **Graph** prototype method.
  * @return {Undefined} Void
  */
 Graph.prototype.attr = function (attrName, change = undefined) {
-	// ...
+  // ...
 }
 ```
 
@@ -186,7 +186,7 @@ Graph.prototype.attr = function (attrName, change = undefined) {
  * @return {Promise} Animation Promise
  */
 Graph.prototype.animation = async function (attrName, change, wait = false) {
-	// ...
+  // ...
 }
 ```
 
@@ -198,7 +198,7 @@ Graph.prototype.animation = async function (attrName, change, wait = false) {
  * @return {Undefined} Void
  */
 Graph.prototype.animationEnd = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -210,7 +210,7 @@ Graph.prototype.animationEnd = function () {
  * @return {Undefined} Void
  */
 Graph.prototype.pauseAnimation = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -222,7 +222,7 @@ Graph.prototype.pauseAnimation = function () {
  * @return {Undefined} Void
  */
 Graph.prototype.playAnimation = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -239,9 +239,9 @@ When you add graph to the render, you can configure the following functions in t
  */
 config = {
   //...,
-  added ({ shape, style }) {
+  added({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -257,10 +257,10 @@ config = {
  */
 config = {
   //...,
-  beforeDraw ({ shape, style }, { ctx }) {
+  beforeDraw({ shape, style }, { ctx }) {
     // do something...
     ctx.stroke = 'transparent'
-  }
+  },
 }
 ```
 
@@ -274,9 +274,9 @@ config = {
  */
 config = {
   //...,
-  drawed ({ shape, style }, { ctx }) {
+  drawed({ shape, style }, { ctx }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -291,9 +291,9 @@ config = {
  */
 config = {
   //...,
-  beforeMove ({ offsetX, offsetY }, { shape, style }) {
+  beforeMove({ offsetX, offsetY }, { shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -308,9 +308,9 @@ config = {
  */
 config = {
   //...,
-  moved ({ offsetX, offsetY }, { shape, style }) {
+  moved({ offsetX, offsetY }, { shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -323,9 +323,9 @@ config = {
  */
 config = {
   //...,
-  beforeDelete ({ shape, style }) {
+  beforeDelete({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -338,8 +338,8 @@ config = {
  */
 config = {
   //...,
-  deleted ({ shape, style }) {
+  deleted({ shape, style }) {
     // do something...
-  }
+  },
 }
 ```

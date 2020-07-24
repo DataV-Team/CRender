@@ -12,7 +12,7 @@ This section describes the instance properties of the **Style** class.
 
 ```js
 /**
- * @description Rgba value of graph fill color 
+ * @description Rgba value of graph fill color
  * @type {Array<Number>}
  * @default fill = [0, 0, 0, 1]
  */
@@ -22,7 +22,7 @@ This section describes the instance properties of the **Style** class.
 
 ```js
 /**
- * @description Rgba value of graph stroke color 
+ * @description Rgba value of graph stroke color
  * @type {Array<Number>}
  * @default stroke = [0, 0, 0, 1]
  */
@@ -96,7 +96,7 @@ This section describes the instance properties of the **Style** class.
 
 ```js
 /**
- * @description Rgba value of graph shadow color 
+ * @description Rgba value of graph shadow color
  * @type {Array<Number>}
  * @default shadowColor = [0, 0, 0, 0]
  */
@@ -343,6 +343,5 @@ This section describes the instance properties of the **Style** class.
  * @description Get the current style configuration
  * @return {Object} Style configuration
  */
-Style.prototype.getStyle = function () {
-}
+Style.prototype.getStyle = function () {}
 ```

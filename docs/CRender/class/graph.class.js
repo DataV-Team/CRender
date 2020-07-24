@@ -7,7 +7,7 @@ import {
   getRotatePointPos,
   getScalePointPos,
   getTranslatePointPos,
-  checkPointIsInRect
+  checkPointIsInRect,
 } from '../plugin/util'
 
 /**
@@ -17,7 +17,7 @@ import {
  * @return {Graph} Instance of Graph
  */
 export default class Graph {
-  constructor (graph, config) {
+  constructor(graph, config) {
     config = deepClone(config, true)
 
     const defaultConfig = {
@@ -96,7 +96,7 @@ export default class Graph {
        * @type {Function|Null}
        * @default click = null
        */
-      click: null
+      click: null,
     }
 
     const configAbleNot = {
@@ -104,7 +104,7 @@ export default class Graph {
       animationRoot: [],
       animationKeys: [],
       animationFrameState: [],
-      cache: {}
+      cache: {},
     }
 
     if (!config.shape) config.shape = {}
@@ -165,8 +165,17 @@ Graph.prototype.hoverCheckProcessor = function (position, { hoverRect, style, ho
 
   if (graphCenter) {
     if (rotate) position = getRotatePointPos(-rotate, position, graphCenter)
-    if (scale) position = getScalePointPos(scale.map(s => 1 / s), position, graphCenter)
-    if (translate) position = getTranslatePointPos(translate.map(v => v * -1), position)
+    if (scale)
+      position = getScalePointPos(
+        scale.map(s => 1 / s),
+        position,
+        graphCenter
+      )
+    if (translate)
+      position = getTranslatePointPos(
+        translate.map(v => v * -1),
+        position
+      )
   }
 
   if (hoverRect) return checkPointIsInRect(position, ...hoverRect)
@@ -367,7 +376,7 @@ Graph.prototype.delProcessor = function (render) {
  * @param {Number} time Release time
  * @return {Promise} A timed release Promise
  */
-function delay (time) {
+function delay(time) {
   return new Promise(resolve => {
     setTimeout(resolve, time)
   })

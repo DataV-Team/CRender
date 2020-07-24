@@ -9,13 +9,10 @@ import {
   getRegularPolygonPoints,
   checkPointIsInPolygon,
   checkPointIsNearPolyline,
-  checkPointIsInRect
+  checkPointIsInRect,
 } from '../plugin/util'
 
-import {
-  drawPolylinePath,
-  drawBezierCurvePath
-} from '../plugin/canvas'
+import { drawPolylinePath, drawBezierCurvePath } from '../plugin/canvas'
 
 const { polylineToBezierCurve, bezierCurveToPolyline } = beziercurve
 
@@ -23,10 +20,10 @@ export const circle = {
   shape: {
     rx: 0,
     ry: 0,
-    r: 0
+    r: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
@@ -38,7 +35,7 @@ export const circle = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r } = shape
@@ -51,24 +48,24 @@ export const circle = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, r } = shape
 
     return checkPointIsInCircle(position, rx, ry, r)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 export const ellipse = {
@@ -76,13 +73,18 @@ export const ellipse = {
     rx: 0,
     ry: 0,
     hr: 0,
-    vr: 0
+    vr: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, hr, vr } = shape
 
-    if (typeof rx !== 'number' || typeof ry !== 'number' || typeof hr !== 'number' || typeof vr !== 'number') {
+    if (
+      typeof rx !== 'number' ||
+      typeof ry !== 'number' ||
+      typeof hr !== 'number' ||
+      typeof vr !== 'number'
+    ) {
       console.error('Ellipse shape configuration is abnormal!')
 
       return false
@@ -91,7 +93,7 @@ export const ellipse = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     let { rx, ry, hr, vr } = shape
@@ -104,7 +106,7 @@ export const ellipse = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, hr, vr } = shape
 
     const a = Math.max(hr, vr)
@@ -115,23 +117,24 @@ export const ellipse = {
     const leftFocusPoint = [rx - c, ry]
     const rightFocusPoint = [rx + c, ry]
 
-    const distance = getTwoPointDistance(position, leftFocusPoint) + getTwoPointDistance(position, rightFocusPoint)
+    const distance =
+      getTwoPointDistance(position, leftFocusPoint) + getTwoPointDistance(position, rightFocusPoint)
 
     return distance <= 2 * a
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 export const rect = {
@@ -139,13 +142,18 @@ export const rect = {
     x: 0,
     y: 0,
     w: 0,
-    h: 0
+    h: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { x, y, w, h } = shape
 
-    if (typeof x !== 'number' || typeof y !== 'number' || typeof w !== 'number' || typeof h !== 'number') {
+    if (
+      typeof x !== 'number' ||
+      typeof y !== 'number' ||
+      typeof w !== 'number' ||
+      typeof h !== 'number'
+    ) {
       console.error('Rect shape configuration is abnormal!')
 
       return false
@@ -154,7 +162,7 @@ export const rect = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     let { x, y, w, h } = shape
@@ -167,34 +175,34 @@ export const rect = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     let { x, y, w, h } = shape
 
     return checkPointIsInRect(position, x, y, w, h)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { x, y, w, h } = shape
 
     style.graphCenter = [x + w / 2, y + h / 2]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       x: shape.x + movementX,
-      y: shape.y + movementY
+      y: shape.y + movementY,
     })
-  }
+  },
 }
 
 export const ring = {
   shape: {
     rx: 0,
     ry: 0,
-    r: 0
+    r: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
@@ -206,7 +214,7 @@ export const ring = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r } = shape
@@ -218,7 +226,7 @@ export const ring = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape, style }) {
+  hoverCheck(position, { shape, style }) {
     const { rx, ry, r } = shape
 
     const { lineWidth } = style
@@ -230,21 +238,21 @@ export const ring = {
 
     const distance = getTwoPointDistance(position, [rx, ry])
 
-    return (distance >= minDistance && distance <= maxDistance)
+    return distance >= minDistance && distance <= maxDistance
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 export const arc = {
@@ -254,10 +262,10 @@ export const arc = {
     r: 0,
     startAngle: 0,
     endAngle: 0,
-    clockWise: true
+    clockWise: true,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
 
     if (keys.find(key => typeof shape[key] !== 'number')) {
@@ -269,7 +277,7 @@ export const arc = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
@@ -281,7 +289,7 @@ export const arc = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape, style }) {
+  hoverCheck(position, { shape, style }) {
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
     const { lineWidth } = style
@@ -291,22 +299,24 @@ export const arc = {
     const insideRadius = r - halfLineWidth
     const outsideRadius = r + halfLineWidth
 
-    return !checkPointIsInSector(position, rx, ry, insideRadius, startAngle, endAngle, clockWise) &&
-    checkPointIsInSector(position, rx, ry, outsideRadius, startAngle, endAngle, clockWise)
+    return (
+      !checkPointIsInSector(position, rx, ry, insideRadius, startAngle, endAngle, clockWise) &&
+      checkPointIsInSector(position, rx, ry, outsideRadius, startAngle, endAngle, clockWise)
+    )
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 export const sector = {
@@ -316,10 +326,10 @@ export const sector = {
     r: 0,
     startAngle: 0,
     endAngle: 0,
-    clockWise: true
+    clockWise: true,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const keys = ['rx', 'ry', 'r', 'startAngle', 'endAngle']
 
     if (keys.find(key => typeof shape[key] !== 'number')) {
@@ -331,7 +341,7 @@ export const sector = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
@@ -346,26 +356,26 @@ export const sector = {
     ctx.fill()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, r, startAngle, endAngle, clockWise } = shape
 
     return checkPointIsInSector(position, rx, ry, r, startAngle, endAngle, clockWise)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     const { rx, ry } = shape
 
     this.attr('shape', {
       rx: rx + movementX,
-      ry: ry + movementY
+      ry: ry + movementY,
     })
-  }
+  },
 }
 
 export const regPolygon = {
@@ -373,10 +383,10 @@ export const regPolygon = {
     rx: 0,
     ry: 0,
     r: 0,
-    side: 0
+    side: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { side } = shape
 
     const keys = ['rx', 'ry', 'r', 'side']
@@ -396,12 +406,18 @@ export const regPolygon = {
     return true
   },
 
-  draw ({ ctx }, { shape, cache }) {
+  draw({ ctx }, { shape, cache }) {
     ctx.beginPath()
 
     const { rx, ry, r, side } = shape
 
-    if (!cache.points || cache.rx !== rx || cache.ry !== ry || cache.r !== r || cache.side !== side) {
+    if (
+      !cache.points ||
+      cache.rx !== rx ||
+      cache.ry !== ry ||
+      cache.r !== r ||
+      cache.side !== side
+    ) {
       const points = getRegularPolygonPoints(rx, ry, r, side)
 
       Object.assign(cache, { points, rx, ry, r, side })
@@ -417,19 +433,19 @@ export const regPolygon = {
     ctx.fill()
   },
 
-  hoverCheck (position, { cache }) {
+  hoverCheck(position, { cache }) {
     let { points } = cache
 
     return checkPointIsInPolygon(position, points)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape, cache }) {
+  move({ movementX, movementY }, { shape, cache }) {
     const { rx, ry } = shape
 
     cache.rx += movementX
@@ -437,20 +453,20 @@ export const regPolygon = {
 
     this.attr('shape', {
       rx: rx + movementX,
-      ry: ry + movementY
+      ry: ry + movementY,
     })
 
     cache.points = cache.points.map(([x, y]) => [x + movementX, y + movementY])
-  }
+  },
 }
 
 export const polyline = {
   shape: {
     points: [],
-    close: false
+    close: false,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { points } = shape
 
     if (!(points instanceof Array)) {
@@ -462,7 +478,7 @@ export const polyline = {
     return true
   },
 
-  draw ({ ctx }, { shape, style: { lineWidth } }) {
+  draw({ ctx }, { shape, style: { lineWidth } }) {
     ctx.beginPath()
 
     let { points, close } = shape
@@ -481,7 +497,7 @@ export const polyline = {
     }
   },
 
-  hoverCheck (position, { shape, style }) {
+  hoverCheck(position, { shape, style }) {
     const { points, close } = shape
 
     const { lineWidth } = style
@@ -493,30 +509,30 @@ export const polyline = {
     }
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { points } = shape
 
     style.graphCenter = points[0]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     const { points } = shape
 
     const moveAfterPoints = points.map(([x, y]) => [x + movementX, y + movementY])
 
     this.attr('shape', {
-      points: moveAfterPoints
+      points: moveAfterPoints,
     })
-  }
+  },
 }
 
 export const smoothline = {
   shape: {
     points: [],
-    close: false
+    close: false,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { points } = shape
 
     if (!(points instanceof Array)) {
@@ -528,7 +544,7 @@ export const smoothline = {
     return true
   },
 
-  draw ({ ctx }, { shape, cache }) {
+  draw({ ctx }, { shape, cache }) {
     const { points, close } = shape
 
     if (!cache.points || cache.points.toString() !== points.toString()) {
@@ -538,7 +554,7 @@ export const smoothline = {
       Object.assign(cache, {
         points: deepClone(points, true),
         bezierCurve,
-        hoverPoints
+        hoverPoints,
       })
     }
 
@@ -558,7 +574,7 @@ export const smoothline = {
     }
   },
 
-  hoverCheck (position, { cache, shape, style }) {
+  hoverCheck(position, { cache, shape, style }) {
     const { hoverPoints } = cache
 
     const { close } = shape
@@ -572,13 +588,13 @@ export const smoothline = {
     }
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { points } = shape
 
     style.graphCenter = points[0]
   },
 
-  move ({ movementX, movementY }, { shape, cache }) {
+  move({ movementX, movementY }, { shape, cache }) {
     const { points } = shape
 
     const moveAfterPoints = points.map(([x, y]) => [x + movementX, y + movementY])
@@ -590,24 +606,24 @@ export const smoothline = {
 
     cache.bezierCurve = [
       [fx + movementX, fy + movementY],
-      ...curves.map(curve => curve.map(([x, y]) => [x + movementX, y + movementY]))
+      ...curves.map(curve => curve.map(([x, y]) => [x + movementX, y + movementY])),
     ]
 
     cache.hoverPoints = cache.hoverPoints.map(([x, y]) => [x + movementX, y + movementY])
 
     this.attr('shape', {
-      points: moveAfterPoints
+      points: moveAfterPoints,
     })
-  }
+  },
 }
 
 export const bezierCurve = {
   shape: {
     points: [],
-    close: false
+    close: false,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { points } = shape
 
     if (!(points instanceof Array)) {
@@ -619,7 +635,7 @@ export const bezierCurve = {
     return true
   },
 
-  draw ({ ctx }, { shape, cache }) {
+  draw({ ctx }, { shape, cache }) {
     let { points, close } = shape
 
     if (!cache.points || cache.points.toString() !== points.toString()) {
@@ -627,7 +643,7 @@ export const bezierCurve = {
 
       Object.assign(cache, {
         points: deepClone(points, true),
-        hoverPoints
+        hoverPoints,
       })
     }
 
@@ -645,7 +661,7 @@ export const bezierCurve = {
     }
   },
 
-  hoverCheck (position, { cache, shape, style }) {
+  hoverCheck(position, { cache, shape, style }) {
     const { hoverPoints } = cache
 
     const { close } = shape
@@ -659,13 +675,13 @@ export const bezierCurve = {
     }
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { points } = shape
 
     style.graphCenter = points[0]
   },
 
-  move ({ movementX, movementY }, { shape, cache }) {
+  move({ movementX, movementY }, { shape, cache }) {
     const { points } = shape
 
     const [fx, fy] = points[0]
@@ -673,16 +689,16 @@ export const bezierCurve = {
 
     const bezierCurve = [
       [fx + movementX, fy + movementY],
-      ...curves.map(curve => curve.map(([x, y]) => [x + movementX, y + movementY]))
+      ...curves.map(curve => curve.map(([x, y]) => [x + movementX, y + movementY])),
     ]
 
     cache.points = bezierCurve
     cache.hoverPoints = cache.hoverPoints.map(([x, y]) => [x + movementX, y + movementY])
 
     this.attr('shape', {
-      points: bezierCurve
+      points: bezierCurve,
     })
-  }
+  },
 }
 
 export const text = {
@@ -690,10 +706,10 @@ export const text = {
     content: '',
     position: [],
     maxWidth: undefined,
-    rowGap: 0
+    rowGap: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { content, position, rowGap } = shape
 
     if (typeof content !== 'string') {
@@ -717,7 +733,7 @@ export const text = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     let { content, position, maxWidth, rowGap } = shape
 
     const { textBaseline, font } = ctx
@@ -756,23 +772,25 @@ export const text = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape, style }) {
+  hoverCheck(position, { shape, style }) {
     return false
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { position } = shape
 
     style.graphCenter = [...position]
   },
 
-  move ({ movementX, movementY }, { shape }) {
-    const { position: [x, y] } = shape
+  move({ movementX, movementY }, { shape }) {
+    const {
+      position: [x, y],
+    } = shape
 
     this.attr('shape', {
-      position: [x + movementX, y + movementY]
+      position: [x + movementX, y + movementY],
     })
-  }
+  },
 }
 
 const graphs = new Map([
@@ -786,7 +804,7 @@ const graphs = new Map([
   ['polyline', polyline],
   ['smoothline', smoothline],
   ['bezierCurve', bezierCurve],
-  ['text', text]
+  ['text', text],
 ])
 
 export default graphs
@@ -797,7 +815,7 @@ export default graphs
  * @param {Object} config Configuration of Graph
  * @return {Undefined} Void
  */
-export function extendNewGraph (name, config) {
+export function extendNewGraph(name, config) {
   if (!name || !config) {
     console.error('ExtendNewGraph Missing Parameters!')
 

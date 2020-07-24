@@ -16,25 +16,25 @@ Click to **replay**.
 
 ## Characteristics
 
-* Dynamic
+- Dynamic
 
 Based on the **transition** plugin provides dynamic effect support, call the graphical instance's **animation** method to change its state, **CRender** will automatically render the graphics state transition animation, animation —— So easy.
 
 [Transition](http://transition.jiaminghi.com/)
 
-* Interaction
+- Interaction
 
 The built-in basic graphics provide support for functions such as **drag**, **mouseEnter**, **mouseOut**, **click**, and events.
 
 ## Install
 
-* Install with npm
+- Install with npm
 
 ```sh
 npm install @jiaminghi/c-render
 ```
 
-* Install with yarn
+- Install with yarn
 
 ```sh
 yarn add @jiaminghi/c-render

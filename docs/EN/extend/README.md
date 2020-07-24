@@ -15,8 +15,8 @@ CRender provides a Function to extend new graph,you can **customize** the graphi
  * @param {Object} config Configuration of Graph
  * @return {Undefined} Void
  */
-function extendNewGraph (name, config) {
-    // ...
+function extendNewGraph(name, config) {
+  // ...
 }
 ```
 
@@ -35,7 +35,7 @@ config = {
   // ...,
   shape: {
     // some property...
-  }
+  },
 }
 ```
 
@@ -53,10 +53,10 @@ config = {
  */
 config = {
   // ...,
-  validator ({ shape }) {
+  validator({ shape }) {
     // check configuration...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -72,9 +72,9 @@ config = {
  */
 config = {
   // ...,
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     // drawing...
-  }
+  },
 }
 ```
 
@@ -92,10 +92,10 @@ config = {
  */
 config = {
   // ...,
-  validator ([offsetX, offsetY], { shape }) {
+  validator([offsetX, offsetY], { shape }) {
     // Check if it is in hover state...
     // return true | false
-  }
+  },
 }
 ```
 
@@ -113,9 +113,9 @@ config = {
  */
 config = {
   // ...,
-  setGraphCenter ([offsetX, offsetY], { style }) {
+  setGraphCenter([offsetX, offsetY], { style }) {
     // style.graphCenter = [offsetX, offsetY]
-  }
+  },
 }
 ```
 
@@ -131,9 +131,9 @@ config = {
  */
 config = {
   // ...,
-  move ([offsetX, offsetY], { shape }) {
+  move([offsetX, offsetY], { shape }) {
     // do something...
-  }
+  },
 }
 ```
 
@@ -146,10 +146,10 @@ const circle = {
   shape: {
     rx: 0,
     ry: 0,
-    r: 0
+    r: 0,
   },
 
-  validator ({ shape }) {
+  validator({ shape }) {
     const { rx, ry, r } = shape
 
     if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
@@ -161,7 +161,7 @@ const circle = {
     return true
   },
 
-  draw ({ ctx }, { shape }) {
+  draw({ ctx }, { shape }) {
     ctx.beginPath()
 
     const { rx, ry, r } = shape
@@ -174,24 +174,24 @@ const circle = {
     ctx.closePath()
   },
 
-  hoverCheck (position, { shape }) {
+  hoverCheck(position, { shape }) {
     const { rx, ry, r } = shape
 
     return checkPointIsInCircle(rx, ry, r, position)
   },
 
-  setGraphCenter (e, { shape, style }) {
+  setGraphCenter(e, { shape, style }) {
     const { rx, ry } = shape
 
     style.graphCenter = [rx, ry]
   },
 
-  move ({ movementX, movementY }, { shape }) {
+  move({ movementX, movementY }, { shape }) {
     this.attr('shape', {
       rx: shape.rx + movementX,
-      ry: shape.ry + movementY
+      ry: shape.ry + movementY,
     })
-  }
+  },
 }
 
 extendNewGraph('circle', circle)

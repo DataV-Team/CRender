@@ -1,5 +1,7 @@
 export default function (render) {
-  const { area: [w, h] } = render
+  const {
+    area: [w, h],
+  } = render
 
   return {
     name: 'arc',
@@ -11,7 +13,7 @@ export default function (render) {
       ry: h / 2,
       r: 60,
       startAngle: 0,
-      endAngle: Math.PI / 3
+      endAngle: Math.PI / 3,
     },
     style: {
       stroke: '#9ce5f4',
@@ -19,15 +21,15 @@ export default function (render) {
       shadowBlur: 0,
       rotate: 0,
       shadowColor: '#66eece',
-      hoverCursor: 'pointer'
+      hoverCursor: 'pointer',
     },
-    mouseEnter (e) {
+    mouseEnter(e) {
       this.animation('shape', { endAngle: Math.PI }, true)
       this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
     },
-    mouseOuter (e) {
+    mouseOuter(e) {
       this.animation('shape', { endAngle: Math.PI / 3 }, true)
       this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
-    }
+    },
   }
 }

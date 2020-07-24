@@ -1,5 +1,7 @@
 export default function (render) {
-  const { area: [w, h] } = render
+  const {
+    area: [w, h],
+  } = render
 
   return {
     name: 'ellipse',
@@ -10,20 +12,20 @@ export default function (render) {
       rx: w / 2,
       ry: h / 2,
       hr: 80,
-      vr: 30
+      vr: 30,
     },
     style: {
       fill: '#9ce5f4',
       shadowBlur: 0,
       shadowColor: '#66eece',
       scale: [1, 1],
-      hoverCursor: 'pointer'
+      hoverCursor: 'pointer',
     },
-    mouseEnter (e) {
+    mouseEnter(e) {
       this.animation('style', { scale: [1.5, 1.5], shadowBlur: 20 })
     },
-    mouseOuter (e) {
+    mouseOuter(e) {
       this.animation('style', { scale: [1, 1], shadowBlur: 0 })
-    }
+    },
   }
 }

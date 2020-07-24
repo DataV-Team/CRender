@@ -15,7 +15,7 @@ Here is an introduction to the **CRender**, such as instantiation, instance prop
  * @return {CRender} Instance of CRender
  */
 class CRender {
-    // ...
+  // ...
 }
 ```
 
@@ -104,7 +104,7 @@ Here is an introduction to the **CRender** prototype method.
  * @return {Graph} Graph instance
  */
 CRender.prototype.add = function (config = {}) {
-	// ...
+  // ...
 }
 ```
 
@@ -116,8 +116,7 @@ CRender.prototype.add = function (config = {}) {
  * @param {Graph} graph The target to be cloned
  * @return {Graph} Cloned graph
  */
-CRender.prototype.clone = function (graph) {
-}
+CRender.prototype.clone = function (graph) {}
 ```
 
 ### delGraph
@@ -129,7 +128,7 @@ CRender.prototype.clone = function (graph) {
  * @return {Undefined} Void
  */
 CRender.prototype.delGraph = function (graph) {
-	// ...
+  // ...
 }
 ```
 
@@ -141,7 +140,7 @@ CRender.prototype.delGraph = function (graph) {
  * @return {Undefined} Void
  */
 CRender.prototype.delAllGraph = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -153,7 +152,7 @@ CRender.prototype.delAllGraph = function () {
  * @return {Undefined} Void
  */
 CRender.prototype.drawAllGraph = function () {
-    // ...
+  // ...
 }
 ```
 
@@ -165,7 +164,7 @@ CRender.prototype.drawAllGraph = function () {
  * @return {Undefined} Void
  */
 CRender.prototype.clearArea = function () {
-	// ...
+  // ...
 }
 ```
 
@@ -178,6 +177,6 @@ CRender.prototype.clearArea = function () {
  * @return {Promise} Animation Promise
  */
 CRender.prototype.launchAnimation = function () {
-	// ...
+  // ...
 }
 ```

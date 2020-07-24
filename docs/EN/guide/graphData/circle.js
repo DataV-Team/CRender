@@ -1,5 +1,7 @@
 export default function (render) {
-  const { area: [w, h] } = render
+  const {
+    area: [w, h],
+  } = render
 
   return {
     name: 'circle',
@@ -9,21 +11,21 @@ export default function (render) {
     shape: {
       rx: w / 2,
       ry: h / 2,
-      r: 50
+      r: 50,
     },
     style: {
       fill: '#9ce5f4',
       shadowBlur: 0,
       shadowColor: '#66eece',
-      hoverCursor: 'pointer'
+      hoverCursor: 'pointer',
     },
-    mouseEnter (e) {
+    mouseEnter(e) {
       this.animation('shape', { r: 70 }, true)
       this.animation('style', { shadowBlur: 20 })
     },
-    mouseOuter (e) {
+    mouseOuter(e) {
       this.animation('shape', { r: 50 }, true)
       this.animation('style', { shadowBlur: 0 })
-    }
+    },
   }
 }

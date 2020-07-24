@@ -13,7 +13,7 @@ import Graph from './graph.class'
  * @return {CRender}      Instance of CRender
  */
 export default class CRender {
-  constructor (canvas) {
+  constructor(canvas) {
     if (!canvas) {
       console.error('CRender Missing parameters!')
 
@@ -168,7 +168,9 @@ CRender.prototype.delAllGraph = function () {
 CRender.prototype.drawAllGraph = function () {
   this.clearArea()
 
-  this.graphs.filter(graph => graph && graph.visible).forEach(graph => graph.drawProcessor(this, graph))
+  this.graphs
+    .filter(graph => graph && graph.visible)
+    .forEach(graph => graph.drawProcessor(this, graph))
 }
 
 /**
@@ -184,11 +186,15 @@ CRender.prototype.launchAnimation = function () {
   this.animationStatus = true
 
   return new Promise(resolve => {
-    animation.call(this, () => {
-      this.animationStatus = false
+    animation.call(
+      this,
+      () => {
+        this.animationStatus = false
 
-      resolve()
-    }, Date.now())
+        resolve()
+      },
+      Date.now()
+    )
   })
 }
 
@@ -198,7 +204,7 @@ CRender.prototype.launchAnimation = function () {
  * @param {Number} timeStamp  Time stamp of animation start
  * @return {Undefined} Void
  */
-function animation (callback, timeStamp) {
+function animation(callback, timeStamp) {
   const { graphs } = this
 
   if (!animationAble(graphs)) {
@@ -219,7 +225,7 @@ function animation (callback, timeStamp) {
  * @param {[Graph]} graphs
  * @return {Boolean}
  */
-function animationAble (graphs) {
+function animationAble(graphs) {
   return graphs.find(graph => !graph.animationPause && graph.animationFrameState.length)
 }
 
@@ -227,7 +233,7 @@ function animationAble (graphs) {
  * @description Handler of CRender mousedown event
  * @return {Undefined} Void
  */
-function mouseDown (e) {
+function mouseDown(e) {
   const { graphs } = this
 
   const hoverGraph = graphs.find(graph => graph.status === 'hover')
@@ -241,13 +247,13 @@ function mouseDown (e) {
  * @description Handler of CRender mousemove event
  * @return {Undefined} Void
  */
-function mouseMove (e) {
+function mouseMove(e) {
   const { offsetX, offsetY } = e
   const position = [offsetX, offsetY]
 
   const { graphs } = this
 
-  const activeGraph = graphs.find(graph => (graph.status === 'active' || graph.status === 'drag'))
+  const activeGraph = graphs.find(graph => graph.status === 'active' || graph.status === 'drag')
 
   if (activeGraph) {
     if (!activeGraph.drag) return
@@ -267,8 +273,9 @@ function mouseMove (e) {
 
   const hoverGraph = graphs.find(graph => graph.status === 'hover')
 
-  const hoverAbleGraphs = graphs.filter(graph =>
-    (graph.hover && (typeof graph.hoverCheck === 'function' || graph.hoverRect)))
+  const hoverAbleGraphs = graphs.filter(
+    graph => graph.hover && (typeof graph.hoverCheck === 'function' || graph.hoverRect)
+  )
 
   const hoveredGraph = hoverAbleGraphs.find(graph => graph.hoverCheckProcessor(position, graph))
 
@@ -318,7 +325,7 @@ function mouseMove (e) {
  * @description Handler of CRender mouseup event
  * @return {Undefined} Void
  */
-function mouseUp (e) {
+function mouseUp(e) {
   const { graphs } = this
 
   const activeGraph = graphs.find(graph => graph.status === 'active')

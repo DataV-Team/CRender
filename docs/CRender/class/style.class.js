@@ -8,7 +8,7 @@ import { deepClone } from '../plugin/util'
  * @return {Style} Instance of Style
  */
 export default class Style {
-  constructor (style) {
+  constructor(style) {
     this.colorProcessor(style)
 
     const defaultStyle = {
@@ -219,7 +219,7 @@ export default class Style {
        * @example colors = ['#000', '#111', '#222']
        * @example colors = { a: '#000', b: '#111' }
        */
-      colors: null
+      colors: null,
     }
 
     Object.assign(this, defaultStyle, style)
@@ -273,7 +273,7 @@ Style.prototype.initStyle = function (ctx) {
  * @param {Style} style Instance of Style
  * @return {Undefined} Void
  */
-function initTransform (ctx, style) {
+function initTransform(ctx, style) {
   ctx.save()
 
   const { graphCenter, rotate, scale, translate } = style
@@ -282,7 +282,7 @@ function initTransform (ctx, style) {
 
   ctx.translate(...graphCenter)
 
-  if (rotate) ctx.rotate(rotate * Math.PI / 180)
+  if (rotate) ctx.rotate((rotate * Math.PI) / 180)
 
   if (scale instanceof Array) ctx.scale(...scale)
 
@@ -292,9 +292,14 @@ function initTransform (ctx, style) {
 }
 
 const autoSetStyleKeys = [
-  'lineCap', 'lineJoin', 'lineDashOffset',
-  'shadowOffsetX', 'shadowOffsetY', 'lineWidth',
-  'textAlign', 'textBaseline'
+  'lineCap',
+  'lineJoin',
+  'lineDashOffset',
+  'shadowOffsetX',
+  'shadowOffsetY',
+  'lineWidth',
+  'textAlign',
+  'textBaseline',
 ]
 
 /**
@@ -303,7 +308,7 @@ const autoSetStyleKeys = [
  * @param {Style} style Instance of Style
  * @return {Undefined} Void
  */
-function initGraphStyle (ctx, style) {
+function initGraphStyle(ctx, style) {
   let { fill, stroke, shadowColor, opacity } = style
 
   autoSetStyleKeys.forEach(key => {
@@ -325,7 +330,7 @@ function initGraphStyle (ctx, style) {
   let { lineDash, shadowBlur } = style
 
   if (lineDash) {
-    lineDash = lineDash.map(v => v >= 0 ? v : 0)
+    lineDash = lineDash.map(v => (v >= 0 ? v : 0))
 
     ctx.setLineDash(lineDash)
   }
@@ -334,7 +339,8 @@ function initGraphStyle (ctx, style) {
 
   const { fontStyle, fontVarient, fontWeight, fontSize, fontFamily } = style
 
-  ctx.font = fontStyle + ' ' + fontVarient + ' ' + fontWeight + ' ' + fontSize + 'px' + ' ' + fontFamily
+  ctx.font =
+    fontStyle + ' ' + fontVarient + ' ' + fontWeight + ' ' + fontSize + 'px' + ' ' + fontFamily
 }
 
 /**
@@ -343,7 +349,7 @@ function initGraphStyle (ctx, style) {
  * @param {Style} style Instance of Style
  * @return {Undefined} Void
  */
-function initGradient (ctx, style) {
+function initGradient(ctx, style) {
   if (!gradientValidator(style)) return
 
   let { gradientColor, gradientParams, gradientType, gradientWith, gradientStops, opacity } = style
@@ -362,7 +368,9 @@ function initGradient (ctx, style) {
 
   if (gradientStops === 'auto') gradientStops = getAutoColorStops(gradientColor)
 
-  const gradient = ctx[`create${gradientType.slice(0, 1).toUpperCase() + gradientType.slice(1)}Gradient`](...gradientParams)
+  const gradient = ctx[
+    `create${gradientType.slice(0, 1).toUpperCase() + gradientType.slice(1)}Gradient`
+  ](...gradientParams)
 
   gradientStops.forEach((stop, i) => gradient.addColorStop(stop, gradientColor[i]))
 
@@ -374,7 +382,7 @@ function initGradient (ctx, style) {
  * @param {Style} style Instance of Style
  * @return {Boolean} Check Result
  */
-function gradientValidator (style) {
+function gradientValidator(style) {
   const { gradientColor, gradientParams, gradientType, gradientWith, gradientStops } = style
 
   if (!gradientColor || !gradientParams) return false
@@ -397,7 +405,9 @@ function gradientValidator (style) {
     (gradientType === 'linear' && gradientParamsLength !== 4) ||
     (gradientType === 'radial' && gradientParamsLength !== 6)
   ) {
-    console.warn('The expected length of gradientParams is ' + (gradientType === 'linear' ? '4' : '6'))
+    console.warn(
+      'The expected length of gradientParams is ' + (gradientType === 'linear' ? '4' : '6')
+    )
 
     return false
   }
@@ -409,7 +419,10 @@ function gradientValidator (style) {
   }
 
   if (gradientStops !== 'auto' && !(gradientStops instanceof Array)) {
-    console.warn(`gradientStops only supports 'auto' or Number Array ([0, .5, 1]), current value is ` + gradientStops)
+    console.warn(
+      `gradientStops only supports 'auto' or Number Array ([0, .5, 1]), current value is ` +
+        gradientStops
+    )
 
     return false
   }
@@ -422,7 +435,7 @@ function gradientValidator (style) {
  * @param {Array} color Gradient color
  * @return {Array} Gradient color stop
  */
-function getAutoColorStops (color) {
+function getAutoColorStops(color) {
   const stopGap = 1 / (color.length - 1)
 
   return color.map((foo, i) => stopGap * i)

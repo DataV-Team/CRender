@@ -1,21 +1,21 @@
 export default {
-  data () {
+  data() {
     return {
       canvasDom: '',
       canvasWH: [0, 0],
       ctx: '',
-      centerPos: [0, 0]
+      centerPos: [0, 0],
     }
   },
   methods: {
-    initCanvas (refTarget) {
+    initCanvas(refTarget) {
       const { $nextTick } = this
 
       return new Promise(resolve => {
         $nextTick(e => {
           const { $refs, labelRef, canvasWH, centerPos } = this
 
-          const canvas = this.canvasDom = $refs[refTarget]
+          const canvas = (this.canvasDom = $refs[refTarget])
 
           this.labelDom = $refs[labelRef]
 
@@ -34,10 +34,10 @@ export default {
         })
       })
     },
-    clearCanvas () {
+    clearCanvas() {
       const { ctx, canvasWH } = this
 
       ctx.clearRect(0, 0, ...canvasWH)
-    }
-  }
+    },
+  },
 }
