@@ -4,6 +4,7 @@ export default function (render) {
   } = render
 
   return {
+    name: 'Sector',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -21,11 +22,11 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('shape', { endAngle: Math.PI, r: 70 }, true)
       this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
       this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
     },

@@ -96,9 +96,13 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
     });
     canvas.addEventListener('mousedown', this.mouseDown.bind(this));
     canvas.addEventListener('mousemove', this.mouseMove.bind(this));
-    canvas.addEventListener('mouseup', this.mouseUp.bind(this)); // Off Screen Canvas
+    canvas.addEventListener('mouseup', this.mouseUp.bind(this));
+    if (!offScreenRendering) return; // Off Screen Canvas
 
-    if (!OffscreenCanvas && offScreenRendering) {
+    if (!OffscreenCanvas) {
+      Object.assign(this, {
+        offScreenRendering: false
+      });
       console.warn('Your browser does not support off-screen rendering!');
       return;
     }
@@ -386,7 +390,7 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       if (graph.beforeMove) graph.beforeMove(e);
       graph.move(e);
       if (graph.moved) graph.moved(e);
-      graph.setGraphCenter();
+      graph.setGraphCenter(e);
     }
   }, {
     key: "graphHoverCheckProcessor",

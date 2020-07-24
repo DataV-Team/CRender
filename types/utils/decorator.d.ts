@@ -1,5 +1,5 @@
 export declare function bound(
-  target: any,
+  _: any,
   name: string,
   descriptor: PropertyDescriptor
 ): PropertyDescriptor

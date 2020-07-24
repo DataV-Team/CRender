@@ -15,43 +15,43 @@ export default class CRender {
   /**
    * @description Device Pixel Ratio
    */
-  dpr: number = 1
+  readonly dpr: number = 1
   /**
    * @description Off Screen Rendering
    */
-  offScreenRendering: boolean = false
+  readonly offScreenRendering: boolean = false
   /**
    * @description Canvas Element
    */
-  canvas!: HTMLCanvasElement
+  readonly canvas!: HTMLCanvasElement
   /**
    * @description Off Screen Canvas Element
    */
-  osCanvas?: OffscreenCanvas
+  private readonly osCanvas?: OffscreenCanvas
   /**
    * @description Ctx for current rendering
    */
-  ctx!: CanvasCtx
+  public ctx!: CanvasCtx
   /**
    * @description Actual Canvas Context
    */
-  actualCtx!: CanvasRenderingContext2D
+  private readonly actualCtx!: CanvasRenderingContext2D
   /**
    * @description Off Screen Canvas Context
    */
-  osCtx!: OffscreenCanvasRenderingContext2D
+  private readonly osCtx?: OffscreenCanvasRenderingContext2D
   /**
    * @description Width and height of the canvas
    */
-  area: [number, number] = [0, 0]
+  readonly area: [number, number] = [0, 0]
   /**
    * @description Whether render is in animation rendering
    */
-  animationStatus: boolean = false
+  private animationStatus: boolean = false
   /**
    * @description Added graph
    */
-  graphs: Graph[] = []
+  readonly graphs: Graph[] = []
 
   constructor(canvas: HTMLCanvasElement, offScreenRendering: boolean = false) {
     if (!canvas) throw new Error('CRender: Missing parameters!')
@@ -80,8 +80,11 @@ export default class CRender {
     canvas.addEventListener('mousemove', this.mouseMove.bind(this))
     canvas.addEventListener('mouseup', this.mouseUp.bind(this))
 
+    if (!offScreenRendering) return
+
     // Off Screen Canvas
-    if (!OffscreenCanvas && offScreenRendering) {
+    if (!OffscreenCanvas) {
+      Object.assign(this, { offScreenRendering: false })
       console.warn('Your browser does not support off-screen rendering!')
 
       return
@@ -361,7 +364,7 @@ export default class CRender {
 
     if (graph.moved) graph.moved(e)
 
-    graph.setGraphCenter()
+    graph.setGraphCenter(e)
   }
 
   private graphHoverCheckProcessor(graph: Graph, point: Point): boolean {

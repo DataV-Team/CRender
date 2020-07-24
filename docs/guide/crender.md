@@ -8,14 +8,19 @@ sidebarDepth: 2
 
 ## 类
 
-```js
+```typescript
 /**
- * @description           CRender类
- * @param {Object} canvas Canvas节点
- * @return {CRender}      CRender实例
+ * @description CRender类
+ * @param {HTMLCanvasElement} canvas Canvas Element
+ * @param {boolean} offScreenRendering 是否启用离屏渲染 (实验性功能)
+ * @return {CRender} CRender 实例
+ *
+ * 启用离屏渲染的性能提升可能会很有限
  */
 class CRender {
-  // ...
+  constructor(canvas: HTMLCanvasElement, offScreenRendering: boolean = false) {
+    // ...
+  }
 }
 ```
 
@@ -33,62 +38,58 @@ const render = new CRender(canvas)
 
 这里是**CRender**实例属性的介绍。
 
+### dpr
+
+```typescript
+/**
+ * @description Device Pixel Ratio
+ */
+readonly dpr: number = 1
+```
+
+### offScreenRendering
+
+```typescript
+/**
+ * @description 当前是否启用离屏渲染
+ */
+readonly offScreenRendering: boolean = false
+```
+
+### canvas
+
+```typescript
+/**
+ * @description CRender实例绑定的Canvas
+ */
+readonly canvas!: HTMLCanvasElement
+```
+
 ### ctx
 
-```js
+```typescript
 /**
- * @description canvas context
- * @type {Object}
- * @example ctx = canvas.getContext('2d')
+ * @description 当前用于渲染的Canvas Context
  */
+public ctx!: CanvasCtx
 ```
 
 ### area
 
-```js
+```typescript
 /**
- * @description canvas宽高
- * @type {Array<Number>}
- * @example area = [300，100]
+ * @description Canvas 宽高
  */
-```
-
-### animationStatus
-
-```js
-/**
- * @description render是否处于动画渲染中
- * @type {Boolean}
- * @example animationStatus = true|false
- */
+readonly area: [number, number] = [0, 0]
 ```
 
 ### graphs
 
-```js
+```typescript
 /**
- * @description 已添加的图形
- * @type {Array<Graph>}
- * @example graphs = [Graph, Graph, ...]
+ * @description 已经添加的图形
  */
-```
-
-### [color](https://github.com/jiaming743/color)
-
-```js
-/**
- * @description 颜色插件
- * @type {Object}
- */
-```
-
-### [bezierCurve](https://github.com/jiaming743/BezierCurve)
-
-```js
-/**
- * @description 贝塞尔曲线插件
- * @type {Object}
- */
+readonly graphs: Graph[] = []
 ```
 
 ## 原型方法
@@ -97,61 +98,64 @@ const render = new CRender(canvas)
 
 ### add
 
-```js
+```typescript
 /**
- * @description 向render中添加图形
- * @param {Object} config 图形配置
- * @return {Graph} 图形实例
+ * @description 向CRender实例中添加图形
+ * @param {Graph | Graph[]} graph 要添加的图形
+ * @param {boolean} wait 是否等待后续操作 暂不渲染
+ *
+ * 如果需要添加大量的图形 应尽量一次完成添加 避免多次重复渲染
  */
-CRender.prototype.add = function (config = {}) {
+add(graph: Graph | Graph[], wait: boolean = false): void {
   // ...
 }
 ```
 
-### clone
-
-```js
-/**
- * @description 克隆一个图形
- * @param {Graph} graph 将要被克隆的图形
- * @return {Graph} 克隆的图形
- */
-CRender.prototype.clone = function (graph) {}
-```
-
 ### delGraph
 
-```js
+```typescript
 /**
- * @description 删除render中的一个图形
- * @param {Graph} graph 将要删除的图形实例
- * @return {Undefined} 无返回值
+ * @description 删除CRender实例中添加的图形
+ * @param {Graph | Graph[]} graph 要删除的图形
+ * @param {boolean} wait 是否等待后续操作 暂不渲染
+ *
+ * 如果需要删除大量的图形 应尽量一次完成添加 避免多次重复渲染
  */
-CRender.prototype.delGraph = function (graph) {
+delGraph(graph: Graph | Graph[], wait: boolean = false): void {
   // ...
 }
 ```
 
 ### delAllGraph
 
-```js
+```typescript
 /**
- * @description 删除render中所有的图形
- * @return {Undefined} 无返回值
+ * @description 删除所有图形
  */
-CRender.prototype.delAllGraph = function () {
+delAllGraph(): void {
   // ...
 }
 ```
 
-### drawAllGraph
+### launchAnimation
+
+```typescript
+/**
+ * @description 如果graphs中存在动画队列不为空且不处于暂停动画状态的图形
+ * 将进行动画渲染
+ */
+launchAnimation(): void | Promise<void> {
+  // ...
+}
+```
+
+### animateAble
 
 ```js
 /**
- * @description 渲染render中所有的图形
- * @return {Undefined} 无返回值
+ * @description 是否存在动画队列不为空且不处于暂停动画状态的图形
  */
-CRender.prototype.drawAllGraph = function () {
+animateAble(): boolean {
   // ...
 }
 ```
@@ -160,22 +164,9 @@ CRender.prototype.drawAllGraph = function () {
 
 ```js
 /**
- * @description 擦除canvas绘制区域
- * @return {Undefined} 无返回值
+ * @description 清空Canvas画布
  */
-CRender.prototype.clearArea = function () {
-  // ...
-}
-```
-
-### launchAnimation
-
-```js
-/**
- * @description 使动画队列不为空且animationPause不为false的图形进行动画
- * @return {Promise} Animation Promise
- */
-CRender.prototype.launchAnimation = function () {
+clearArea(): void {
   // ...
 }
 ```

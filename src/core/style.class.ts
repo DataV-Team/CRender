@@ -12,7 +12,6 @@ import {
   GradientParams,
   GradientWith,
   GradientStops,
-  colors,
   LinearGradientParams,
   RadialGradientParams,
 } from '../types/core/style'
@@ -23,7 +22,7 @@ import {
   getAutoColorStops,
 } from '../utils/style'
 import { RgbaValue } from '@jiaminghi/color/types/types'
-import CRender from '..'
+import CRender from './crender.class'
 
 export default class Style {
   /**
@@ -37,7 +36,7 @@ export default class Style {
   /**
    * @description Opacity of graph
    */
-  opacity = 1
+  opacity: number = 1
   /**
    * @description LineCap of Ctx
    */
@@ -53,11 +52,11 @@ export default class Style {
   /**
    * @description LineDashOffset of Ctx
    */
-  lineDashOffset = 0
+  lineDashOffset: number = 0
   /**
    * @description ShadowBlur of Ctx
    */
-  shadowBlur = 0
+  shadowBlur: number = 0
   /**
    * @description Rgba value of graph shadow color
    */
@@ -65,15 +64,15 @@ export default class Style {
   /**
    * @description ShadowOffsetX of Ctx
    */
-  shadowOffsetX = 0
+  shadowOffsetX: number = 0
   /**
    * @description ShadowOffsetY of Ctx
    */
-  shadowOffsetY = 0
+  shadowOffsetY: number = 0
   /**
    * @description LineWidth of Ctx
    */
-  lineWidth = 1
+  lineWidth: number = 1
   /**
    * @description Center point of the graph
    */
@@ -109,11 +108,11 @@ export default class Style {
   /**
    * @description Font size of Ctx
    */
-  fontSize = 10
+  fontSize: number = 10
   /**
    * @description Font family of Ctx
    */
-  fontFamily = 'Arial'
+  fontFamily: string = 'Arial'
   /**
    * @description TextAlign of Ctx
    */
@@ -142,12 +141,6 @@ export default class Style {
    * @description Gradient color stops
    */
   gradientStops: GradientStops = 'auto'
-  /**
-   * @description Extended color that supports animation transition
-   * @example colors = ['#000', '#111', '#222', 'red' ]
-   * @example colors = { a: '#000', b: '#111' }
-   */
-  colors?: colors
 
   constructor(style?: StyleConfig<string | RgbaValue>) {
     if (style) this.update(style)

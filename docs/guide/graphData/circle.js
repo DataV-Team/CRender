@@ -1,11 +1,10 @@
-import { Circle } from '../../../lib'
-
 export default function (render) {
   const {
     area: [w, h],
   } = render
 
-  return new Circle({
+  return {
+    name: 'Circle',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -20,13 +19,13 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('shape', { r: 70 }, true)
       this.animation('style', { shadowBlur: 20 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('shape', { r: 50 }, true)
       this.animation('style', { shadowBlur: 0 })
     },
-  })
+  }
 }

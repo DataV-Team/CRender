@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/c-render",
-  "version": "0.4.3",
+  "version": "1.0.0",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Canvas-based vector graphics rendering plugin",
   "main": "lib/index.js",
@@ -60,7 +60,7 @@
     "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.9.0",
     "@jiaminghi/fs": "^0.1.1",
-    "@jiaminghi/ftp": "0.0.1",
+    "@jiaminghi/ftp": "^0.0.2",
     "@jiaminghi/print": "^0.2.0",
     "@jiaminghi/utils-node": "^0.1.0",
     "@rollup/plugin-babel": "^5.0.3",

@@ -45,8 +45,6 @@ export type GradientParams = LinearGradientParams | RadialGradientParams
 
 export type GradientStops = 'auto' | number[]
 
-export type colors = string[] | object
-
 export type StyleConfig<ColorType = RgbaValue> = {
   /**
    * @description Rgba value of graph fill color
@@ -164,10 +162,4 @@ export type StyleConfig<ColorType = RgbaValue> = {
    * @description Gradient color stops
    */
   gradientStops?: GradientStops
-  /**
-   * @description Extended color that supports animation transition
-   * @example colors = ['#000', '#111', '#222', 'red' ]
-   * @example colors = { a: '#000', b: '#111' }
-   */
-  colors?: colors
 }

@@ -5,13 +5,11 @@ export default function (render) {
 
   const centerPoint = [w / 2, h / 2]
 
-  const hoverRect = [w / 2 - 100, h / 2 - 30, 200, 60]
-
   return {
-    animationCurve: 'easeOutBack',
+    name: 'Text',
+    animationCurve: 'easeOutBounce',
     hover: true,
     drag: true,
-    hoverRect,
     shape: {
       content: 'CRender',
       position: centerPoint,
@@ -27,17 +25,11 @@ export default function (render) {
       scale: [1, 1],
       rotate: 0,
     },
-    mouseEnter(e) {
-      this.animation('style', { shadowBlur: 20, scale: [1.5, 1.5], rotate: 30 })
+    onMouseEnter() {
+      this.animation('style', { shadowBlur: 20, scale: [1.5, 1.5] })
     },
-    mouseOuter(e) {
-      this.animation('style', { shadowBlur: 0, scale: [1, 1], rotate: 0 })
-    },
-    moved(e, { hoverRect }) {
-      const { movementX, movementY } = e
-
-      hoverRect[0] += movementX
-      hoverRect[1] += movementY
+    onMouseOuter() {
+      this.animation('style', { shadowBlur: 0, scale: [1, 1] })
     },
   }
 }

@@ -23,34 +23,33 @@ try {
 const ftp = new Client()
 
 ftp.on('ready', async _ => {
-  print.tip('FTP connected!')
-
-  const isEmpty = await emptyDir(ftp, '/')
-
-  if (!isEmpty) {
-    print.error('Exception in emptyDir!')
-
-    return false
+  let error = false
+  const handleException = (tip: string) => ({ message }: { message: string }): void => {
+    error = true
+    print.error(tip)
+    print.error(message)
   }
 
-  let status = true
+  print.tip('FTP connected!')
+
+  await emptyDir(ftp, '/').catch(handleException('Exception in emptyDir!'))
 
   await fileForEach(DIST_PATH, async src => {
+    if (error) return
     const destPath = '/' + src.split('dist/')[1]
     const destDir = destPath.split('/').slice(0, -1).join('/')
 
-    await mkDir(ftp, destDir, true)
-
     print.tip('Upload: ' + destPath)
 
-    if (!(await put(ftp, src, destPath))) {
-      status = false
+    await mkDir(ftp, destDir, true).catch(handleException('Exception in mkDir!'))
+    if (error) return
 
-      print.error('Exception in upload ' + destPath)
-    }
+    await put(ftp, src, destPath).catch(handleException('Exception in put!'))
   })
 
-  if (status) {
+  if (error) {
+    print.error('Deploy Failed!')
+  } else {
     print.yellow('-------------------------------------')
     print.success('    Automatic Deployment Success!    ')
     print.yellow('-------------------------------------')

@@ -890,10 +890,10 @@
   resolved "https://registry.yarnpkg.com/@jiaminghi/fs/-/fs-0.1.1.tgz#9e277a6657d32e0ed7204ea5567dee5c37e0372b"
   integrity sha512-H45lvAR6R1aOf0zKZiHkLKyjXCTvpAaCnNRqp2h89vaEOkPuqACkReuzd/GXuQ8iPNc4p3JKKL5Qz6+lSsfHbQ==
 
-"@jiaminghi/ftp@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@jiaminghi/ftp/-/ftp-0.0.1.tgz#61577c2f6329dcbcfa138ea4997aa66f26fbd0ee"
-  integrity sha512-QFNfkrq640N5MwNoOs0L2Tb7vqlFQBV67PtJG3Z5A89L8Kcun6sxojje7nDrKOu+B0gb+QRo30h33eBwHCPWMg==
+"@jiaminghi/ftp@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@jiaminghi/ftp/-/ftp-0.0.2.tgz#a12bff201ce1fb157eb692c73827abd98c630ea6"
+  integrity sha512-xCTxI0i0zPN/cZWGYdT440ivfHTtj6o1QMr0Fd25PaYiPR0i+KHqG0yFeRumTyAIzesRs/o7y1VCNHTAsYlNYw==
   dependencies:
     "@types/ftp" "^0.3.31"
     ftp "^0.3.10"

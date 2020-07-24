@@ -1,11 +1,10 @@
-import { Arc } from '../../../lib'
-
 export default function (render) {
   const {
     area: [w, h],
   } = render
 
-  return new Arc({
+  return {
+    name: 'Arc',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -24,13 +23,13 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter() {
       this.animation('shape', { endAngle: Math.PI }, true)
       this.animation('style', { shadowBlur: 20, rotate: -30, lineWidth: 30 })
     },
-    mouseOuter(e) {
+    onMouseOuter() {
       this.animation('shape', { endAngle: Math.PI / 3 }, true)
       this.animation('style', { shadowBlur: 0, rotate: 0, lineWidth: 20 })
     },
-  })
+  }
 }

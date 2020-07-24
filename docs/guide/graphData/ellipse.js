@@ -1,11 +1,10 @@
-import { Ellipse } from '../../../lib'
-
 export default function (render) {
   const {
     area: [w, h],
   } = render
 
-  return new Ellipse({
+  return {
+    name: 'Ellipse',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -22,11 +21,11 @@ export default function (render) {
       scale: [1, 1],
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('style', { scale: [1.5, 1.5], shadowBlur: 20 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('style', { scale: [1, 1], shadowBlur: 0 })
     },
-  })
+  }
 }

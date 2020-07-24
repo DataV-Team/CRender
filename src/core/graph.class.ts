@@ -103,7 +103,7 @@ export default class Graph<Shape = any> {
    * @description Function of set Graph center
    */
   // eslint-disable-next-line
-  setGraphCenter(): void {}
+  setGraphCenter(_e?: MouseEvent): void {}
   /**
    * @description Funciton of check graph is hovered
    */

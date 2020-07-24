@@ -1,6 +1,6 @@
 export function bound(
   // eslint-disable-next-line
-  target: any,
+  _: any,
   name: string,
   descriptor: PropertyDescriptor
 ): PropertyDescriptor {
@@ -9,7 +9,7 @@ export function bound(
     enumerable: false,
     // eslint-disable-next-line
     get(): any {
-      Object.defineProperty(target, name, {
+      Object.defineProperty(this, name, {
         enumerable: false,
         writable: true,
         configurable: true,

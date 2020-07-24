@@ -3,6 +3,7 @@ import { StyleConfig } from './style'
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 import { RgbaValue } from '@jiaminghi/color/types/types'
 export declare type HoverRect = [number, number, number, number]
+export declare type Point = [number, number]
 export declare type HoverCheck = (point: Point) => boolean
 export declare type Move = (e: MouseEvent) => void
 export declare type GraphConfig<Shape = any> = {
@@ -67,6 +68,22 @@ export declare type GraphConfig<Shape = any> = {
    */
   onClick?: Function
   /**
+   * @description Funciton of draw graph
+   */
+  draw?: Function
+  /**
+   * @description Function of set Graph center
+   */
+  setGraphCenter?: (e?: MouseEvent) => void
+  /**
+   * @description Funciton of check graph is hovered
+   */
+  hoverCheck?: (point: Point) => boolean
+  /**
+   * @description Function of Graph move
+   */
+  move?: (e: MouseEvent) => void
+  /**
    * @description Life cycle beforeAdd
    */
   beforeAdd?: () => any
@@ -97,7 +114,6 @@ export declare enum Status {
   ACTIVE = 'ACTIVE',
   DRAG = 'DRAG',
 }
-export declare type Point = [number, number]
 export declare type AnimationKey = 'shape' | 'style'
 export declare type AnimationFrameStateItem<Shape> = Optional<Shape> | StyleConfig<RgbaValue>
 export declare type AnimationQueueItem<Shape = any> = {

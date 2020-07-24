@@ -4,19 +4,19 @@ export default class CRender {
   /**
    * @description Device Pixel Ratio
    */
-  dpr: number
+  readonly dpr: number
   /**
    * @description Off Screen Rendering
    */
-  offScreenRendering: boolean
+  readonly offScreenRendering: boolean
   /**
    * @description Canvas Element
    */
-  canvas: HTMLCanvasElement
+  readonly canvas: HTMLCanvasElement
   /**
    * @description Off Screen Canvas Element
    */
-  osCanvas?: OffscreenCanvas
+  private readonly osCanvas?
   /**
    * @description Ctx for current rendering
    */
@@ -24,23 +24,23 @@ export default class CRender {
   /**
    * @description Actual Canvas Context
    */
-  actualCtx: CanvasRenderingContext2D
+  private readonly actualCtx
   /**
    * @description Off Screen Canvas Context
    */
-  osCtx: OffscreenCanvasRenderingContext2D
+  private readonly osCtx?
   /**
    * @description Width and height of the canvas
    */
-  area: [number, number]
+  readonly area: [number, number]
   /**
    * @description Whether render is in animation rendering
    */
-  animationStatus: boolean
+  private animationStatus
   /**
    * @description Added graph
    */
-  graphs: Graph[]
+  readonly graphs: Graph[]
   constructor(canvas: HTMLCanvasElement, offScreenRendering?: boolean)
   clearArea(): void
   /**

@@ -1,11 +1,11 @@
 export function bound( // eslint-disable-next-line
-target, name, descriptor) {
+_, name, descriptor) {
   return {
     configurable: true,
     enumerable: false,
     // eslint-disable-next-line
     get: function get() {
-      Object.defineProperty(target, name, {
+      Object.defineProperty(this, name, {
         enumerable: false,
         writable: true,
         configurable: true,

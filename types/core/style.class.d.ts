@@ -12,10 +12,9 @@ import {
   GradientParams,
   GradientWith,
   GradientStops,
-  colors,
 } from '../types/core/style'
 import { RgbaValue } from '@jiaminghi/color/types/types'
-import CRender from '..'
+import CRender from './crender.class'
 export default class Style {
   /**
    * @description Rgba value of graph fill color
@@ -133,12 +132,6 @@ export default class Style {
    * @description Gradient color stops
    */
   gradientStops: GradientStops
-  /**
-   * @description Extended color that supports animation transition
-   * @example colors = ['#000', '#111', '#222', 'red' ]
-   * @example colors = { a: '#000', b: '#111' }
-   */
-  colors?: colors
   constructor(style?: StyleConfig<string | RgbaValue>)
   update(style: StyleConfig<string | RgbaValue>): void
   static colorProcessor(

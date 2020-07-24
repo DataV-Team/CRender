@@ -30,7 +30,6 @@ export declare type LinearGradientParams = [number, number, number, number]
 export declare type RadialGradientParams = [number, number, number, number, number, number]
 export declare type GradientParams = LinearGradientParams | RadialGradientParams
 export declare type GradientStops = 'auto' | number[]
-export declare type colors = string[] | object
 export declare type StyleConfig<ColorType = RgbaValue> = {
   /**
    * @description Rgba value of graph fill color
@@ -148,10 +147,4 @@ export declare type StyleConfig<ColorType = RgbaValue> = {
    * @description Gradient color stops
    */
   gradientStops?: GradientStops
-  /**
-   * @description Extended color that supports animation transition
-   * @example colors = ['#000', '#111', '#222', 'red' ]
-   * @example colors = { a: '#000', b: '#111' }
-   */
-  colors?: colors
 }

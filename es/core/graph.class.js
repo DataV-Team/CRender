@@ -107,7 +107,7 @@ var Graph = /*#__PURE__*/function () {
 
   }, {
     key: "setGraphCenter",
-    value: function setGraphCenter() {}
+    value: function setGraphCenter(_e) {}
     /**
      * @description Funciton of check graph is hovered
      */

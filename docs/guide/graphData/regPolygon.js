@@ -4,6 +4,7 @@ export default function (render) {
   } = render
 
   return {
+    name: 'RegPolygon',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -20,11 +21,11 @@ export default function (render) {
       rotate: 0,
       shadowColor: '#66eece',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('shape', { endAngle: Math.PI, r: 100 }, true)
       this.animation('style', { shadowBlur: 20, rotate: 180 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('shape', { endAngle: Math.PI / 3, r: 60 }, true)
       this.animation('style', { shadowBlur: 0, rotate: 0 })
     },

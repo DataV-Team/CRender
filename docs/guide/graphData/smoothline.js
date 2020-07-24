@@ -12,6 +12,7 @@ export default function (render) {
   const points = new Array(5).fill('').map((t, i) => [beginX + gap * i, i % 2 === 0 ? top : bottom])
 
   return {
+    name: 'Smoothline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -25,10 +26,10 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('style', { lineWidth: 20, shadowBlur: 20 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('style', { lineWidth: 10, shadowBlur: 0 })
     },
   }

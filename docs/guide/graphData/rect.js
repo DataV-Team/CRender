@@ -7,6 +7,7 @@ export default function (render) {
   const rectHeight = 50
 
   return {
+    name: 'Rect',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -23,11 +24,11 @@ export default function (render) {
       hoverCursor: 'pointer',
       translate: [0, 0],
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('shape', { w: 400 }, true)
       this.animation('style', { shadowBlur: 20, translate: [-100, 0] })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('shape', { w: 200 }, true)
       this.animation('style', { shadowBlur: 0, translate: [0, 0] })
     },

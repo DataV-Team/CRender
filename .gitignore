@@ -3,6 +3,7 @@ node_modules
 scripts/config.json
 dev
 server.json
+docs/.vuepress/dist
 
 # local env files
 .env.local

@@ -4,307 +4,285 @@ sidebarDepth: 2
 
 # Style
 
-这里将介绍**Style**类的实例属性。
+这里将介绍**Style**类的实例化及实例属性，它负责图形的样式配置，颜色由[Color 插件](https://github.com/DataV-Team/Color)进行管理。实例化**Graph**图形时，`style`属性的值将用于 Style 实例化，你可以配置图形的描边颜色、填充颜色、阴影、字体等样式。
+
+<fold-box title="点击以展开或折叠 Style 相关类型">
+<<<@/src/types/core/style.ts
+</fold-box>
+
+## 实例化
+
+```typescript
+/**
+ * @description Style 类
+ *
+ * 实例化时，配置项中的颜色支持'red'这样的有效颜色名，也支持rgb或rgba颜色
+ * 同时也支持 RgbaValue 类型的颜色值
+ * 实例化后，实例属性上的颜色值都会被转换为 RgbaValue 格式 便于颜色渐变支持
+ */
+class Style {
+  constructor(style?: StyleConfig<string | RgbaValue>) {
+    // ...
+  }
+}
+```
 
 ## 实例属性
 
 ### fill
 
-```js
+```typescript
 /**
  * @description 图形填充颜色的Rgba值
- * @type {Array<Number>}
- * @default fill = [0, 0, 0, 1]
  */
+fill: RgbaValue = [0, 0, 0, 1]
 ```
 
 ### stroke
 
-```js
+```typescript
 /**
  * @description 图形描边颜色的Rgba值
- * @type {Array<Number>}
- * @default stroke = [0, 0, 0, 1]
  */
+stroke: RgbaValue = [0, 0, 0, 0]
 ```
 
 ### opacity
 
-```js
+```typescript
 /**
  * @description 图形透明度
- * @type {Number}
- * @default opacity = 1
  */
+opacity: number = 1
 ```
 
 ### lineCap
 
-```js
+```typescript
 /**
  * @description Ctx的lineCap属性值
- * @type {Null|String}
- * @default lineCap = null
- * @example lineCap = 'butt'|'round'|'square'
  */
+lineCap: LineCap = 'butt'
 ```
 
 ### lineJoin
 
-```js
+```typescript
 /**
  * @description Ctx的lineJoin属性值
- * @type {Null|String}
- * @default lineJoin = null
- * @example lineJoin = 'round'|'bevel'|'miter'
  */
+lineJoin: LineJoin = 'miter'
 ```
 
 ### lineDash
 
-```js
+```typescript
 /**
  * @description Ctx的lineDash属性值
- * @type {Null|Array<Number>}
- * @default lineDash = null
- * @example lineDash = [10, 10]
  */
+lineDash: number[] = []
 ```
 
 ### lineDashOffset
 
-```js
+```typescript
 /**
  * @description Ctx的lineDashOffset属性值
- * @type {Null|Number}
- * @default lineDashOffset = null
- * @example lineDashOffset = 10
  */
+lineDashOffset: number = 0
 ```
 
 ### shadowBlur
 
-```js
+```typescript
 /**
  * @description Ctx的shadowBlur属性值
- * @type {Number}
- * @default shadowBlur = 0
  */
+shadowBlur: number = 0
 ```
 
 ### shadowColor
 
-```js
+```typescript
 /**
  * @description 图形阴影颜色的Rgba值
- * @type {Array<Number>}
- * @default shadowColor = [0, 0, 0, 0]
  */
+shadowColor: RgbaValue = [0, 0, 0, 0]
 ```
 
 ### shadowOffsetX
 
-```js
+```typescript
 /**
  * @description Ctx的shadowOffsetX属性值
- * @type {Number}
- * @default shadowOffsetX = 0
  */
+shadowOffsetX: number = 0
 ```
 
 ### shadowOffsetY
 
-```js
+```typescript
 /**
  * @description Ctx的shadowOffsetY属性值
- * @type {Number}
- * @default shadowOffsetY = 0
  */
+shadowOffsetY: number = 0
 ```
 
 ### lineWidth
 
-```js
+```typescript
 /**
  * @description Ctx的lineWidth属性值
- * @type {Number}
- * @default lineWidth = 0
  */
+lineWidth: number = 1
 ```
 
 ### graphCenter
 
-```js
+```typescript
 /**
  * @description 图形中心点
- * @type {Null|Array<Number>}
- * @default graphCenter = null
- * @example graphCenter = [10, 10]
  */
+graphCenter?: [number, number]
 ```
 
 ### scale
 
-```js
+```typescript
 /**
  * @description 图形缩放倍数
- * @type {Null|Array<Number>}
- * @default scale = null
- * @example scale = [1.5, 1.5]
  */
+scale?: [number, number]
 ```
 
 ### rotate
 
-```js
+```typescript
 /**
  * @description 图形旋转角度
- * @type {Null|Number}
- * @default rotate = null
- * @example rotate = 10
  */
+rotate?: number
 ```
 
 ### translate
 
-```js
+```typescript
 /**
  * @description 图形位移距离
- * @type {Null|Array<Number>}
- * @default translate = null
- * @example translate = [10, 10]
  */
+translate?: [number, number]
 ```
 
 ### hoverCursor
 
-```js
+```typescript
 /**
  * @description 鼠标悬浮在图形上时cursor的值
- * @type {String}
- * @default hoverCursor = 'pointer'
- * @example hoverCursor = 'default'|'pointer'|'auto'|'crosshair'|'move'|'wait'|...
  */
+hoverCursor: HoverCursor = 'pointer'
 ```
 
 ### fontStyle
 
-```js
+```typescript
 /**
  * @description Ctx的fontStyle属性值
- * @type {String}
- * @default fontStyle = 'normal'
- * @example fontStyle = 'normal'|'italic'|'oblique'
  */
+fontStyle: FontStyle = 'normal'
 ```
 
 ### fontVarient
 
-```js
+```typescript
 /**
  * @description Ctx的fontVarient属性值
- * @type {String}
- * @default fontVarient = 'normal'
- * @example fontVarient = 'normal'|'small-caps'
  */
+fontVarient: FontVarient = 'normal'
 ```
 
 ### fontWeight
 
-```js
+```typescript
 /**
  * @description Ctx的fontWeight属性值
- * @type {String|Number}
- * @default fontWeight = 'normal'
- * @example fontWeight = 'normal'|'bold'|'bolder'|'lighter'|Number
  */
+fontWeight: FontWeight = 'normal'
 ```
 
 ### fontSize
 
-```js
+```typescript
 /**
  * @description Ctx的fontSize属性值
- * @type {Number}
- * @default fontSize = 10
  */
+fontSize: number = 10
 ```
 
 ### fontFamily
 
-```js
+```typescript
 /**
  * @description Ctx的fontFamily属性值
- * @type {String}
- * @default fontFamily = 'Arial'
  */
+fontFamily: string = 'Arial'
 ```
 
 ### textAlign
 
-```js
+```typescript
 /**
  * @description Ctx的textAlign属性值
- * @type {String}
- * @default textAlign = 'center'
- * @example textAlign = 'start'|'end'|'left'|'right'|'center'
  */
+textAlign: TextAlign = 'center'
 ```
 
 ### textBaseline
 
-```js
+```typescript
 /**
  * @description Ctx的textBaseline属性值
- * @type {String}
- * @default textBaseline = 'middle'
- * @example textBaseline = 'top'|'bottom'|'middle'|'alphabetic'|'hanging'
  */
+textBaseline: TextBaseLine = 'middle'
 ```
 
 ### gradientColor
 
-```js
+```typescript
 /**
  * @description 用于创建渐变色的颜色
- * @type {Null|Array<String>}
- * @default gradientColor = null
- * @example gradientColor = ['#000', '#111', '#222']
  */
+gradientColor?: RgbaValue[]
 ```
 
 ### gradientType
 
-```js
+```typescript
 /**
  * @description 渐变类型
- * @type {String}
- * @default gradientType = 'linear'
- * @example gradientType = 'linear' | 'radial'
  */
+gradientType: GradientType = 'linear'
 ```
 
 ### gradientParams
 
-```js
+```typescript
 /**
  * @description 渐变参数
- * @type {Array<Number>}
- * @default gradientParams = null
  * @example gradientParams = [x0, y0, x1, y1] (线性渐变)
  * @example gradientParams = [x0, y0, r0, x1, y1, r1] (径向渐变)
  */
+gradientParams?: GradientParams
 ```
 
 ### gradientWith
 
-```js
+```typescript
 /**
  * @description 使用渐变色的属性
- * @type {String}
- * @default gradientWith = 'stroke'
- * @example gradientWith = 'stroke' | 'fill'
+ *
+ * 控制渐变色用于填充颜色还是描边颜色
  */
+gradientWith: GradientWith = 'stroke'
 ```
 
 ### gradientStops
@@ -312,36 +290,11 @@ sidebarDepth: 2
 ```js
 /**
  * @description 渐变色位置
- * @type {String|Array<Number>}
- * @default gradientStops = 'auto'
  * @example gradientStops = 'auto' | [0, .2, .3, 1]
  */
-```
-
-### colors
-
-```js
-/**
- * @description 支持动画过渡的颜色容器
- * @type {Array<String>|Object}
- * @default colors = null
- * @example colors = ['#000', '#111', '#222', 'red']
- * @example colors = { a: '#000', b: '#111' }
- */
+gradientStops: GradientStops = 'auto'
 ```
 
 ::: tip TIP
 `gradientColor`和`gradientParams`被配置后将自动启用**渐变**。
 :::
-
-## 原型方法
-
-### getStyle
-
-```js
-/**
- * @description 获取图形当前样式配置
- * @return {Object} 样式配置
- */
-Style.prototype.getStyle = function () {}
-```

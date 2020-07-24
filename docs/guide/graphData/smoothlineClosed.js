@@ -19,6 +19,7 @@ export default function (render) {
   const centerPoint = [w / 2, h / 2]
 
   return {
+    name: 'Smoothline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -33,13 +34,15 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('style', { lineWidth: 20, shadowBlur: 20, rotate: 120 })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('style', { lineWidth: 10, shadowBlur: 0, rotate: 0 })
     },
-    setGraphCenter(e, { style }) {
+    setGraphCenter(e) {
+      const { style } = this
+
       if (e) {
         const { movementX, movementY } = e
         const [cx, cy] = style.graphCenter

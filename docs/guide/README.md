@@ -24,7 +24,7 @@ sidebarDepth: 2
 
 - 交互
 
-内置的基础图形都提供了**drag**、**mouseEnter**、**mouseOut**、**click**等功能及事件的支持
+内置的基础图形都提供了**drag**、**onMouseEnter**、**onMouseOuter**、**onClick**等功能及事件的支持
 
 ## 安装
 
@@ -40,19 +40,13 @@ npm install @jiaminghi/c-render
 yarn add @jiaminghi/c-render
 ```
 
-## 快速体验
+## UMD 版
 
-```html
-<!--资源位于个人服务器仅供体验和测试，请勿在生产环境使用-->
-<!--调试版-->
-<script src="http://lib.jiaminghi.com/crender/crender.map.js"></script>
-<!--压缩版-->
-<script src="http://lib.jiaminghi.com/crender/crender.min.js"></script>
-<script>
-  const { CRender, extendNewGraph } = window.CRender
-  // do something
-</script>
-```
+`UMD`版可直接使用 `script` 标签引入，`UMD` 版文件下载请移步 [UMD](https://github.com/DataV-Team/CRender/dist)。
+
+<fold-box title="点击以展示/隐藏UMD版使用示例">
+<<< @/docs/guide/umdExample.html
+</fold-box>
 
 ## 扩展
 

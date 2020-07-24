@@ -126,12 +126,6 @@ var Style = /*#__PURE__*/function () {
   /**
    * @description Gradient color stops
    */
-
-  /**
-   * @description Extended color that supports animation transition
-   * @example colors = ['#000', '#111', '#222', 'red' ]
-   * @example colors = { a: '#000', b: '#111' }
-   */
   function Style(style) {
     _classCallCheck(this, Style);
 
@@ -192,8 +186,6 @@ var Style = /*#__PURE__*/function () {
     _defineProperty(this, "gradientWith", 'stroke');
 
     _defineProperty(this, "gradientStops", 'auto');
-
-    _defineProperty(this, "colors", void 0);
 
     if (style) this.update(style);
   }

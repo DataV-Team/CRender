@@ -5,6 +5,8 @@ import { RgbaValue } from '@jiaminghi/color/types/types'
 
 export type HoverRect = [number, number, number, number]
 
+export type Point = [number, number]
+
 export type HoverCheck = (point: Point) => boolean
 
 export type Move = (e: MouseEvent) => void
@@ -72,6 +74,22 @@ export type GraphConfig<Shape = any> = {
    */
   onClick?: Function
   /**
+   * @description Funciton of draw graph
+   */
+  draw?: Function
+  /**
+   * @description Function of set Graph center
+   */
+  setGraphCenter?: (e?: MouseEvent) => void
+  /**
+   * @description Funciton of check graph is hovered
+   */
+  hoverCheck?: (point: Point) => boolean
+  /**
+   * @description Function of Graph move
+   */
+  move?: (e: MouseEvent) => void
+  /**
    * @description Life cycle beforeAdd
    */
   // eslint-disable-next-line
@@ -109,8 +127,6 @@ export enum Status {
   ACTIVE = 'ACTIVE',
   DRAG = 'DRAG',
 }
-
-export type Point = [number, number]
 
 export type AnimationKey = 'shape' | 'style'
 

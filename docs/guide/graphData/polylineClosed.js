@@ -1,5 +1,4 @@
-import { Polyline } from '../../../lib'
-import { deepClone } from '../../../lib'
+import { deepClone } from '../../../es/utils/common'
 
 export default function (render) {
   const {
@@ -17,6 +16,7 @@ export default function (render) {
   points[2][1] += top * 1.3
 
   return {
+    name: 'Polyline',
     animationCurve: 'easeOutBack',
     hover: true,
     drag: true,
@@ -31,13 +31,13 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
     },
-    mouseEnter(e) {
+    onMouseEnter(e) {
       this.animation('style', { shadowBlur: 20 }, true)
       const pointsCloned = deepClone(this.shape.points)
       pointsCloned[2][1] += top * 0.3
       this.animation('shape', { points: pointsCloned })
     },
-    mouseOuter(e) {
+    onMouseOuter(e) {
       this.animation('style', { shadowBlur: 0 }, true)
       const pointsCloned = deepClone(this.shape.points)
       pointsCloned[2][1] -= top * 0.3
