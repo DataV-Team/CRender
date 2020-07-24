@@ -9,7 +9,9 @@
     "url": "https://github.com/DataV-Team/CRender.git"
   },
   "scripts": {
+    "build:docs": "vuepress build docs",
     "build": "node build/index.js",
+    "docs": "vuepress dev docs",
     "prepublish": "npm run build",
     "deploy": "node deploy/index.js",
     "test": "mocha"

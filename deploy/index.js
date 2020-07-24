@@ -1,7 +1,7 @@
 const { fileForEach } = require('@jiaminghi/fs')
 const Client = require('ftp')
 const print = require('./plugin/print')
-const { emptyDir, put } = require('./plugin/ftp')
+const { emptyDir, put, mkDir } = require('./plugin/ftp')
 const getNodeParams = require('./plugin/nodeParams')
 
 let config = null
@@ -12,15 +12,14 @@ try {
   void 0
 }
 
-const DIST_PATH = './dist/'
-const FTP_PATH = './crender/'
+const DIST_PATH = './docs/.vuepress/dist'
 
 const ftp = new Client()
 
 ftp.on('ready', async foo => {
   print.tip('FTP connected!')
 
-  const isEmpty = await emptyDir(ftp, FTP_PATH)
+  const isEmpty = await emptyDir(ftp, '/')
 
   if (!isEmpty) {
     print.error('Exception in emptyDir!')
@@ -31,7 +30,10 @@ ftp.on('ready', async foo => {
   let status = true
 
   await fileForEach(DIST_PATH, async src => {
-    const destPath = FTP_PATH + src.split('/').slice(-1)[0]
+    const destPath = '/' + src.split('dist/')[1]
+    const destDir = destPath.split('/').slice(0, -1).join('/')
+
+    await mkDir(ftp, destDir, true)
 
     print.tip('Upload: ' + destPath)
 

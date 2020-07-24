@@ -49,7 +49,7 @@ async function emptyDir (ftp, src, except = []) {
     if (type === 'd' && (name === '.' || name === '..')) continue
     if (except.find(n => n === name)) continue
 
-    const fullSrc = `${src}${name}`
+    const fullSrc = `./${name}`
 
     if (type === 'd') {
       if (!await rmDir(ftp, fullSrc, true)) return false
