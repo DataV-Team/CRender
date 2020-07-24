@@ -33,6 +33,7 @@ export default function (render) {
       lineWidth: 10,
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
+      rotate: 0,
     },
     onMouseEnter(e) {
       this.animation('style', { lineWidth: 20, shadowBlur: 20, rotate: 120 })
