@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/c-render",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Canvas-based vector graphics rendering plugin",
   "main": "lib/index.js",
@@ -20,7 +20,7 @@
     "format": "prettier --write .",
     "build:rollup": "rollup -c",
     "build:es": "babel src --out-dir es --extensions \".ts\"",
-    "build": "npm run build:rollup && npm run build:es",
+    "build": "npm run build:rollup && npm run build:es && npm run format",
     "prepare": "npm run clean && npm run check && npm run build",
     "test": "mocha",
     "test:fun": "ts-node scripts/test.ts",

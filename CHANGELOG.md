@@ -1,3 +1,9 @@
+# 1.0.1-alpha (2020-07-24)
+
+### Typescript
+
+- **Typescript** Refactor using typescript.
+
 # 0.4.3-alpha (2019-08-29)
 
 ### Perfect
