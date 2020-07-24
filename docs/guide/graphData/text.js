@@ -1,4 +1,5 @@
 export default function (render) {
+<<<<<<< HEAD
   const { area: [w, h] } = render
 
   const centerPoint = [w / 2, h / 2]
@@ -15,6 +16,23 @@ export default function (render) {
       content: 'CRender',
       position: centerPoint,
       maxWidth: 200
+=======
+  const {
+    area: [w, h],
+  } = render
+
+  const centerPoint = [w / 2, h / 2]
+
+  return {
+    name: 'Text',
+    animationCurve: 'easeOutBounce',
+    hover: true,
+    drag: true,
+    shape: {
+      content: 'CRender',
+      position: centerPoint,
+      maxWidth: 200,
+>>>>>>> dev
     },
     style: {
       fill: '#9ce5f4',
@@ -24,6 +42,7 @@ export default function (render) {
       shadowColor: '#66eece',
       hoverCursor: 'pointer',
       scale: [1, 1],
+<<<<<<< HEAD
       rotate: 0
     },
     mouseEnter (e) {
@@ -38,5 +57,15 @@ export default function (render) {
       hoverRect[0] += movementX
       hoverRect[1] += movementY
     }
+=======
+      rotate: 0,
+    },
+    onMouseEnter() {
+      this.animation('style', { shadowBlur: 20, scale: [1.5, 1.5] })
+    },
+    onMouseOuter() {
+      this.animation('style', { shadowBlur: 0, scale: [1, 1] })
+    },
+>>>>>>> dev
   }
 }

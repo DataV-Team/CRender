@@ -11,20 +11,20 @@
 export default {
   name: 'ClickToCopy',
   props: ['info', 'btnTip'],
-  data () {
+  data() {
     return {
-      copyAni: false
+      copyAni: false,
     }
   },
   methods: {
-    copy () {
+    copy() {
       const { doCopyAction, doCopyTip } = this
 
       doCopyAction()
 
       doCopyTip()
     },
-    doCopyAction () {
+    doCopyAction() {
       const { info } = this
 
       const inputEle = document.createElement('input')
@@ -39,14 +39,14 @@ export default {
 
       inputEle.parentNode.removeChild(inputEle)
     },
-    doCopyTip () {
+    doCopyTip() {
       this.copyAni = true
 
       setTimeout(() => {
         this.copyAni = false
       }, 1000)
-    }
-  }
+    },
+  },
 }
 </script>
 

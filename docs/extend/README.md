@@ -1,195 +1,63 @@
----
-sidebarDepth: 2
----
-
 # 扩展
 
-CRender提供了一个方法去扩展新的图形，你可以**自定义**想要的图形。
+你可以通过扩展**Graph**基类来自定义新图形。建议查看[基础图形](/guide/graphs)中的具体实现以供参考。在子类实现中，你可能需要实现下列几项属性或方法：
 
-## extendNewGraph
+## constructor
 
-```javascript
+在子类中的构造函数中建议使用 Graph 的静态方法**mergeDefaultShape**来提供默认 shape 形状数据及 shape 数据合法性检查。
+
+```typescript
 /**
- * @description 扩展新图形
- * @param {String} name   图形名称
- * @param {Object} config 图形配置
- * @return {Undefined} 无返回值
+ * @description 提供默认shape数据 shape数据合法性检查
+ * @param {Shape} shape 预先定义的图形shape形状类型
+ * @param {GraphConfig<Optional<Shape>>} config 实例化图形的配置
+ * @param {Checker} checker shape合法性检查函数
  */
-function extendNewGraph (name, config) {
-    // ...
-}
+type Checker = (config: GraphConfig<Shape>) => void
+
+static mergeDefaultShape<Shape>(
+  defaultShape: Shape,
+  config: GraphConfig<Optional<Shape>>,
+  checker?: Checker
+): GraphConfig<Shape>
 ```
 
-## 图形基础配置属性
+## name
 
-图形基础配置是一个对象，它具有如下几个属性和方法需要配置。
-
-### shape (必须)
-
-```js
-/**
- * @type {Object}
- * @description 图形形状数据
- */
-config = {
-  // ...,
-  shape: {
-    // 一些属性...
-  }
-}
+```typescript
+name: string
 ```
 
-### validator (必须)
+图形的名称。每个图形都应该有一个唯一的名称，便于调试。
 
-```js
-/**
- * @type {Function}
- * @description 图形添加时将被调用，用于检测图形配置是否合法，
- *  若返回值为false则终止添加行为
- * @param {Graph} 当前图形实例
- * @return {Boolean} 配置是否合法
- */
-config = {
-  // ...,
-  validator ({ shape }) {
-    // 检查图形配置...
-    // return true | false
-  }
-}
+## draw
+
+```typescript
+draw: () => void
 ```
 
-### draw (必须)
+图形的绘制方法。根据你预设的**shape**图形形状数据绘制图形的方法。不实现此方法，图形无法被渲染。
 
-```js
-/**
- * @type {Function}
- * @description 图形绘制器
- * @param {CRender} 当前CRender实例
- * @param {Graph}   当前图形实例
- * @return {Undefined} 无返回值
- */
-config = {
-  // ...,
-  draw ({ ctx }, { shape }) {
-    // 绘制...
-  }
-}
+## hoverCheck
+
+```typescript
+hoverCheck?: (point: Point) => boolean
 ```
 
-### hoverCheck (可选)
+图形的悬浮检测方法。根据你预设的**shape**图形形状数据及鼠标坐标判断鼠标是否悬浮于图形上。不实现此方法将无法判断图形是否处于悬浮状态，onMouseEnter、onMouseOuter、onClick 事件将无法激活，图形也无法被拖拽。
 
-```js
-/**
- * @type {Function}
- * @description 通过鼠标位置去判断当前图形是否处于鼠标悬浮状态，
- *  用于给mouseEnter, mouseOuter, drag, click事件提供支持。
- * @param {Array<Number>} 鼠标位置
- * @param {Graph}         当前图形实例
- * @return {Boolean} 是否处于鼠标悬浮状态
- */
-config = {
-  // ...,
-  validator ([offsetX, offsetY], { shape }) {
-    // 检测是否处于鼠标悬浮状态...
-    // return true | false
-  }
-}
+## setGraphCenter
+
+```typescript
+setGraphCenter?: (e?: MouseEvent) => void
 ```
 
-### setGraphCenter (可选)
+图形中心点设置方法。该方法用于设置 style 的**graphCenter**属性，图形的 rotate、translate、scale 属性都依赖**graphCenter**。不实现此方法，图形的旋转位移缩放配置将失效。添加图形后，CRender 实例会调用一次该方法用于初始化（此时不会传递任何参数），move 事件触发后也会被 CRender 实例调用（此时将会传递鼠标事件参数）。
 
-```js
-/**
- * @type {Function}
- * @description 设置图形中心点
- *  提供rotate, scale and translate支持
- *  添加图形及图形被拖动后将被调用
- * @param {Event} 鼠标事件 (图形被添加时调用，该参数为null)
- * @param {Graph} 当前图形实例
- * @return {Undefined} 无返回值
- */
-config = {
-  // ...,
-  setGraphCenter ([offsetX, offsetY], { style }) {
-    // style.graphCenter = [offsetX, offsetY]
-  }
-}
+## move
+
+```typescript
+move?: (e: MouseEvent) => void
 ```
 
-### move (可选)
-
-```js
-/**
- * @type {Function}
- * @description Moving graph,support for drag
- * @param {Event} Mouse move Event
- * @param {Graph} Current graph instance
- * @return {Undefined} Void
- */
-config = {
-  // ...,
-  move ([offsetX, offsetY], { shape }) {
-    // 一些操作...
-  }
-}
-```
-
-## 扩展示例
-
-```js
-import { extendNewGraph } from '@jiaminghi/c-render'
-
-const circle = {
-  shape: {
-    rx: 0,
-    ry: 0,
-    r: 0
-  },
-
-  validator ({ shape }) {
-    const { rx, ry, r } = shape
-
-    if (typeof rx !== 'number' || typeof ry !== 'number' || typeof r !== 'number') {
-      console.error('Shape configuration is abnormal!')
-
-      return false
-    }
-
-    return true
-  },
-
-  draw ({ ctx }, { shape }) {
-    ctx.beginPath()
-
-    const { rx, ry, r } = shape
-
-    ctx.arc(rx, ry, r, 0, Math.PI * 2)
-
-    ctx.fill()
-    ctx.stroke()
-
-    ctx.closePath()
-  },
-
-  hoverCheck (position, { shape }) {
-    const { rx, ry, r } = shape
-
-    return checkPointIsInCircle(rx, ry, r, position)
-  },
-
-  setGraphCenter (e, { shape, style }) {
-    const { rx, ry } = shape
-
-    style.graphCenter = [rx, ry]
-  },
-
-  move ({ movementX, movementY }, { shape }) {
-    this.attr('shape', {
-      rx: shape.rx + movementX,
-      ry: shape.ry + movementY
-    })
-  }
-}
-
-extendNewGraph('circle', circle)
-```
+图形的移动方法。CRender 实例检测到拖拽行为的时候，将调用该方法移动图形。不实现此方法，将无法拖拽图形。

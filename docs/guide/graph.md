@@ -4,335 +4,406 @@ sidebarDepth: 2
 
 # Graph
 
-这里将介绍**Graph**类，例如实例属性、原型方法以及生命周期。
+这里将介绍**Graph**基类的实例化、实例属性、实例方法及生命周期等，所有内置图形都扩展自它，你也可以基于它扩展新的图形，[扩展新图形](/extend/)。
+
+::: warning 宽高异常
+实例化图形后，没有添加至 CRender 实例时，调用任何实例方法都会抛出异常。
+:::
+
+## 实例化
+
+```typescript
+/**
+ * @description Graph 基类
+ * @param {GraphConfig<Shape>} config 图形配置
+ */
+class Graph {
+  constructor(config: GraphConfig<Shape>) {
+    // ...
+  }
+}
+```
+
+<fold-box title="点击以展示/隐藏 GraphConfig 类型详情">
+<<< @/src/types/core/graph.ts
+</fold-box>
 
 ## 实例属性
 
-这里是**Graph**实例属性的介绍，添加图形时，你可以对他们进行配置。
+这里是**Graph**实例属性的介绍。
 
-### visible
+### render
 
-```js
+```typescript
 /**
- * @description 该图形是否可被渲染
- * @type {Boolean}
- * @default visible = true
+ * @description 所属的CRender实例
  */
+render!: CRender
 ```
 
 ### shape
 
-```js
+```typescript
 /**
- * @description 图形形状数据
- * @type {Object}
+ * @description 图形形状信息
  */
+shape!: Shape
 ```
 
 ### [style](/guide/style.md)
 
-```js
+```typescript
 /**
- * @description 图形样式数据 (Style实例)
- * @type {Style}
+ * @description 图形样式信息
  */
+style!: Style
+```
+
+### visible
+
+```typescript
+/**
+ * @description 是否渲染图形
+ */
+visible: boolean = true
 ```
 
 ### drag
 
-```js
+```typescript
 /**
- * @description 是否启用拖拽功能
- * @type {Boolean}
- * @default drag = false
+ * @description 是否允许拖拽
+ *
+ * 启用拖拽的前置条件是启用hover检测
  */
+drag: boolean = false
 ```
 
 ### hover
 
-```js
+```typescript
 /**
- * @description 是否启用悬浮检测
- * @type {Boolean}
- * @default hover = false
+ * @description 是否启用hover检测
+ *
+ * 不启用将无法触发onMouseEnter / onMouseOuter / onClick事件
+ * 也不能进行拖拽操作
  */
+hover: boolean = false
 ```
 
 ### index
 
-```js
+```typescript
 /**
- * @description 图形渲染层级，层级高者优先渲染
- * @type {Number}
- * @default index = 1
+ * @description index越高 层级越高
+ *
+ * 优先渲染层级高者
  */
+index: number = 1
 ```
 
 ### animationDelay
 
-```js
+```typescript
 /**
- * @description 动画延迟时间(ms)
- * @type {Number}
- * @default animationDelay = 0
+ * @description 动画延迟(毫秒)
  */
+animationDelay: number = 0
 ```
 
 ### animationFrame
 
-```js
+```typescript
 /**
- * @description 动画帧数
- * @type {Number}
- * @default animationFrame = 30
+ * @description 每次动画的帧数
+ *
+ * 帧数越多 动画时长越长
  */
+animationFrame: number = 30
 ```
 
 ### [animationCurve](http://transition.jiaminghi.com/)
 
-```js
+```typescript
 /**
- * @description 动画缓动曲线
- * @type {String}
- * @default animationCurve = 'linear'
+ * @description 动画动效曲线
+ * @link https://github.com/jiaming743/Transition
  */
+animationCurve: EaseCurve = 'linear'
 ```
 
 ### animationPause
 
-```js
+```typescript
 /**
- * @description 是否暂停图形动画
- * @type {Boolean}
- * @default animationPause = false
+ * @description 是否处于暂停动画状态
  */
+animationPause: boolean = false
 ```
 
 ### hoverRect
 
-```js
+```typescript
 /**
- * @description 矩形悬浮检测盒，配置该项则优先使用其进行鼠标悬浮检测
- * @type {Null|Array<Number>}
- * @default hoverRect = null
- * @example hoverRect = [0, 0, 100, 100] // [矩形起始点 x, y 坐标, 矩形宽, 高]
+ * @description 矩形悬浮检测盒
+ * 如果配置该项 将优先使用检测盒进行悬浮检测
+ * @example hoverRect = [0, 0, 100, 100] // [Rect start x, y, Rect width, height]
  */
+hoverRect?: HoverRect
 ```
 
-### mouseEnter
+### onMouseEnter
 
-```js
+```typescript
 /**
- * @description 鼠标进入图形事件处理器
- * @type {Null|Function}
- * @default mouseEnter = null
+ * @description Mouse enter事件处理器
  */
+onMouseEnter?: (e: MouseEvent) => any
 ```
 
-### mouseOuter
+### onMouseOuter
 
-```js
+```typescript
 /**
- * @description 鼠标移出图形事件处理器
- * @type {Null|Function}
- * @default mouseOuter = null
+ * @description Mouse outer事件处理器
  */
+onMouseOuter?: (e: MouseEvent) => any
 ```
 
-### click
+### onClick
 
-```js
+```typescript
 /**
- * @description 鼠标点击图形事件处理器
- * @type {Null|Function}
- * @default click = null
+ * @description Mouse click事件处理器
  */
+onClick?: (e: MouseEvent) => any
+```
+
+### status
+
+```typescript
+/**
+ * @description 图形当前状态
+ */
+status: Status = Status.STATIC
+```
+
+### animationQueue
+
+```typescript
+/**
+ * @description 图形动画队列数据
+ */
+animationQueue: AnimationQueueItem<Shape>[] = []
 ```
 
 ::: tip TIP
 启用图形的**mouseEnter**，**mouseOuter**，**click**等事件支持需要将`hover`属性配置为`true`。扩展的新图形需要配置**hoverCheck**方法以提供事件支持。
 :::
 
-## 原型方法
+## 实例方法
 
-这里是**Graph**原型方法的介绍。
+这里是**Graph**基类实例方法的介绍。
 
 ### attr
 
-```js
+```typescript
 /**
- * @description 更新图形状态
- * @param {String} attrName 要更新的属性名
- * @param {Any} change      更新的值
- * @return {Undefined} 无返回值
+ * @description 修改图形状态
+ * @param {keyof GraphConfig<Shape>} key 要修改的属性键
+ * @param {Optional<GraphConfig<Shape>[typeof key]>} value 修改的目标状态
+ * @param {boolean} reDraw 是否重新渲染
  */
-Graph.prototype.attr = function (attrName, change = undefined) {
-	// ...
+attr(
+  key: keyof GraphConfig<Shape>,
+  value: Optional<GraphConfig<Shape>[typeof key]>,
+  reDraw: boolean = true
+): void {
+  // ...
 }
 ```
 
 ### animation
 
-```js
+```typescript
 /**
- * @description 更新图形状态（伴随动画），仅支持shape和style属性
- * @param {String} attrName 要更新的属性名
- * @param {Any} change      更新的值
- * @param {Boolean} wait    是否存储动画队列，等待下次动画请求
- * @return {Promise} Animation Promise
+ * @description 修改图形形状或样式(伴随动画)
+ * @param {AnimationKey} key 要修改的属性键 ('shape' | 'style')
+ * @param {Optional<Shape> | StyleConfig<string | RgbaValue>} value 修改的目标状态
+ * @param {boolean} 是否等待后续操作 暂不渲染
  */
-Graph.prototype.animation = async function (attrName, change, wait = false) {
-	// ...
+async animation(key: 'shape', value: Optional<Shape>, wait?: boolean): Promise<void>
+async animation(
+  key: 'style',
+  value: StyleConfig<string | RgbaValue>,
+  wait?: boolean
+): Promise<void>
+async animation(
+  key: AnimationKey,
+  value: Optional<Shape> | StyleConfig<string | RgbaValue>,
+  wait: boolean = false
+): Promise<void> {
+  // ...
 }
 ```
 
 ### animationEnd
 
-```js
+```typescript
 /**
- * @description 跳至最后一帧动画
- * @return {Undefined} 无返回值
+ * @description 直接跳至最后一帧动画
  */
-Graph.prototype.animationEnd = function () {
-    // ...
+animationEnd(): void {
+  // ...
 }
 ```
 
 ### pauseAnimation
 
-```js
+```typescript
 /**
- * @description 暂停动画行为
- * @return {Undefined} 无返回值
+ * @description 暂停动画
  */
-Graph.prototype.pauseAnimation = function () {
-    // ...
+pauseAnimation(): void {
+  // ...
 }
 ```
 
 ### playAnimation
 
-```js
+```typescript
 /**
- * @description 尝试动画行为
- * @return {Undefined} 无返回值
+ * @description 尝试进行动画
  */
-Graph.prototype.playAnimation = function () {
-    // ...
+playAnimation(): Promise<void> {
+  // ...
+}
+```
+
+### clone
+
+```typescript
+/**
+ * @description 克隆图形
+ * @param {boolean} 是否自动添加至所属CRender实例
+ */
+clone(add: boolean = true): this {
+  // ...
 }
 ```
 
 ## 生命周期
 
-当向**render**中添加图形时，你可以配置如下几个方法，它们将在特定时刻被调用。
+### beforeAdd
+
+```typescript
+/**
+ * @description 图形添加前被调用
+ */
+beforeAdd?: () => any
+```
 
 ### added
 
-```javascript
+```typescript
 /**
- * @description 图形添加时被调用
- * @param {Graph} 图形实例
+ * @description 图形添加后被调用
  */
-config = {
-  //...,
-  added ({ shape, style }) {
-    // 一些操作...
-  }
-}
+added?: () => any
 ```
 
 ### beforeDraw
 
-```javascript
+```typescript
 /**
- * @description 图形绘制前被调用，图形样式已经初始化完毕
- *  你可以在此时修改ctx属性
- * @param {Graph} 图形实例
- * @param {CRender} CRender实例
+ * @description 图形渲染前被调用
  */
-config = {
-  //...,
-  beforeDraw ({ shape, style }, { ctx }) {
-    // 一些操作...
-    ctx.stroke = 'transparent'
-  }
-}
+beforeDraw?: () => any
 ```
 
 ### drawed
 
-```javascript
+```typescript
 /**
- * @description 图形绘制后被调用
- * @param {Graph} 图形实例
- * @param {CRender} CRender实例
+ * @description 图形渲染后被调用
  */
-config = {
-  //...,
-  drawed ({ shape, style }, { ctx }) {
-    // 一些操作...
-  }
-}
+drawed?: () => any
 ```
 
 ### beforeMove
 
-```javascript
+```typescript
 /**
- * @description 图形移动前被调用，移动行为发生前
- * @param {Event} 鼠标事件
- * @param {Graph} 图形实例
+ * @description 图形移动前被调用
+ * @param {MouseEvent} e 鼠标事件
  */
-config = {
-  //...,
-  beforeMove ({ offsetX, offsetY }, { shape, style }) {
-    // 一些操作...
-  }
-}
+beforeMove?: (e: MouseEvent) => any
 ```
 
 ### moved
 
-```javascript
+```typescript
 /**
- * @description 图形移动后被调用，移动行为发生后
- * @param {Event} 鼠标事件
- * @param {Graph} 图形实例
+ * @description 图形移动后被调用
+ * @param {MouseEvent} e 鼠标事件
  */
-config = {
-  //...,
-  moved ({ offsetX, offsetY }, { shape, style }) {
-    // 一些操作...
-  }
-}
+moved?: (e: MouseEvent) => any
 ```
 
 ### beforeDelete
 
-```javascript
+```typescript
 /**
  * @description 图形删除前被调用
- * @param {Graph} 图形实例
  */
-config = {
-  //...,
-  beforeDelete ({ shape, style }) {
-    // 一些操作...
-  }
-}
+beforeDelete?: () => any
 ```
 
 ### deleted
 
-```javascript
+```typescript
 /**
  * @description 图形删除后被调用
- * @param {Graph} 图形实例
  */
-config = {
-  //...,
-  deleted ({ shape, style }) {
-    // 一些操作...
-  }
-}
+deleted?: () => any
+```
+
+## 覆盖默认行为
+
+实例化时，你可以配置下列方法，覆盖默认行为。
+
+### draw
+
+```typescript
+/**
+ * @description 图形的绘制方法
+ */
+draw?: Function
+```
+
+### setGraphCenter
+
+```typescript
+/**
+ * @description 设置图形中心点的方法
+ */
+setGraphCenter?: (e?: MouseEvent) => void
+```
+
+### hoverCheck
+
+```typescript
+/**
+ * @description 图形的悬浮检测方法
+ */
+hoverCheck?: (point: Point) => boolean
+```
+
+### move
+
+```typescript
+/**
+ * @description 图形的移动方法
+ */
+move?: (e: MouseEvent) => void
 ```

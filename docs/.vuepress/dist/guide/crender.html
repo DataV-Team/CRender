@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CRender | CRender</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="基于Canvas的矢量图形渲染插件">
+    <meta name="keywords" content="crender,bi,可视化,开源,免费,大屏">
+    <link rel="preload" href="/assets/css/0.styles.968ad44f.css" as="style"><link rel="preload" href="/assets/js/app.395ab179.js" as="script"><link rel="preload" href="/assets/js/4.25db6120.js" as="script"><link rel="preload" href="/assets/js/15.79fa1023.js" as="script"><link rel="prefetch" href="/assets/js/1.bc9e8856.js"><link rel="prefetch" href="/assets/js/10.804f4e86.js"><link rel="prefetch" href="/assets/js/11.b8fa810e.js"><link rel="prefetch" href="/assets/js/12.eed80d94.js"><link rel="prefetch" href="/assets/js/13.1cf1f22e.js"><link rel="prefetch" href="/assets/js/14.58ae08ab.js"><link rel="prefetch" href="/assets/js/16.605a2332.js"><link rel="prefetch" href="/assets/js/17.04bdba5a.js"><link rel="prefetch" href="/assets/js/18.f50bfe81.js"><link rel="prefetch" href="/assets/js/2.4c457b91.js"><link rel="prefetch" href="/assets/js/5.b0e01bf6.js"><link rel="prefetch" href="/assets/js/6.2dbc51d3.js"><link rel="prefetch" href="/assets/js/7.05b905e4.js"><link rel="prefetch" href="/assets/js/8.43638680.js"><link rel="prefetch" href="/assets/js/9.059fd5ba.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.968ad44f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">CRender</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="http://0x.crender.jiaminghi.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  0.x
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">
+  指南
+</a></div><div class="nav-item"><a href="/extend/" class="nav-link">
+  扩展
+</a></div><div class="nav-item"><a href="/support/" class="nav-link">
+  支持
+</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/CRender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="http://0x.crender.jiaminghi.com" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  0.x
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">
+  指南
+</a></div><div class="nav-item"><a href="/extend/" class="nav-link">
+  扩展
+</a></div><div class="nav-item"><a href="/support/" class="nav-link">
+  支持
+</a></div><div class="nav-item"><a href="https://github.com/DataV-Team/CRender" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" aria-current="page" class="sidebar-link">介绍</a></li><li><a href="/guide/crender.html" aria-current="page" class="active sidebar-link">CRender</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#类" class="sidebar-link">类</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#实例化" class="sidebar-link">实例化</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#实例属性" class="sidebar-link">实例属性</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#dpr" class="sidebar-link">dpr</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#offscreenrendering" class="sidebar-link">offScreenRendering</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#canvas" class="sidebar-link">canvas</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#ctx" class="sidebar-link">ctx</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#area" class="sidebar-link">area</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#graphs" class="sidebar-link">graphs</a></li></ul></li><li class="sidebar-sub-header"><a href="/guide/crender.html#原型方法" class="sidebar-link">原型方法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/crender.html#add" class="sidebar-link">add</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#delgraph" class="sidebar-link">delGraph</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#delallgraph" class="sidebar-link">delAllGraph</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#launchanimation" class="sidebar-link">launchAnimation</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#animateable" class="sidebar-link">animateAble</a></li><li class="sidebar-sub-header"><a href="/guide/crender.html#cleararea" class="sidebar-link">clearArea</a></li></ul></li></ul></li><li><a href="/guide/graph.html" class="sidebar-link">Graph</a></li><li><a href="/guide/style.html" class="sidebar-link">Style</a></li><li><a href="/guide/graphs.html" class="sidebar-link">基础图形</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="crender"><a href="#crender" class="header-anchor">#</a> CRender</h1> <p>这里将介绍<strong>CRender</strong>类，例如实例化、实例属性以及原型方法。</p> <h2 id="类"><a href="#类" class="header-anchor">#</a> 类</h2> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description CRender类
+ * @param {HTMLCanvasElement} canvas Canvas Element
+ * @param {boolean} offScreenRendering 是否启用离屏渲染 (实验性功能)
+ * @return {CRender} CRender 实例
+ *
+ * 启用离屏渲染的性能提升可能会很有限
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">CRender</span> <span class="token punctuation">{</span>
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token parameter">canvas<span class="token operator">:</span> HTMLCanvasElement<span class="token punctuation">,</span> offScreenRendering<span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="实例化"><a href="#实例化" class="header-anchor">#</a> 实例化</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> CRender <span class="token keyword">from</span> <span class="token string">'@jiaminghi/c-render'</span>
+
+<span class="token keyword">const</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'canvas'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> render <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CRender</span><span class="token punctuation">(</span>canvas<span class="token punctuation">)</span>
+</code></pre></div><h2 id="实例属性"><a href="#实例属性" class="header-anchor">#</a> 实例属性</h2> <p>这里是<strong>CRender</strong>实例属性的介绍。</p> <h3 id="dpr"><a href="#dpr" class="header-anchor">#</a> dpr</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description Device Pixel Ratio
+ */</span>
+<span class="token keyword">readonly</span> dpr<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">=</span> <span class="token number">1</span>
+</code></pre></div><h3 id="offscreenrendering"><a href="#offscreenrendering" class="header-anchor">#</a> offScreenRendering</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 当前是否启用离屏渲染
+ */</span>
+<span class="token keyword">readonly</span> offScreenRendering<span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span>
+</code></pre></div><h3 id="canvas"><a href="#canvas" class="header-anchor">#</a> canvas</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description CRender实例绑定的Canvas
+ */</span>
+<span class="token keyword">readonly</span> canvas<span class="token operator">!</span><span class="token operator">:</span> HTMLCanvasElement
+</code></pre></div><h3 id="ctx"><a href="#ctx" class="header-anchor">#</a> ctx</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 当前用于渲染的Canvas Context
+ */</span>
+<span class="token keyword">public</span> ctx<span class="token operator">!</span><span class="token operator">:</span> CanvasCtx
+</code></pre></div><h3 id="area"><a href="#area" class="header-anchor">#</a> area</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description Canvas 宽高
+ */</span>
+<span class="token keyword">readonly</span> area<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">number</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span>
+</code></pre></div><h3 id="graphs"><a href="#graphs" class="header-anchor">#</a> graphs</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 已经添加的图形
+ */</span>
+<span class="token keyword">readonly</span> graphs<span class="token operator">:</span> Graph<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+</code></pre></div><h2 id="原型方法"><a href="#原型方法" class="header-anchor">#</a> 原型方法</h2> <p>这里是<strong>CRender</strong>原型方法的介绍。</p> <h3 id="add"><a href="#add" class="header-anchor">#</a> add</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 向CRender实例中添加图形
+ * @param {Graph | Graph[]} graph 要添加的图形
+ * @param {boolean} wait 是否等待后续操作 暂不渲染
+ *
+ * 如果需要添加大量的图形 应尽量一次完成添加 避免多次重复渲染
+ */</span>
+<span class="token function">add</span><span class="token punctuation">(</span>graph<span class="token operator">:</span> Graph <span class="token operator">|</span> Graph<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> wait<span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="delgraph"><a href="#delgraph" class="header-anchor">#</a> delGraph</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 删除CRender实例中添加的图形
+ * @param {Graph | Graph[]} graph 要删除的图形
+ * @param {boolean} wait 是否等待后续操作 暂不渲染
+ *
+ * 如果需要删除大量的图形 应尽量一次完成添加 避免多次重复渲染
+ */</span>
+<span class="token function">delGraph</span><span class="token punctuation">(</span>graph<span class="token operator">:</span> Graph <span class="token operator">|</span> Graph<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> wait<span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="delallgraph"><a href="#delallgraph" class="header-anchor">#</a> delAllGraph</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 删除所有图形
+ */</span>
+<span class="token function">delAllGraph</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="launchanimation"><a href="#launchanimation" class="header-anchor">#</a> launchAnimation</h3> <div class="language-typescript extra-class"><pre class="language-typescript"><code><span class="token comment">/**
+ * @description 如果graphs中存在动画队列不为空且不处于暂停动画状态的图形
+ * 将进行动画渲染
+ */</span>
+<span class="token function">launchAnimation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token operator">|</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="animateable"><a href="#animateable" class="header-anchor">#</a> animateAble</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 是否存在动画队列不为空且不处于暂停动画状态的图形
+ */</span>
+<span class="token function">animateAble</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> boolean <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="cleararea"><a href="#cleararea" class="header-anchor">#</a> clearArea</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @description 清空Canvas画布
+ */</span>
+<span class="token function">clearArea</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/guide/" class="prev router-link-active">
+        介绍
+      </a></span> <span class="next"><a href="/guide/graph.html">
+        Graph
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.395ab179.js" defer></script><script src="/assets/js/4.25db6120.js" defer></script><script src="/assets/js/15.79fa1023.js" defer></script>
+  </body>
+</html>

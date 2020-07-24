@@ -1,39 +1,37 @@
 <template>
   <div class="demo">
-    <canvas ref="canvas" />
+    <canvas :ref="ref" />
   </div>
 </template>
 
 <script>
-import canvasMixin from '../mixins/canvasMixin.js'
-
-import CRender from '../../CRender/index.js'
+import CRender, { GRAPHS } from '../../../es'
 
 export default {
   name: 'Demo',
-  props: ['config'],
-  mixins: [canvasMixin],
-  data () {
-    return {}
-  },
-  methods: {
-    async init () {
-      const { initCanvas, config } = this
-
-      await initCanvas('canvas')
-
-      const render = new CRender(this.$refs['canvas'])
-
-      if (!config) return
-
-      const item = render.add(config(render))
+  props: ['graph'],
+  data() {
+    return {
+      ref: `${Math.random().toString().slice(1, 11)}canvas`,
     }
   },
-  mounted () {
+  methods: {
+    async init() {
+      const { graph, $refs, ref } = this
+      if (!graph) return
+
+      const canvas = $refs[ref]
+      const render = new CRender(this.$refs[ref])
+      const config = graph(render)
+
+      render.add(new GRAPHS[config.name](config))
+    },
+  },
+  mounted() {
     const { init } = this
 
     init()
-  }
+  },
 }
 </script>
 

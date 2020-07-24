@@ -1,6 +1,6 @@
 <template>
   <div class="fold-box">
-    <div class="tip" @click="fold = !fold">{{title || '点击以展开或折叠'}}</div>
+    <div class="tip" @click="fold = !fold">{{ title || '点击以展开或折叠' }}</div>
     <div :class="`fold-container ${fold && 'fold'}`">
       <slot></slot>
     </div>
@@ -11,11 +11,11 @@
 export default {
   name: 'FoldBox',
   props: ['title'],
-  data () {
+  data() {
     return {
-      fold: true
+      fold: true,
     }
-  }
+  },
 }
 </script>
 
