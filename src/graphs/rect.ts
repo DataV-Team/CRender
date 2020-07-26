@@ -2,12 +2,11 @@ import { RectShape } from '../types/graphs/shape'
 import { checkPointIsInRect } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Rect extends Graph<RectShape> {
   name = 'rect'
 
-  constructor(config: GraphConfig<Optional<RectShape>>) {
+  constructor(config: GraphConfig<Partial<RectShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

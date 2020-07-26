@@ -2,12 +2,11 @@ import Graph from '../core/graph.class'
 import { ArcShape } from '../types/graphs/shape'
 import { checkPointIsInSector } from '../utils/graphs'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Arc extends Graph<ArcShape> {
   name = 'arc'
 
-  constructor(config: GraphConfig<Optional<ArcShape>>) {
+  constructor(config: GraphConfig<Partial<ArcShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

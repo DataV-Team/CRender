@@ -3,14 +3,13 @@ import { getRegularPolygonPoints, checkPointIsInPolygon } from '../utils/graphs'
 import { drawPolylinePath } from '../utils/canvas'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class RegPolygon extends Graph<RegPolygonShape> {
   name = 'regPolygon'
 
   private cache: RegPolygonShapeCache = {}
 
-  constructor(config: GraphConfig<Optional<RegPolygonShape>>) {
+  constructor(config: GraphConfig<Partial<RegPolygonShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

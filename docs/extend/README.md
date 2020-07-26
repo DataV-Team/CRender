@@ -10,14 +10,14 @@
 /**
  * @description 提供默认shape数据 shape数据合法性检查
  * @param {Shape} shape 预先定义的图形shape形状类型
- * @param {GraphConfig<Optional<Shape>>} config 实例化图形的配置
+ * @param {GraphConfig<Partial<Shape>>} config 实例化图形的配置
  * @param {Checker} checker shape合法性检查函数
  */
 type Checker = (config: GraphConfig<Shape>) => void
 
 static mergeDefaultShape<Shape>(
   defaultShape: Shape,
-  config: GraphConfig<Optional<Shape>>,
+  config: GraphConfig<Partial<Shape>>,
   checker?: Checker
 ): GraphConfig<Shape>
 ```

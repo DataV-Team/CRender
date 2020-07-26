@@ -17,12 +17,12 @@ export function deepClone<T = any>(obj: T, cache = new Map<any, any>([])): T {
 }
 
 export function debounce<T extends Function>(callback: T, delay: number = 0): Function {
-  let timer: NodeJS.Timeout | undefined = undefined
+  let timer: number | undefined = undefined
 
   return (...args: UnFunctionParams<T>): void => {
     if (timer) clearTimeout(timer)
 
-    timer = setTimeout(() => {
+    timer = window.setTimeout(() => {
       // @ts-ignore
       callback.call(this, ...args)
     }, delay)

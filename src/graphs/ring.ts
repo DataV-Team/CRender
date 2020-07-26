@@ -2,12 +2,11 @@ import { RingShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Ring extends Graph<RingShape> {
   name = 'ring'
 
-  constructor(config: GraphConfig<Optional<RingShape>>) {
+  constructor(config: GraphConfig<Partial<RingShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

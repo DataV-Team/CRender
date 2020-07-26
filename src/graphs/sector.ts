@@ -2,12 +2,11 @@ import { SectorShape } from '../types/graphs/shape'
 import { checkPointIsInSector } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Sector extends Graph<SectorShape> {
   name = 'sector'
 
-  constructor(config: GraphConfig<Optional<SectorShape>>) {
+  constructor(config: GraphConfig<Partial<SectorShape>>) {
     super(
       Graph.mergeDefaultShape(
         {
