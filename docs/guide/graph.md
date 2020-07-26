@@ -211,12 +211,12 @@ animationQueue: AnimationQueueItem<Shape>[] = []
 /**
  * @description 修改图形状态
  * @param {keyof GraphConfig<Shape>} key 要修改的属性键
- * @param {Optional<GraphConfig<Shape>[typeof key]>} value 修改的目标状态
+ * @param {Partial<GraphConfig<Shape>[typeof key]>} value 修改的目标状态
  * @param {boolean} reDraw 是否重新渲染
  */
 attr(
   key: keyof GraphConfig<Shape>,
-  value: Optional<GraphConfig<Shape>[typeof key]>,
+  value: Partial<GraphConfig<Shape>[typeof key]>,
   reDraw: boolean = true
 ): void {
   // ...
@@ -229,10 +229,10 @@ attr(
 /**
  * @description 修改图形形状或样式(伴随动画)
  * @param {AnimationKey} key 要修改的属性键 ('shape' | 'style')
- * @param {Optional<Shape> | StyleConfig<string | RgbaValue>} value 修改的目标状态
+ * @param {Partial<Shape> | StyleConfig<string | RgbaValue>} value 修改的目标状态
  * @param {boolean} 是否等待后续操作 暂不渲染
  */
-async animation(key: 'shape', value: Optional<Shape>, wait?: boolean): Promise<void>
+async animation(key: 'shape', value: Partial<Shape>, wait?: boolean): Promise<void>
 async animation(
   key: 'style',
   value: StyleConfig<string | RgbaValue>,
@@ -240,7 +240,7 @@ async animation(
 ): Promise<void>
 async animation(
   key: AnimationKey,
-  value: Optional<Shape> | StyleConfig<string | RgbaValue>,
+  value: Partial<Shape> | StyleConfig<string | RgbaValue>,
   wait: boolean = false
 ): Promise<void> {
   // ...

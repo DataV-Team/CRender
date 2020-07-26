@@ -6,14 +6,13 @@ import { checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs
 import Graph from '../core/graph.class'
 import { polylineToBezierCurve, bezierCurveToPolyline } from '@jiaminghi/bezier-curve'
 import { BezierCurveSegment, BezierCurve } from '@jiaminghi/bezier-curve/types/types'
-import { Optional } from '../types/common'
 
 class Smoothline extends Graph<SmoothlineShape> {
   name = 'smoothline'
 
   private cache: SmoothlineShapeCache = {}
 
-  constructor(config: GraphConfig<Optional<SmoothlineShape>>) {
+  constructor(config: GraphConfig<Partial<SmoothlineShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

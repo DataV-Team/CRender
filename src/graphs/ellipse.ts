@@ -2,12 +2,11 @@ import { EllipseShape } from '../types/graphs/shape'
 import { getTwoPointDistance } from '../utils/graphs'
 import { Point, GraphConfig } from '../types/core/graph'
 import Graph from '../core/graph.class'
-import { Optional } from '../types/common'
 
 class Ellipse extends Graph<EllipseShape> {
   name = 'ellipse'
 
-  constructor(config: GraphConfig<Optional<EllipseShape>>) {
+  constructor(config: GraphConfig<Partial<EllipseShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

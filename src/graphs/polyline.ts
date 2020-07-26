@@ -3,12 +3,11 @@ import { drawPolylinePath } from '../utils/canvas'
 import { eliminateBlur, checkPointIsInPolygon, checkPointIsNearPolyline } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Polyline extends Graph<PolylineShape> {
   name = 'polyline'
 
-  constructor(config: GraphConfig<Optional<PolylineShape>>) {
+  constructor(config: GraphConfig<Partial<PolylineShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

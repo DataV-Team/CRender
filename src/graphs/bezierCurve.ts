@@ -9,14 +9,13 @@ import {
   BezierCurveSegment,
   BezierCurve as BezierCurveType,
 } from '@jiaminghi/bezier-curve/types/types'
-import { Optional } from '../types/common'
 
 class BezierCurve extends Graph<BezierCurveShape> {
   name = 'bezierCurve'
 
   private cache: BezierCurveShapeCache = {}
 
-  constructor(config: GraphConfig<Optional<BezierCurveShape>>) {
+  constructor(config: GraphConfig<Partial<BezierCurveShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

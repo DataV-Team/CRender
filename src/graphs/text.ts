@@ -1,7 +1,6 @@
 import { TextShape, TextShapeCache } from '../types/graphs/shape'
 import { Point, GraphConfig } from '../types/core/graph'
 import Graph from '../core/graph.class'
-import { Optional } from '../types/common'
 import { checkPointIsInRect } from '../utils/graphs'
 
 class Text extends Graph<TextShape> {
@@ -9,7 +8,7 @@ class Text extends Graph<TextShape> {
 
   private cache: TextShapeCache = {}
 
-  constructor(config: GraphConfig<Optional<TextShape>>) {
+  constructor(config: GraphConfig<Partial<TextShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

@@ -2,12 +2,11 @@ import { CircleShape } from '../types/graphs/shape'
 import { checkPointIsInCircle } from '../utils/graphs'
 import Graph from '../core/graph.class'
 import { GraphConfig, Point } from '../types/core/graph'
-import { Optional } from '../types/common'
 
 class Circle extends Graph<CircleShape> {
   name = 'circle'
 
-  constructor(config: GraphConfig<Optional<CircleShape>>) {
+  constructor(config: GraphConfig<Partial<CircleShape>>) {
     super(
       Graph.mergeDefaultShape(
         {

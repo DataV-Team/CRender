@@ -145,11 +145,11 @@ export default class CRender {
   private drawGraphProcessor(graph: Graph): void {
     graph.style.setCtx(this)
 
-    if (graph.beforeDraw) graph.beforeDraw()
+    graph.beforeDraw?.()
 
     graph.draw()
 
-    if (graph.drawed) graph.drawed()
+    graph.drawed?.()
 
     graph.style.restoreCtx(this)
   }
@@ -166,7 +166,7 @@ export default class CRender {
 
   @bound
   private graphAddProcessor(graph: Graph): void {
-    if (graph.beforeAdd) graph.beforeAdd()
+    graph.beforeAdd?.()
 
     graph.render = this
     graph.setGraphCenter()
@@ -174,7 +174,7 @@ export default class CRender {
     this.graphs.push(graph)
     this.sortGraphsByIndex()
 
-    if (graph.added) graph.added()
+    graph.added?.()
   }
 
   delGraph(graph: Graph | Graph[], wait: boolean = false): void {
@@ -194,11 +194,11 @@ export default class CRender {
     const index = graphs.findIndex(_ => _ === graph)
     if (index === -1) return
 
-    if (graph.beforeDelete) graph.beforeDelete()
+    graph.beforeDelete?.()
 
     graphs.splice(index, 1)
 
-    if (graph.deleted) graph.deleted()
+    graph.deleted?.()
   }
 
   delAllGraph(): void {
@@ -331,7 +331,7 @@ export default class CRender {
 
     // No hoverd graph But before had
     if (!hoveredGraph && hoverGraph) {
-      if (hoverGraph.onMouseOuter) hoverGraph.onMouseOuter(e)
+      hoverGraph.onMouseOuter?.(e)
 
       hoverGraph.status = Status.STATIC
 
@@ -340,7 +340,7 @@ export default class CRender {
 
     // Only has hovered graph
     if (hoveredGraph && !hoverGraph) {
-      if (hoveredGraph.onMouseEnter) hoveredGraph.onMouseEnter(e)
+      hoveredGraph.onMouseEnter?.(e)
 
       hoveredGraph.status = Status.HOVER
 
@@ -348,21 +348,21 @@ export default class CRender {
     }
 
     // Not a same graph
-    if (hoverGraph!.onMouseOuter) hoverGraph!.onMouseOuter(e)
+    hoverGraph!.onMouseOuter?.(e)
     hoverGraph!.status = Status.STATIC
 
-    if (hoveredGraph!.onMouseEnter) hoveredGraph!.onMouseEnter(e)
+    hoveredGraph!.onMouseEnter?.(e)
     hoveredGraph!.status = Status.HOVER
   }
 
   private graphMoveProcessor(graph: Graph, e: MouseEvent): void {
     if (!graph.move) return
 
-    if (graph.beforeMove) graph.beforeMove(e)
+    graph.beforeMove?.(e)
 
     graph.move(e)
 
-    if (graph.moved) graph.moved(e)
+    graph.moved?.(e)
 
     graph.setGraphCenter(e)
   }
@@ -397,7 +397,7 @@ export default class CRender {
     const activeGraph = graphs.find(graph => graph.status === Status.ACTIVE)
     const dragGraph = graphs.find(graph => graph.status === Status.DRAG)
 
-    if (activeGraph && activeGraph.onClick) activeGraph.onClick(e)
+    activeGraph?.onClick?.(e)
 
     graphs.forEach(graph => (graph.status = Status.STATIC))
 
