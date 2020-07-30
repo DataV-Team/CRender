@@ -1,6 +1,5 @@
 import { HoverRect, Status, GraphConfig, Point, AnimationQueueItem } from '../types/core/graph'
 import { StyleConfig } from '../types/core/style'
-import { Optional } from '../types/common'
 import Style from './style.class'
 import CRender from './crender.class'
 import { RgbaValue } from '@jiaminghi/color/types/types'
@@ -133,7 +132,7 @@ export default class Graph<Shape = any> {
   constructor(config: GraphConfig<Shape>)
   static mergeDefaultShape<Shape>(
     defaultShape: Shape,
-    config: GraphConfig<Optional<Shape>>,
+    config: GraphConfig<Partial<Shape>>,
     checker?: (config: GraphConfig<Shape>) => void
   ): GraphConfig<Shape>
   private checkRender
@@ -142,14 +141,14 @@ export default class Graph<Shape = any> {
    */
   attr(
     key: keyof GraphConfig<Shape>,
-    value: Optional<GraphConfig<Shape>[typeof key]>,
+    value: Partial<GraphConfig<Shape>[typeof key]>,
     reDraw?: boolean
   ): void
   /**
    * @description Update graphics state (with animation)
    * Only shape and style attributes are supported
    */
-  animation(key: 'shape', value: Optional<Shape>, wait?: boolean): Promise<void>
+  animation(key: 'shape', value: Partial<Shape>, wait?: boolean): Promise<void>
   animation(key: 'style', value: StyleConfig<string | RgbaValue>, wait?: boolean): Promise<void>
   /**
    * @description Skip to the last frame of animation

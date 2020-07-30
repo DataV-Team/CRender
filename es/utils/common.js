@@ -24,7 +24,7 @@ export function debounce(callback) {
     }
 
     if (timer) clearTimeout(timer);
-    timer = setTimeout(function () {
+    timer = window.setTimeout(function () {
       // @ts-ignore
       callback.call.apply(callback, [_this].concat(args));
     }, delay);

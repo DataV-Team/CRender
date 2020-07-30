@@ -130,7 +130,7 @@ function debounce(callback, delay) {
         }
         if (timer)
             clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = window.setTimeout(function () {
             // @ts-ignore
             callback.call.apply(callback, __spreadArrays([_this], args));
         }, delay);
@@ -319,12 +319,11 @@ var CRender = /** @class */ (function () {
             actualCtx.drawImage(osCanvas, 0, 0);
     };
     CRender.prototype.drawGraphProcessor = function (graph) {
+        var _a, _b;
         graph.style.setCtx(this);
-        if (graph.beforeDraw)
-            graph.beforeDraw();
+        (_a = graph.beforeDraw) === null || _a === void 0 ? void 0 : _a.call(graph);
         graph.draw();
-        if (graph.drawed)
-            graph.drawed();
+        (_b = graph.drawed) === null || _b === void 0 ? void 0 : _b.call(graph);
         graph.style.restoreCtx(this);
     };
     CRender.prototype.add = function (graph, wait) {
@@ -339,14 +338,13 @@ var CRender = /** @class */ (function () {
             this.drawAllGraph();
     };
     CRender.prototype.graphAddProcessor = function (graph) {
-        if (graph.beforeAdd)
-            graph.beforeAdd();
+        var _a, _b;
+        (_a = graph.beforeAdd) === null || _a === void 0 ? void 0 : _a.call(graph);
         graph.render = this;
         graph.setGraphCenter();
         this.graphs.push(graph);
         this.sortGraphsByIndex();
-        if (graph.added)
-            graph.added();
+        (_b = graph.added) === null || _b === void 0 ? void 0 : _b.call(graph);
     };
     CRender.prototype.delGraph = function (graph, wait) {
         if (wait === void 0) { wait = false; }
@@ -360,15 +358,14 @@ var CRender = /** @class */ (function () {
             this.drawAllGraph();
     };
     CRender.prototype.graphDelProcessor = function (graph) {
+        var _a, _b;
         var graphs = this.graphs;
         var index = graphs.findIndex(function (_) { return _ === graph; });
         if (index === -1)
             return;
-        if (graph.beforeDelete)
-            graph.beforeDelete();
+        (_a = graph.beforeDelete) === null || _a === void 0 ? void 0 : _a.call(graph);
         graphs.splice(index, 1);
-        if (graph.deleted)
-            graph.deleted();
+        (_b = graph.deleted) === null || _b === void 0 ? void 0 : _b.call(graph);
     };
     CRender.prototype.delAllGraph = function () {
         this.delGraph(this.graphs);
@@ -441,6 +438,7 @@ var CRender = /** @class */ (function () {
      */
     CRender.prototype.mouseMove = function (e) {
         var _this = this;
+        var _a, _b, _c, _d, _e, _f;
         var offsetX = e.offsetX, offsetY = e.offsetY;
         var position = [offsetX, offsetY];
         var graphs = this.graphs;
@@ -471,34 +469,29 @@ var CRender = /** @class */ (function () {
             return;
         // No hoverd graph But before had
         if (!hoveredGraph && hoverGraph) {
-            if (hoverGraph.onMouseOuter)
-                hoverGraph.onMouseOuter(e);
+            (_a = hoverGraph.onMouseOuter) === null || _a === void 0 ? void 0 : _a.call(hoverGraph, e);
             hoverGraph.status = Status.STATIC;
             return;
         }
         // Only has hovered graph
         if (hoveredGraph && !hoverGraph) {
-            if (hoveredGraph.onMouseEnter)
-                hoveredGraph.onMouseEnter(e);
+            (_b = hoveredGraph.onMouseEnter) === null || _b === void 0 ? void 0 : _b.call(hoveredGraph, e);
             hoveredGraph.status = Status.HOVER;
             return;
         }
         // Not a same graph
-        if (hoverGraph.onMouseOuter)
-            hoverGraph.onMouseOuter(e);
+        (_d = (_c = hoverGraph).onMouseOuter) === null || _d === void 0 ? void 0 : _d.call(_c, e);
         hoverGraph.status = Status.STATIC;
-        if (hoveredGraph.onMouseEnter)
-            hoveredGraph.onMouseEnter(e);
+        (_f = (_e = hoveredGraph).onMouseEnter) === null || _f === void 0 ? void 0 : _f.call(_e, e);
         hoveredGraph.status = Status.HOVER;
     };
     CRender.prototype.graphMoveProcessor = function (graph, e) {
+        var _a, _b;
         if (!graph.move)
             return;
-        if (graph.beforeMove)
-            graph.beforeMove(e);
+        (_a = graph.beforeMove) === null || _a === void 0 ? void 0 : _a.call(graph, e);
         graph.move(e);
-        if (graph.moved)
-            graph.moved(e);
+        (_b = graph.moved) === null || _b === void 0 ? void 0 : _b.call(graph, e);
         graph.setGraphCenter(e);
     };
     CRender.prototype.graphHoverCheckProcessor = function (graph, point) {
@@ -522,11 +515,11 @@ var CRender = /** @class */ (function () {
      * @description Handler of CRender mouseup event
      */
     CRender.prototype.mouseUp = function (e) {
+        var _a;
         var graphs = this.graphs;
         var activeGraph = graphs.find(function (graph) { return graph.status === Status.ACTIVE; });
         var dragGraph = graphs.find(function (graph) { return graph.status === Status.DRAG; });
-        if (activeGraph && activeGraph.onClick)
-            activeGraph.onClick(e);
+        (_a = activeGraph === null || activeGraph === void 0 ? void 0 : activeGraph.onClick) === null || _a === void 0 ? void 0 : _a.call(activeGraph, e);
         graphs.forEach(function (graph) { return (graph.status = Status.STATIC); });
         if (activeGraph)
             activeGraph.status = Status.HOVER;
@@ -1624,8 +1617,7 @@ var Graph = /** @class */ (function () {
     Graph.prototype.move = function (_e) { };
     Graph.mergeDefaultShape = function (defaultShape, config, checker) {
         var mergedConfig = __assign(__assign({}, config), { shape: Object.assign(defaultShape, config.shape || {}) });
-        if (checker)
-            checker(mergedConfig);
+        checker === null || checker === void 0 ? void 0 : checker(mergedConfig);
         return mergedConfig;
     };
     Graph.prototype.checkRender = function () {

@@ -432,7 +432,7 @@ var Graph = /*#__PURE__*/function () {
         shape: Object.assign(defaultShape, config.shape || {})
       });
 
-      if (checker) checker(mergedConfig);
+      checker === null || checker === void 0 ? void 0 : checker(mergedConfig);
       return mergedConfig;
     }
   }]);

@@ -1,4 +1,3 @@
-import { Optional } from '../common'
 import { StyleConfig } from './style'
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 import { RgbaValue } from '@jiaminghi/color/types/types'
@@ -115,7 +114,7 @@ export declare enum Status {
   DRAG = 'DRAG',
 }
 export declare type AnimationKey = 'shape' | 'style'
-export declare type AnimationFrameStateItem<Shape> = Optional<Shape> | StyleConfig<RgbaValue>
+export declare type AnimationFrameStateItem<Shape> = Partial<Shape> | StyleConfig<RgbaValue>
 export declare type AnimationQueueItem<Shape = any> = {
   key: AnimationKey
   frameState: AnimationFrameStateItem<Shape>[]

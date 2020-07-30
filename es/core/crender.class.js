@@ -170,10 +170,12 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
   }, {
     key: "drawGraphProcessor",
     value: function drawGraphProcessor(graph) {
+      var _graph$beforeDraw, _graph$drawed;
+
       graph.style.setCtx(this);
-      if (graph.beforeDraw) graph.beforeDraw();
+      (_graph$beforeDraw = graph.beforeDraw) === null || _graph$beforeDraw === void 0 ? void 0 : _graph$beforeDraw.call(graph);
       graph.draw();
-      if (graph.drawed) graph.drawed();
+      (_graph$drawed = graph.drawed) === null || _graph$drawed === void 0 ? void 0 : _graph$drawed.call(graph);
       graph.style.restoreCtx(this);
     }
   }, {
@@ -192,12 +194,14 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
   }, {
     key: "graphAddProcessor",
     value: function graphAddProcessor(graph) {
-      if (graph.beforeAdd) graph.beforeAdd();
+      var _graph$beforeAdd, _graph$added;
+
+      (_graph$beforeAdd = graph.beforeAdd) === null || _graph$beforeAdd === void 0 ? void 0 : _graph$beforeAdd.call(graph);
       graph.render = this;
       graph.setGraphCenter();
       this.graphs.push(graph);
       this.sortGraphsByIndex();
-      if (graph.added) graph.added();
+      (_graph$added = graph.added) === null || _graph$added === void 0 ? void 0 : _graph$added.call(graph);
     }
   }, {
     key: "delGraph",
@@ -217,14 +221,16 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
   }, {
     key: "graphDelProcessor",
     value: function graphDelProcessor(graph) {
+      var _graph$beforeDelete, _graph$deleted;
+
       var graphs = this.graphs;
       var index = graphs.findIndex(function (_) {
         return _ === graph;
       });
       if (index === -1) return;
-      if (graph.beforeDelete) graph.beforeDelete();
+      (_graph$beforeDelete = graph.beforeDelete) === null || _graph$beforeDelete === void 0 ? void 0 : _graph$beforeDelete.call(graph);
       graphs.splice(index, 1);
-      if (graph.deleted) graph.deleted();
+      (_graph$deleted = graph.deleted) === null || _graph$deleted === void 0 ? void 0 : _graph$deleted.call(graph);
     }
   }, {
     key: "delAllGraph",
@@ -327,7 +333,11 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
   }, {
     key: "mouseMove",
     value: function mouseMove(e) {
-      var _this3 = this;
+      var _this3 = this,
+          _onMouseOuter,
+          _ref4,
+          _onMouseEnter,
+          _ref5;
 
       var offsetX = e.offsetX,
           offsetY = e.offsetY;
@@ -365,31 +375,37 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       if (hoveredGraph === hoverGraph) return; // No hoverd graph But before had
 
       if (!hoveredGraph && hoverGraph) {
-        if (hoverGraph.onMouseOuter) hoverGraph.onMouseOuter(e);
+        var _hoverGraph$onMouseOu;
+
+        (_hoverGraph$onMouseOu = hoverGraph.onMouseOuter) === null || _hoverGraph$onMouseOu === void 0 ? void 0 : _hoverGraph$onMouseOu.call(hoverGraph, e);
         hoverGraph.status = Status.STATIC;
         return;
       } // Only has hovered graph
 
 
       if (hoveredGraph && !hoverGraph) {
-        if (hoveredGraph.onMouseEnter) hoveredGraph.onMouseEnter(e);
+        var _hoveredGraph$onMouse;
+
+        (_hoveredGraph$onMouse = hoveredGraph.onMouseEnter) === null || _hoveredGraph$onMouse === void 0 ? void 0 : _hoveredGraph$onMouse.call(hoveredGraph, e);
         hoveredGraph.status = Status.HOVER;
         return;
       } // Not a same graph
 
 
-      if (hoverGraph.onMouseOuter) hoverGraph.onMouseOuter(e);
+      (_onMouseOuter = (_ref4 = hoverGraph).onMouseOuter) === null || _onMouseOuter === void 0 ? void 0 : _onMouseOuter.call(_ref4, e);
       hoverGraph.status = Status.STATIC;
-      if (hoveredGraph.onMouseEnter) hoveredGraph.onMouseEnter(e);
+      (_onMouseEnter = (_ref5 = hoveredGraph).onMouseEnter) === null || _onMouseEnter === void 0 ? void 0 : _onMouseEnter.call(_ref5, e);
       hoveredGraph.status = Status.HOVER;
     }
   }, {
     key: "graphMoveProcessor",
     value: function graphMoveProcessor(graph, e) {
+      var _graph$beforeMove, _graph$moved;
+
       if (!graph.move) return;
-      if (graph.beforeMove) graph.beforeMove(e);
+      (_graph$beforeMove = graph.beforeMove) === null || _graph$beforeMove === void 0 ? void 0 : _graph$beforeMove.call(graph, e);
       graph.move(e);
-      if (graph.moved) graph.moved(e);
+      (_graph$moved = graph.moved) === null || _graph$moved === void 0 ? void 0 : _graph$moved.call(graph, e);
       graph.setGraphCenter(e);
     }
   }, {
@@ -423,6 +439,8 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
   }, {
     key: "mouseUp",
     value: function mouseUp(e) {
+      var _activeGraph$onClick;
+
       var graphs = this.graphs;
       var activeGraph = graphs.find(function (graph) {
         return graph.status === Status.ACTIVE;
@@ -430,7 +448,7 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       var dragGraph = graphs.find(function (graph) {
         return graph.status === Status.DRAG;
       });
-      if (activeGraph && activeGraph.onClick) activeGraph.onClick(e);
+      activeGraph === null || activeGraph === void 0 ? void 0 : (_activeGraph$onClick = activeGraph.onClick) === null || _activeGraph$onClick === void 0 ? void 0 : _activeGraph$onClick.call(activeGraph, e);
       graphs.forEach(function (graph) {
         return graph.status = Status.STATIC;
       });

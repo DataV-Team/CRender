@@ -1,5 +1,4 @@
 import { Point } from '../core/graph'
-import { Optional } from '../common'
 import { BezierCurve } from '@jiaminghi/bezier-curve/types/types'
 export declare type CircleShape = {
   rx: number
@@ -47,7 +46,7 @@ export declare type RegPolygonShape = {
 }
 export declare type RegPolygonShapeCache = {
   points?: Point[]
-} & Optional<RegPolygonShape>
+} & Partial<RegPolygonShape>
 export declare type PolylineShape = {
   points: Point[]
   close: boolean
