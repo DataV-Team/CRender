@@ -1,3 +1,9 @@
+# 1.0.1-alpha.1 (2020-07-30)
+
+### Types
+
+- **types:** Type optimization
+
 # 1.0.1-alpha (2020-07-24)
 
 ### Typescript
