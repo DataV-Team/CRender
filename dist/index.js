@@ -271,7 +271,7 @@ var CRender = /** @class */ (function () {
         // Off Screen Canvas
         if (!OffscreenCanvas) {
             Object.assign(this, { offScreenRendering: false });
-            console.warn('Your browser does not support off-screen rendering!');
+            console.warn('CRender: Your browser does not support off-screen rendering!');
             return;
         }
         var osCanvas = new OffscreenCanvas(width, height);

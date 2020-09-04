@@ -103,7 +103,7 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       Object.assign(this, {
         offScreenRendering: false
       });
-      console.warn('Your browser does not support off-screen rendering!');
+      console.warn('CRender: Your browser does not support off-screen rendering!');
       return;
     }
 

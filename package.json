@@ -1,19 +1,19 @@
 {
   "name": "@jiaminghi/c-render",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.0-alpha.2",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Canvas-based vector graphics rendering plugin",
   "main": "lib/index.js",
   "unpkg": "dist/index.js",
   "module": "es/index.js",
-  "types": "types/index.d.ts",
+  "types": "es/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/DataV-Team/CRender.git"
   },
   "scripts": {
     "dev": "ts-node scripts/dev.ts",
-    "clean": "rimraf lib dist es types",
+    "clean": "rimraf lib dist es",
     "type:check": "tsc --noEmit",
     "lint": "eslint --ext js,ts src test",
     "format:check": "prettier --check .",

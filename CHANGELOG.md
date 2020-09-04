@@ -1,3 +1,9 @@
+# 1.0.0-alpha.2 (2020-09-04)
+
+### Types
+
+- **types:** Type optimization
+
 # 1.0.1-alpha.1 (2020-07-30)
 
 ### Types
