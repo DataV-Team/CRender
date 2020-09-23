@@ -145,11 +145,11 @@ export default class CRender {
   private drawGraphProcessor(graph: Graph): void {
     graph.style.setCtx(this)
 
-    graph.beforeDraw?.()
+    graph.beforeDraw?.(graph)
 
     graph.draw()
 
-    graph.drawed?.()
+    graph.drawed?.(graph)
 
     graph.style.restoreCtx(this)
   }
@@ -166,7 +166,7 @@ export default class CRender {
 
   @bound
   private graphAddProcessor(graph: Graph): void {
-    graph.beforeAdd?.()
+    graph.beforeAdd?.(graph)
 
     graph.render = this
     graph.setGraphCenter()
@@ -174,7 +174,7 @@ export default class CRender {
     this.graphs.push(graph)
     this.sortGraphsByIndex()
 
-    graph.added?.()
+    graph.added?.(graph)
   }
 
   delGraph(graph: Graph | Graph[], wait: boolean = false): void {
@@ -194,11 +194,11 @@ export default class CRender {
     const index = graphs.findIndex(_ => _ === graph)
     if (index === -1) return
 
-    graph.beforeDelete?.()
+    graph.beforeDelete?.(graph)
 
     graphs.splice(index, 1)
 
-    graph.deleted?.()
+    graph.deleted?.(graph)
   }
 
   delAllGraph(): void {
@@ -358,11 +358,11 @@ export default class CRender {
   private graphMoveProcessor(graph: Graph, e: MouseEvent): void {
     if (!graph.move) return
 
-    graph.beforeMove?.(e)
+    graph.beforeMove?.(e, graph)
 
     graph.move(e)
 
-    graph.moved?.(e)
+    graph.moved?.(e, graph)
 
     graph.setGraphCenter(e)
   }

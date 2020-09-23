@@ -173,9 +173,9 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       var _graph$beforeDraw, _graph$drawed;
 
       graph.style.setCtx(this);
-      (_graph$beforeDraw = graph.beforeDraw) === null || _graph$beforeDraw === void 0 ? void 0 : _graph$beforeDraw.call(graph);
+      (_graph$beforeDraw = graph.beforeDraw) === null || _graph$beforeDraw === void 0 ? void 0 : _graph$beforeDraw.call(graph, graph);
       graph.draw();
-      (_graph$drawed = graph.drawed) === null || _graph$drawed === void 0 ? void 0 : _graph$drawed.call(graph);
+      (_graph$drawed = graph.drawed) === null || _graph$drawed === void 0 ? void 0 : _graph$drawed.call(graph, graph);
       graph.style.restoreCtx(this);
     }
   }, {
@@ -196,12 +196,12 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
     value: function graphAddProcessor(graph) {
       var _graph$beforeAdd, _graph$added;
 
-      (_graph$beforeAdd = graph.beforeAdd) === null || _graph$beforeAdd === void 0 ? void 0 : _graph$beforeAdd.call(graph);
+      (_graph$beforeAdd = graph.beforeAdd) === null || _graph$beforeAdd === void 0 ? void 0 : _graph$beforeAdd.call(graph, graph);
       graph.render = this;
       graph.setGraphCenter();
       this.graphs.push(graph);
       this.sortGraphsByIndex();
-      (_graph$added = graph.added) === null || _graph$added === void 0 ? void 0 : _graph$added.call(graph);
+      (_graph$added = graph.added) === null || _graph$added === void 0 ? void 0 : _graph$added.call(graph, graph);
     }
   }, {
     key: "delGraph",
@@ -228,9 +228,9 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
         return _ === graph;
       });
       if (index === -1) return;
-      (_graph$beforeDelete = graph.beforeDelete) === null || _graph$beforeDelete === void 0 ? void 0 : _graph$beforeDelete.call(graph);
+      (_graph$beforeDelete = graph.beforeDelete) === null || _graph$beforeDelete === void 0 ? void 0 : _graph$beforeDelete.call(graph, graph);
       graphs.splice(index, 1);
-      (_graph$deleted = graph.deleted) === null || _graph$deleted === void 0 ? void 0 : _graph$deleted.call(graph);
+      (_graph$deleted = graph.deleted) === null || _graph$deleted === void 0 ? void 0 : _graph$deleted.call(graph, graph);
     }
   }, {
     key: "delAllGraph",
@@ -403,9 +403,9 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       var _graph$beforeMove, _graph$moved;
 
       if (!graph.move) return;
-      (_graph$beforeMove = graph.beforeMove) === null || _graph$beforeMove === void 0 ? void 0 : _graph$beforeMove.call(graph, e);
+      (_graph$beforeMove = graph.beforeMove) === null || _graph$beforeMove === void 0 ? void 0 : _graph$beforeMove.call(graph, e, graph);
       graph.move(e);
-      (_graph$moved = graph.moved) === null || _graph$moved === void 0 ? void 0 : _graph$moved.call(graph, e);
+      (_graph$moved = graph.moved) === null || _graph$moved === void 0 ? void 0 : _graph$moved.call(graph, e, graph);
       graph.setGraphCenter(e);
     }
   }, {

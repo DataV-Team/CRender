@@ -321,9 +321,9 @@ var CRender = /** @class */ (function () {
     CRender.prototype.drawGraphProcessor = function (graph) {
         var _a, _b;
         graph.style.setCtx(this);
-        (_a = graph.beforeDraw) === null || _a === void 0 ? void 0 : _a.call(graph);
+        (_a = graph.beforeDraw) === null || _a === void 0 ? void 0 : _a.call(graph, graph);
         graph.draw();
-        (_b = graph.drawed) === null || _b === void 0 ? void 0 : _b.call(graph);
+        (_b = graph.drawed) === null || _b === void 0 ? void 0 : _b.call(graph, graph);
         graph.style.restoreCtx(this);
     };
     CRender.prototype.add = function (graph, wait) {
@@ -339,12 +339,12 @@ var CRender = /** @class */ (function () {
     };
     CRender.prototype.graphAddProcessor = function (graph) {
         var _a, _b;
-        (_a = graph.beforeAdd) === null || _a === void 0 ? void 0 : _a.call(graph);
+        (_a = graph.beforeAdd) === null || _a === void 0 ? void 0 : _a.call(graph, graph);
         graph.render = this;
         graph.setGraphCenter();
         this.graphs.push(graph);
         this.sortGraphsByIndex();
-        (_b = graph.added) === null || _b === void 0 ? void 0 : _b.call(graph);
+        (_b = graph.added) === null || _b === void 0 ? void 0 : _b.call(graph, graph);
     };
     CRender.prototype.delGraph = function (graph, wait) {
         if (wait === void 0) { wait = false; }
@@ -363,9 +363,9 @@ var CRender = /** @class */ (function () {
         var index = graphs.findIndex(function (_) { return _ === graph; });
         if (index === -1)
             return;
-        (_a = graph.beforeDelete) === null || _a === void 0 ? void 0 : _a.call(graph);
+        (_a = graph.beforeDelete) === null || _a === void 0 ? void 0 : _a.call(graph, graph);
         graphs.splice(index, 1);
-        (_b = graph.deleted) === null || _b === void 0 ? void 0 : _b.call(graph);
+        (_b = graph.deleted) === null || _b === void 0 ? void 0 : _b.call(graph, graph);
     };
     CRender.prototype.delAllGraph = function () {
         this.delGraph(this.graphs);
@@ -489,9 +489,9 @@ var CRender = /** @class */ (function () {
         var _a, _b;
         if (!graph.move)
             return;
-        (_a = graph.beforeMove) === null || _a === void 0 ? void 0 : _a.call(graph, e);
+        (_a = graph.beforeMove) === null || _a === void 0 ? void 0 : _a.call(graph, e, graph);
         graph.move(e);
-        (_b = graph.moved) === null || _b === void 0 ? void 0 : _b.call(graph, e);
+        (_b = graph.moved) === null || _b === void 0 ? void 0 : _b.call(graph, e, graph);
         graph.setGraphCenter(e);
     };
     CRender.prototype.graphHoverCheckProcessor = function (graph, point) {

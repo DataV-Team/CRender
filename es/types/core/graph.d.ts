@@ -1,6 +1,7 @@
 import { StyleConfig } from './style';
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index';
 import { RgbaValue } from '@jiaminghi/color/types/types';
+import { Graph } from '../..';
 export declare type HoverRect = [number, number, number, number];
 export declare type Point = [number, number];
 export declare type HoverCheck = (point: Point) => boolean;
@@ -85,27 +86,35 @@ export declare type GraphConfig<Shape = any> = {
     /**
      * @description Life cycle beforeAdd
      */
-    beforeAdd?: () => any;
+    beforeAdd?: (graph: Graph) => any;
     /**
      * @description Life cycle added
      */
-    added?: () => any;
+    added?: (graph: Graph) => any;
     /**
      * Life Cycle when graph before draw
      */
-    beforeDraw?: () => any;
+    beforeDraw?: (graph: Graph) => any;
     /**
      * Life Cycle when graph drawed
      */
-    drawed?: () => any;
+    drawed?: (graph: Graph) => any;
     /**
      * Life Cycle when graph before move
      */
-    beforeMove?: (e: MouseEvent) => any;
+    beforeMove?: (e: MouseEvent, graph: Graph) => any;
     /**
      * @description Life Cycle when graph moved
      */
-    moved?: (e: MouseEvent) => any;
+    moved?: (e: MouseEvent, graph: Graph) => any;
+    /**
+     * @description Life Cycle when graph before delete
+     */
+    beforeDelete?: (graph: Graph) => any;
+    /**
+     * @description Life Cycle when graph deleted
+     */
+    deleted?: (graph: Graph) => any;
 };
 export declare enum Status {
     STATIC = "STATIC",

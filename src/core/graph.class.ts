@@ -122,42 +122,42 @@ export default class Graph<Shape = any> {
    * @description Life Cycle when graph before add
    */
   // eslint-disable-next-line
-  beforeAdd?: () => any
+  beforeAdd?: (graph: Graph) => any
   /**
    * @description Life Cycle when graph added
    */
   // eslint-disable-next-line
-  added?: () => any
+  added?: (graph: Graph) => any
   /**
    * @description Life Cycle when graph before draw
    */
   // eslint-disable-next-line
-  beforeDraw?: () => any
+  beforeDraw?: (graph: Graph) => any
   /**
    * @description Life Cycle when graph drawed
    */
   // eslint-disable-next-line
-  drawed?: () => any
+  drawed?: (graph: Graph) => any
   /**
    * @description Life Cycle when graph before move
    */
   // eslint-disable-next-line
-  beforeMove?: (e: MouseEvent) => any
+  beforeMove?: (e: MouseEvent, graph: Graph) => any
   /**
    * @description Life Cycle when graph moved
    */
   // eslint-disable-next-line
-  moved?: (e: MouseEvent) => any
+  moved?: (e: MouseEvent, graph: Graph) => any
   /**
    * @description Life Cycle when graph before delete
    */
   // eslint-disable-next-line
-  beforeDelete?: () => any
+  beforeDelete?: (graph: Graph) => any
   /**
    * @description Life Cycle when graph deleted
    */
   // eslint-disable-next-line
-  deleted?: () => any
+  deleted?: (graph: Graph) => any
 
   constructor(config: GraphConfig<Shape>) {
     config = deepClone(config)

@@ -100,35 +100,35 @@ export default class Graph<Shape = any> {
     /**
      * @description Life Cycle when graph before add
      */
-    beforeAdd?: () => any;
+    beforeAdd?: (graph: Graph) => any;
     /**
      * @description Life Cycle when graph added
      */
-    added?: () => any;
+    added?: (graph: Graph) => any;
     /**
      * @description Life Cycle when graph before draw
      */
-    beforeDraw?: () => any;
+    beforeDraw?: (graph: Graph) => any;
     /**
      * @description Life Cycle when graph drawed
      */
-    drawed?: () => any;
+    drawed?: (graph: Graph) => any;
     /**
      * @description Life Cycle when graph before move
      */
-    beforeMove?: (e: MouseEvent) => any;
+    beforeMove?: (e: MouseEvent, graph: Graph) => any;
     /**
      * @description Life Cycle when graph moved
      */
-    moved?: (e: MouseEvent) => any;
+    moved?: (e: MouseEvent, graph: Graph) => any;
     /**
      * @description Life Cycle when graph before delete
      */
-    beforeDelete?: () => any;
+    beforeDelete?: (graph: Graph) => any;
     /**
      * @description Life Cycle when graph deleted
      */
-    deleted?: () => any;
+    deleted?: (graph: Graph) => any;
     constructor(config: GraphConfig<Shape>);
     static mergeDefaultShape<Shape>(defaultShape: Shape, config: GraphConfig<Partial<Shape>>, checker?: (config: GraphConfig<Shape>) => void): GraphConfig<Shape>;
     private checkRender;

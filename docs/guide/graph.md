@@ -300,7 +300,7 @@ clone(add: boolean = true): this {
 /**
  * @description 图形添加前被调用
  */
-beforeAdd?: () => any
+beforeAdd?: (graph: Graph) => any
 ```
 
 ### added
@@ -309,7 +309,7 @@ beforeAdd?: () => any
 /**
  * @description 图形添加后被调用
  */
-added?: () => any
+added?: (graph: Graph) => any
 ```
 
 ### beforeDraw
@@ -318,7 +318,7 @@ added?: () => any
 /**
  * @description 图形渲染前被调用
  */
-beforeDraw?: () => any
+beforeDraw?: (graph: Graph) => any
 ```
 
 ### drawed
@@ -327,7 +327,7 @@ beforeDraw?: () => any
 /**
  * @description 图形渲染后被调用
  */
-drawed?: () => any
+drawed?: (graph: Graph) => any
 ```
 
 ### beforeMove
@@ -337,7 +337,7 @@ drawed?: () => any
  * @description 图形移动前被调用
  * @param {MouseEvent} e 鼠标事件
  */
-beforeMove?: (e: MouseEvent) => any
+beforeMove?: (e: MouseEvent, graph: Graph) => any
 ```
 
 ### moved
@@ -347,7 +347,7 @@ beforeMove?: (e: MouseEvent) => any
  * @description 图形移动后被调用
  * @param {MouseEvent} e 鼠标事件
  */
-moved?: (e: MouseEvent) => any
+moved?: (e: MouseEvent, graph: Graph) => any
 ```
 
 ### beforeDelete
@@ -356,7 +356,7 @@ moved?: (e: MouseEvent) => any
 /**
  * @description 图形删除前被调用
  */
-beforeDelete?: () => any
+beforeDelete?: (graph: Graph) => any
 ```
 
 ### deleted
@@ -365,7 +365,7 @@ beforeDelete?: () => any
 /**
  * @description 图形删除后被调用
  */
-deleted?: () => any
+deleted?: (graph: Graph) => any
 ```
 
 ## 覆盖默认行为
