@@ -1,3 +1,9 @@
+# 1.0.0-alpha.4 (2021-05-15)
+
+### Graph
+
+- **attr:** Add name attr.
+
 # 1.0.0-alpha.3 (2020-09-23)
 
 ### Life Cycle

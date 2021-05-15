@@ -21,6 +21,10 @@ var Graph = /*#__PURE__*/function () {
     key: "draw",
 
     /**
+     * @description Graph Name
+     */
+
+    /**
      * @description Graph Render
      */
 
@@ -139,6 +143,8 @@ var Graph = /*#__PURE__*/function () {
 
   function Graph(config) {
     _classCallCheck(this, Graph);
+
+    _defineProperty(this, "name", void 0);
 
     _defineProperty(this, "render", void 0);
 

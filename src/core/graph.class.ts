@@ -19,6 +19,10 @@ import { EaseCurve } from '@jiaminghi/transition/types/types/core/index'
 // eslint-disable-next-line
 export default class Graph<Shape = any> {
   /**
+   * @description Graph Name
+   */
+  name!: string
+  /**
    * @description Graph Render
    */
   render!: CRender

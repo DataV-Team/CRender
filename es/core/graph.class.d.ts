@@ -6,6 +6,10 @@ import { RgbaValue } from '@jiaminghi/color/types/types';
 import { EaseCurve } from '@jiaminghi/transition/types/types/core/index';
 export default class Graph<Shape = any> {
     /**
+     * @description Graph Name
+     */
+    name: string;
+    /**
      * @description Graph Render
      */
     render: CRender;
