@@ -1,4 +1,4 @@
-import { UnFunctionParams } from '../types/common'
+import { GetFunctionParams } from '../types/common'
 
 // eslint-disable-next-line
 export function deepClone<T = any>(obj: T, cache = new Map<any, any>([])): T {
@@ -16,10 +16,11 @@ export function deepClone<T = any>(obj: T, cache = new Map<any, any>([])): T {
   return clone
 }
 
-export function debounce<T extends Function>(callback: T, delay: number = 0): Function {
+// eslint-disable-next-line
+export function debounce<T extends (...params: any) => any>(callback: T, delay: number = 0) {
   let timer: number | undefined = undefined
 
-  return (...args: UnFunctionParams<T>): void => {
+  return (...args: GetFunctionParams<T>): void => {
     if (timer) clearTimeout(timer)
 
     timer = window.setTimeout(() => {

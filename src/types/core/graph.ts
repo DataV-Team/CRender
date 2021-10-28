@@ -64,19 +64,19 @@ export type GraphConfig<Shape = any> = {
   /**
    * @description Mouse enter event handler
    */
-  onMouseEnter?: Function
+  onMouseEnter?: () => void
   /**
    * @description Mouse outer event handler
    */
-  onMouseOuter?: Function
+  onMouseOuter?: () => void
   /**
    * @description Mouse click event handler
    */
-  onClick?: Function
+  onClick?: () => void
   /**
    * @description Funciton of draw graph
    */
-  draw?: Function
+  draw?: () => void
   /**
    * @description Function of set Graph center
    */

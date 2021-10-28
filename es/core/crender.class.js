@@ -209,6 +209,7 @@ var CRender = (_class = (_temp = /*#__PURE__*/function () {
       var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
       if (Array.isArray(graph)) {
+        // eslint-disable-next-line
         ;
 
         _toConsumableArray(graph).forEach(this.graphDelProcessor);

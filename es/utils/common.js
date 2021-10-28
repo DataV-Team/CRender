@@ -12,7 +12,8 @@ export function deepClone(obj) {
     return clone[key] = deepClone(obj[key], cache);
   });
   return clone;
-}
+} // eslint-disable-next-line
+
 export function debounce(callback) {
   var _this = this;
 

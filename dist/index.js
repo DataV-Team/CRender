@@ -23,11 +23,13 @@ PERFORMANCE OF THIS SOFTWARE.
 var extendStatics = function(d, b) {
     extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
     return extendStatics(d, b);
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -89,12 +91,10 @@ function __generator(thisArg, body) {
     }
 }
 
-function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 }
 
 var Status;
@@ -119,6 +119,7 @@ function deepClone(obj, cache) {
     Object.keys(obj).forEach(function (key) { return (clone[key] = deepClone(obj[key], cache)); });
     return clone;
 }
+// eslint-disable-next-line
 function debounce(callback, delay) {
     var _this = this;
     if (delay === void 0) { delay = 0; }
@@ -132,7 +133,7 @@ function debounce(callback, delay) {
             clearTimeout(timer);
         timer = window.setTimeout(function () {
             // @ts-ignore
-            callback.call.apply(callback, __spreadArrays([_this], args));
+            callback.call.apply(callback, __spreadArray([_this], args));
         }, delay);
     };
 }
@@ -349,7 +350,7 @@ var CRender = /** @class */ (function () {
     CRender.prototype.delGraph = function (graph, wait) {
         if (wait === void 0) { wait = false; }
         if (Array.isArray(graph)) {
-            __spreadArrays(graph).forEach(this.graphDelProcessor);
+            __spreadArray([], graph).forEach(this.graphDelProcessor);
         }
         else {
             this.graphDelProcessor(graph);
@@ -412,7 +413,7 @@ var CRender = /** @class */ (function () {
             var key = _a.key, frameState = _a.frameState;
             Object.assign(graph[key], frameState.shift());
             if (frameState.length) {
-                return __spreadArrays(queue, [{ key: key, frameState: frameState }]);
+                return __spreadArray(__spreadArray([], queue, true), [{ key: key, frameState: frameState }]);
             }
             else {
                 return queue;
@@ -508,7 +509,7 @@ var CRender = /** @class */ (function () {
                 point = getTranslatePointPos(translate.map(function (v) { return v * -1; }), point);
         }
         if (hoverRect)
-            return checkPointIsInRect.apply(void 0, __spreadArrays([point], hoverRect));
+            return checkPointIsInRect.apply(void 0, __spreadArray([point], hoverRect));
         return graph.hoverCheck(point);
     };
     /**
@@ -558,7 +559,7 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
-function __spreadArrays$1() {
+function __spreadArrays() {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
 
   for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
@@ -837,7 +838,7 @@ function getOpacity(color) {
 
 function getRgbaValue(color) {
   var rgbValue = getRgbValue(color);
-  return rgbValue && __spreadArrays$1(rgbValue, [getOpacity(color)]);
+  return rgbValue && __spreadArrays(rgbValue, [getOpacity(color)]);
 }
 /**
  * @description Get Color from Rgb|Rgba value
@@ -864,7 +865,7 @@ function transformColor(reverse) {
         if (isString && reverse)
             return color;
         if (isArray && !reverse)
-            return __spreadArrays(color);
+            return __spreadArray([], color);
         if (isString && !reverse)
             return getRgbaValue(color);
         if (isArray && reverse)
@@ -874,7 +875,7 @@ function transformColor(reverse) {
 }
 function getCtxRealColorWithOpacity(opacity) {
     return function (color) {
-        var _color = __spreadArrays(color);
+        var _color = __spreadArray([], color);
         _color[3] *= opacity;
         return getColorFromRgbValue(_color);
     };
@@ -1746,6 +1747,7 @@ var Graph = /** @class */ (function () {
         // @ts-ignore
         var Constructor = this.__proto__.constructor;
         var config = __assign({}, this);
+        // @ts-ignore
         delete config.render;
         var graph = new Constructor(config);
         if (add)
@@ -1870,7 +1872,7 @@ function checkPointIsNearPolyline(point, polyline, lineWidth) {
         var x = _a[0], y = _a[1];
         return [x, y + halfLineWidth];
     });
-    var polygon = __spreadArrays(moveUpPolyline, moveDownPolyline.reverse());
+    var polygon = __spreadArray(__spreadArray([], moveUpPolyline, true), moveDownPolyline.reverse());
     return checkPointIsInPolygon(point, polygon);
 }
 /**
@@ -1998,7 +2000,7 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
-function __spreadArrays$2() {
+function __spreadArrays$1() {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
 
   for (var r = Array(s), k = 0, i = 0; i < il; i++) for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) r[k] = a[j];
@@ -2044,7 +2046,7 @@ function getTwoPointDistance$1(_a, _b) {
 
 function flatten(input) {
   return input.reduce(function (_, __) {
-    return __spreadArrays$2(_, __);
+    return __spreadArrays$1(_, __);
   }, []);
 }
 /**
@@ -2080,7 +2082,7 @@ function createGetSegmentTPointFuns(bezierCurve) {
   var startPoint = getBezierCurveStartPoint(bezierCurve);
   return segments.map(function (segment, i) {
     var beginPoint = i === 0 ? startPoint : segments[i - 1][2];
-    return createGetBezierCurveTPointFun.apply(void 0, __spreadArrays$2([beginPoint], segment));
+    return createGetBezierCurveTPointFun.apply(void 0, __spreadArrays$1([beginPoint], segment));
   });
 }
 
@@ -2355,7 +2357,7 @@ function polylineToBezierCurve(polyline, close, offsetA, offsetB) {
   var startPoint = polyline[0];
   var bezierCurveLineNum = polyline.length - 1;
   var bezierCurvePoints = new Array(bezierCurveLineNum).fill(0).map(function (_, i) {
-    return __spreadArrays$2(getBezierCurveLineControlPoints(polyline, i, close, offsetA, offsetB), [polyline[i + 1]]);
+    return __spreadArrays$1(getBezierCurveLineControlPoints(polyline, i, close, offsetA, offsetB), [polyline[i + 1]]);
   });
   if (close) closeBezierCurve(bezierCurvePoints, startPoint);
   bezierCurvePoints.unshift(polyline[0]);
@@ -2421,7 +2423,7 @@ var BezierCurve = /** @class */ (function (_super) {
         var _b = this, points = _b.shape.points, cache = _b.cache;
         var _c = points[0], fx = _c[0], fy = _c[1];
         var curves = points.slice(1);
-        var bezierCurvePoints = __spreadArrays([
+        var bezierCurvePoints = __spreadArray([
             [fx + movementX, fy + movementY]
         ], curves.map(function (curve) {
             return curve.map(function (_a) {
@@ -2873,7 +2875,7 @@ var Smoothline = /** @class */ (function (_super) {
         cache.points = moveAfterPoints;
         var _c = cache.bezierCurve[0], fx = _c[0], fy = _c[1];
         var curves = cache.bezierCurve.slice(1);
-        cache.bezierCurve = __spreadArrays([
+        cache.bezierCurve = __spreadArray([
             [fx + movementX, fy + movementY]
         ], curves.map(function (curve) {
             return curve.map(function (_a) {
@@ -2971,7 +2973,7 @@ var Text = /** @class */ (function (_super) {
     };
     Text.prototype.setGraphCenter = function () {
         var _a = this, position = _a.shape.position, style = _a.style;
-        style.graphCenter = __spreadArrays(position);
+        style.graphCenter = __spreadArray([], position);
     };
     Text.prototype.move = function (_a) {
         var movementX = _a.movementX, movementY = _a.movementY;

@@ -331,6 +331,7 @@ export default class Graph<Shape = any> {
     const Constructor = this.__proto__.constructor
 
     const config = { ...this }
+    // @ts-ignore
     delete config.render
 
     const graph = new Constructor(config)

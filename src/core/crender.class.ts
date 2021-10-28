@@ -179,6 +179,7 @@ export default class CRender {
 
   delGraph(graph: Graph | Graph[], wait: boolean = false): void {
     if (Array.isArray(graph)) {
+      // eslint-disable-next-line
       ;[...graph].forEach(this.graphDelProcessor)
     } else {
       this.graphDelProcessor(graph)
@@ -228,7 +229,7 @@ export default class CRender {
     })
   }
 
-  private animate(callback: Function, timeStamp: number): void {
+  private animate(callback: () => void, timeStamp: number): void {
     const { graphs } = this
 
     if (!this.animateAble()) {

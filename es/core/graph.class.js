@@ -424,7 +424,8 @@ var Graph = /*#__PURE__*/function () {
 
       var Constructor = this.__proto__.constructor;
 
-      var config = _objectSpread({}, this);
+      var config = _objectSpread({}, this); // @ts-ignore
+
 
       delete config.render;
       var graph = new Constructor(config);
